@@ -1,0 +1,329 @@
+ <div class="container">
+		<div class="row">
+			<section>
+				<div class="wizard">
+					<div class="wizard-inner">
+						<div class="connecting-line"></div>
+						<ul class="nav nav-tabs" role="tablist">
+              <li  *ngIf="!booFinish as value; else elseBlock2"  [ngClass]="{
+                    'active': !booSeconStepFirst,
+                    'disabled' : booSeconStepFirst
+                }" role="presentation" (click)="prev()">
+								<a aria-controls="step1" data-toggle="tab" href="#step1" role="tab" title="Step 1">
+                  <span class="round-tab">
+                    <i class="icon-user"></i>
+                  </span>
+                </a>
+							</li>
+              <ng-template #elseBlock2>
+                <li  class="disabled" >
+                  <a>
+                    <span class="round-tab">
+                      <i class="icon-user"></i>
+                    </span>
+                  </a>
+                </li>
+              </ng-template>
+							<li *ngIf="!booFinish as value; else elseBlock1"  [ngClass]="{
+                    'disabled': !booSeconStep,
+                    'active' : booSeconStep
+                }" role="presentation" (click)="follow()" >
+								<a aria-controls="step2" data-toggle="tab" href="#step2" role="tab" title="Step 2">
+                  <span class="round-tab">
+                    <i class="icon-settings"></i>
+                  </span>
+                </a>
+							</li>
+              <ng-template #elseBlock1>
+                <li  class="disabled" >
+                  <a>
+                    <span class="round-tab">
+                      <i class="icon-settings"></i>
+                    </span>
+                  </a>
+                </li>
+              </ng-template>
+							<li *ngIf="!booNoLet as value; else elseBlock3" [ngClass]="{
+                    'disabled': !booThirdStep,
+                    'active' : booThirdStep
+                }" role="presentation" (click)="onSaveContrato()">
+								<a aria-controls="complete" data-toggle="tab" href="#complete" role="tab" title="Complete">
+                  <span class="round-tab">
+                    <i class="icon-ok"></i>
+                  </span>
+                </a>
+							</li>
+              <ng-template #elseBlock3>
+                <li  class="disabled" >
+                  <a>
+                    <span class="round-tab">
+                      <i class="icon-ok"></i>
+                    </span>
+                  </a>
+                </li>
+              </ng-template>              
+						</ul>
+					</div>
+					<form class="form-horizontal" [formGroup]="form" novalidate (ngSubmit)="onSaveContrato()">
+						<div class="tab-content">
+							<div [className]="strtabfirst"
+               id="step1" role="tabpanel">
+								<div class="step1">
+									<div class="row">
+										<div class="col-md-6">
+											<label for="exampleInputEmail1">Nombre o Cedula</label>
+                      <ng-select
+                        [items]="listPersonas"
+                        [multiple]="false"
+                        [closeOnSelect]="true"
+                        bindLabel="value"
+                        placeholder="Buscar persona"
+                        formControlName ="cedulaname"
+                        (change)="selectPersonas($event)">
+                      </ng-select>
+										</div>
+										<div class="col-md-6">
+											<label for="direccionlabel">Dirección</label>
+                      <input class="form-control" formControlName ="direccion" id="direccion" readonly placeholder="Dirección" type="text">
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<label for="emaillabel">Email</label>
+                      <input class="form-control" formControlName ="email" id="email" readonly placeholder="Email" type="text">
+										</div>
+										<div class="col-md-6">
+											<label for="telefonolabel">Telefonos</label>
+                      <input class="form-control" formControlName ="telefonos" readonly  id="telefono" placeholder="Telefonos" type="text">
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-4">
+											<label for="zonalabel">Zona</label>
+                      <ng-select
+                        [items]="listTipoZona"
+                        [multiple]="false"
+                        [closeOnSelect]="true"
+                        bindLabel="value"
+                        placeholder="Buscar zonas"
+                        formControlName ="zonas"
+                        (change)="selectZonas($event)">
+                      </ng-select>
+										</div>
+										<div class="col-md-4">
+											<label for="sectorlabel">Sector</label>
+                      <ng-select
+                        [items]="listTipoSector"
+                        [multiple]="false"
+                        [closeOnSelect]="true"
+                        bindLabel="value"
+                        placeholder="Buscar Sectores"
+                        formControlName ="sectores"
+                        (change)="selectSectores($event)">
+                      </ng-select>
+										</div>
+										<div class="col-md-4">
+											<label for="claclientelabel">Clasificación Cliente</label>
+                      <ng-select
+                        [items]="listTipoCliente"
+                        [multiple]="false"
+                        [closeOnSelect]="true"
+                        bindLabel="value"
+                        placeholder="Tipo cliente"
+                        formControlName ="clacliente">
+                    </ng-select>
+										</div>
+									</div>
+								</div>
+								<ul class="list-inline pull-right">
+                  <li><a class="btn btn-default" routerLink="/contratos">Cancelar</a></li>
+									<li><button class="btn btn-primary next-step" (click)="follow()"  type="button">Siguiente</button></li>
+								</ul>
+							</div>
+							<div  [className]="strtabsecond"
+               id="step2" role="tabpanel">
+								<div class="step2">
+
+									<div class="step1">
+										<div class="row">
+                      <div class="form-group col-sm-3 form-group-label">
+                        <label class="control-label" for="consultarserviciolabel">
+                          Consultar servicio
+                          <span class="required-mark">*</span>
+                        </label>
+                      </div>
+                      <div class="form-group col-sm-9">
+                        <div class="col-input"  style="width:100%;max-width:70%">
+                          <ng-select
+                            [items]="listTipoServicio"
+                            [multiple]="false"
+                            [closeOnSelect]="true"
+                            bindLabel="value"
+                            placeholder="Buscar servicio"
+                            formControlName ="servicios"
+                            (change)="selecServicios($event)">
+                          </ng-select>
+                        </div>
+                      </div>
+										</div>
+										<div class="row">
+                      <div class="form-group col-sm-3 form-group-label">
+                        <label class="control-label" for="precioserviciolabel">
+                          Precio del servicio
+                          <span class="required-mark">*</span>
+                        </label>
+                      </div>
+                      <div class="form-group col-sm-9">
+                        <div class="col-input"  style="width:100%;max-width:70%">
+                          <input class="form-control" formControlName="valorservicio" readonly  id="precioservicio" maxlength="50"  placeholder="Precio del servicio" type="text" value="">
+                        </div>
+                      </div>
+										</div>
+										<div class="row">
+                      <div class="form-group col-sm-3 form-group-label">
+                        <label class="control-label" for="preciocontratolabel">
+                          Precio del contrato
+                          <span class="required-mark">*</span>
+                        </label>
+                      </div>
+                      <div class="form-group col-sm-9">
+                        <div class="col-input"  style="width:100%;max-width:70%">
+                          <input class="form-control" formControlName="preciocontrato"  id="preciocontrato" maxlength="50"  placeholder="Precio del contrato" type="text" value="">
+                        </div>
+                      </div>
+										</div>
+									</div>
+                  <div class="step-22"></div>
+								</div>
+  								<div class="col-lg-8">
+  									<div class="row">
+  										<div class="col-sm-6 col-sm-offset-6">
+  											<div class="btn-toolbar">
+                          <div class="btn-group">
+                            <a class="btn btn-default" routerLink="/contratos">Cancelar</a>
+  												</div>
+  												<div class="btn-group">
+  													<button class="btn btn-default prev-step" type="button" (click)="prev()"> Anterior</button>
+  												</div>
+  												<div class="btn-group">
+  													<button class="btn btn-primary next-step" type="button" (click)="onSaveContrato()" >Guardar</button>
+  												</div>
+  											</div>
+  										</div>
+  									</div>
+  								</div>
+							</div>
+							<div class="tab-pane"  [className]="strtabthird" id="complete" role="tabpanel">
+								<div class="step44">
+                    <div class="step1">
+                      <fieldset class="col-md-4">
+                        <div class="row">
+                          <div class="form-group col-sm-3 form-group-label">
+                            <label class="control-label">
+                              # Contrato
+                            </label>
+                          </div>
+                          <div class="form-group col-sm-9">
+                            <div class="form-control-static pgui-cell-edit">
+                                <span>2020071914</span>
+                            </div>
+                          </div>
+                        </div>
+                      </fieldset>
+                      <fieldset class="col-md-5">
+                        <div class="row">
+                          <div class="form-group col-sm-3 form-group-label">
+                            <label class="control-label">
+                              Fecha contrato
+                            </label>
+                          </div>
+                          <div class="form-group col-sm-9">
+                            <div class="form-control-static pgui-cell-edit">
+                                <span>2020-07-19</span>
+                            </div>
+                          </div>
+                        </div>
+                      </fieldset>
+                      <fieldset class="col-md-3">
+                        <div class="row">
+                          <div class="form-group col-sm-3 form-group-label">
+                            <label class="control-label">
+                              Cliente
+                            </label>
+                          </div>
+                          <div class="form-group col-sm-9">
+                            <div class="form-control-static pgui-cell-edit">
+                                <span>(94541178) - Jefferson Jose Medina Cedeño</span>
+                            </div>
+                          </div>
+                        </div>
+                      </fieldset>
+								  	</div>
+                    <div class="step1">
+                      <fieldset class="col-md-3">
+                        <div class="row">
+                          <div class="form-group col-sm-3 form-group-label">
+                            <label class="control-label">
+                              Servicio
+                            </label>
+                          </div>
+                          <div class="form-group col-sm-9">
+                            <div class="form-control-static pgui-cell-edit">
+                                <span>Inter Banda Ancha 4 mg</span>
+                            </div>
+                          </div>
+                        </div>
+                      </fieldset>
+                      <fieldset class="col-md-7">
+                        <div class="row">
+                          <div class="form-group col-sm-3 form-group-label">
+                            <label class="control-label">
+                              Estado
+                            </label>
+                          </div>
+                          <div class="form-group col-sm-9">
+                            <div class="form-control-static pgui-cell-edit">
+                                <span>Por instalar</span>
+                            </div>
+                          </div>
+                        </div>
+                      </fieldset>
+                      <fieldset class="col-md-2">
+                        <div class="row">
+                          <div class="form-group col-sm-3 form-group-label">
+                            <label class="control-label">
+                            </label>
+                          </div>
+                          <div class="form-group col-sm-9">
+                            <div class="form-control-static pgui-cell-edit">
+                            </div>
+                          </div>
+                        </div>
+                      </fieldset>
+								  	</div>
+                    <div class="col-lg-8">
+                      <div class="row">
+                        <div class="col-sm-6 col-sm-offset-6">
+                          <div class="btn-toolbar">
+                            <div class="btn-group">
+                              &nbsp;
+                            </div>
+                            <div class="btn-group">
+                              <button class="btn btn-primary next-step" routerLink="/contratos" type="button">Finalizar</button>
+                            </div>
+                            <div class="btn-group">
+                              &nbsp;
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+					</form>
+				</div>
+			</section>
+		</div>
+	</div>

@@ -1,0 +1,162 @@
+<div class="container-fluid">
+  <div class="row sidebar-owner">
+    <div class="sidebar-backdrop"></div>
+    <div class=" col-md-12">
+      <div class="sidebar-outer">
+        <div class="container-padding">
+          <div class="page-header">
+            <ol class="breadcrumb pgui-breadcrumb">
+              <li>
+                <a href="#"><i class="icon-home"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#">Empresas</a>
+              </li>
+              <li class="dropdown">Creación de Empresas</li>
+            </ol>
+            <h1>Creación de empresas</h1>
+          </div>
+          <div class="well description">
+            Esta pagina es para crear sectores
+          </div>
+          <div class="grid grid-table js-grid">
+            <div class="addition-block js-actions">
+              <div class="btn-toolbar addition-block-left pull-left">
+                <div class="btn-group">
+                  <a class="btn btn-default pgui-add" routerLink="/empresas/create" title="Add new"><i class="icon-plus"></i> <span class="visible-lg-inline">Agregar</span></a>
+                </div>
+                <div class="btn-group">
+                  <a class="btn btn-default" href="#" title="Refresh"><i class="icon-page-refresh"></i> <span class="visible-lg-inline">Refrescar</span></a>
+                </div>
+                <div class="btn-group export-button">
+                  <div class="btn-group">
+                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" title="Export"><i class="icon-export"></i> <span class="visible-lg-inline">Exportar</span> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a href="#" target="_blank"><i class="icon-export-pdf"></i> Exportar a Pdf</a>
+                      </li>
+                      <li>
+                        <a href="#"><i class="icon-export-excel"></i> Exportar a Excel</a>
+                      </li>
+                      <li>
+                        <a href="#"><i class="icon-export-word"></i> Exportar a Word</a>
+                      </li>
+                      <li>
+                        <a href="#"><i class="icon-export-xml"></i> Exportar a Xml</a>
+                      </li>
+                      <li>
+                        <a href="#"><i class="icon-export-csv"></i> Exportar a Csv</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="btn-group">
+                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" title="Print"><i class="icon-print-page"></i> <span class="visible-lg-inline">Print</span> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a href="#" target="_blank"><i class="icon-print-page"></i> Imprima pagina actual</a>
+                      </li>
+                      <li>
+                        <a href="#" target="_blank"><i class="icon-print-page"></i> Imprima todas las paginas</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="addition-block-right pull-right js-quick-filter">
+                <div class="quick-filter-toolbar btn-group">
+                  <div class="input-group js-filter-control">
+                    <input class="js-input form-control" name="quick_filter" placeholder="Busqueda rápida" size="16" type="text" value="">
+                    <div class="input-group-btn dropdown dropdown-lg">
+                      <button class="btn btn-default js-submit" title="Buscar " type="button"><i class="icon-search"></i></button>
+                      <button class="btn btn-default js-reset" title="Limpiar" type="button"><i class="icon-filter-reset"></i></button>
+                    </div>
+                  </div>
+                </div><span class="hidden-xs">&thinsp;</span>
+              </div>
+            </div>
+            <div class="filter-status js-filter-status"></div>
+            <div class="js-grid-message-container"></div>
+            <table class="table text-center table-striped">
+              <thead class="js-column-filter-container">
+                <tr>
+                  <th class="row-selection" rowspan="1" style="width:1%;">
+                    <!--<input type="checkbox">-->
+                  </th>
+                  <th rowspan="1" style="width:1%;">Actions</th>
+                  <th class="" colspan="1" rowspan="1"><span>Nit</span></th>
+                  <th class="" colspan="1" rowspan="1"><span>Nombre</span></th>
+                  <th class="" colspan="1" rowspan="1">
+                    <span>Dirección</span>
+                  </th>
+                  <th class="" colspan="1" rowspan="1">
+                    <span>Email</span>
+                  </th>
+                  <th class="" colspan="1" rowspan="1">
+                    <span>Telefono</span>
+                  </th>
+                  <th class="" colspan="1" rowspan="1">
+                    <span>Ciudad</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="pg-row-list">
+                <tr class="pg-row" *ngFor="let empresa of empresas | async | paginate: { itemsPerPage: 10, currentPage: p }">
+                  <td style="">
+                    <div class="row-selection">
+                      <!--<input id="rec1" name="rec1" type="checkbox">-->
+                    </div>
+                  </td>
+                  <td class="operation-column">
+                    <span class="operation-item" data-column-name="view">
+                      <!--<a class="link-icon" href="#" title="View">
+                        <i class="icon-view"></i>
+                      </a>-->
+                    </span>
+                    <span class="operation-item" data-column-name="edit">
+                      <a class="link-icon" routerLink="/empresas/edit/{{empresa.emprId}}" title="Edit">
+                        <i class="icon-edit"></i>
+                      </a>
+                    </span>
+                    <span class="operation-item" data-column-name="delete">
+                      <a class="link-icon" (click)="delete(empresa.emprId)" title="Delete">
+                        <i class="icon-remove"></i>
+                      </a>
+                    </span>
+                  </td>
+                  <td data-column-name="id" data-edit-url="">{{empresa.emprNit}}</td>
+                  <td class=" pgui-cell-edit">{{empresa.emprNombre}}</td>
+                  <td class=" pgui-cell-edit">{{empresa.emprDireccion}}</td>
+                  <td class=" pgui-cell-edit">{{empresa.emprEmail}}</td>
+                  <td class=" pgui-cell-edit">{{empresa.emprTelefono}}</td>
+                  <td class=" pgui-cell-edit">{{empresa.emprCiudad}}</td>
+                </tr>
+                <tr class="empty-grid hidden">
+                  <td colspan="7">
+                    <div class="alert alert-warning empty-grid">
+                      There are no records to display
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot></tfoot>
+            </table>
+          </div>
+          <div class="page_navigator">
+            <div class="pgui-pagination">
+              <pagination-controls
+                  class="pagination"
+                  (pageChange)="p = $event"
+                  previousLabel="Anterior"
+                  nextLabel="Siguiente"
+                  screenReaderPaginationLabel="Paginacion"
+                  screenReaderPageLabel="Pagina"
+                  screenReaderCurrentLabel="Estas en la pagina">
+                </pagination-controls>
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

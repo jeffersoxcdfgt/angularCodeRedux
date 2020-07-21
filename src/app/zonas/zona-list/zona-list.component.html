@@ -1,0 +1,217 @@
+<div class="container-fluid">
+  <div class="row sidebar-owner">
+    <div class="sidebar-backdrop"></div>
+    <div class=" col-md-12">
+      <div class="sidebar-outer">
+        <div class="container-padding">
+          <div class="page-header">
+            <ol class="breadcrumb pgui-breadcrumb">
+              <li>
+                <a href="#"><i class="icon-home"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#">Zonas</a>
+              </li>
+              <li class="dropdown">Zonas List</li>
+            </ol>
+            <h1>Creación zonas</h1>
+          </div>
+          <div class="well description">
+          Esta pantalla se usa para crear zonas
+          </div>
+          <div class="grid grid-table js-grid">
+            <div class="addition-block js-actions">
+              <div class="btn-toolbar addition-block-left pull-left">
+                <div class="btn-group">
+                  <a class="btn btn-default pgui-add" routerLink="create" title="Add new">
+                    <i class="icon-plus"></i>
+                    <span class="visible-lg-inline">Add new</span>
+                  </a>
+                </div>
+                <div class="btn-group">
+                  <a class="btn btn-default" href="#" title="Refresh"><i class="icon-page-refresh"></i> <span class="visible-lg-inline">Refresh</span></a>
+                </div>
+                <div class="btn-group export-button">
+                  <div class="btn-group">
+                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" title="Export"><i class="icon-export"></i> <span class="visible-lg-inline">Export</span> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a href="#" target="_blank"><i class="icon-export-pdf"></i> Export to Pdf</a>
+                      </li>
+                      <li>
+                        <a href="#"><i class="icon-export-excel"></i> Export to Excel</a>
+                      </li>
+                      <li>
+                        <a href="#"><i class="icon-export-word"></i> Export to Word</a>
+                      </li>
+                      <li>
+                        <a href="#"><i class="icon-export-xml"></i> Export to Xml</a>
+                      </li>
+                      <li>
+                        <a href="#"><i class="icon-export-csv"></i> Export to Csv</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="btn-group">
+                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" title="Print"><i class="icon-print-page"></i> <span class="visible-lg-inline">Print</span> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a href="#" target="_blank"><i class="icon-print-page"></i> Print current page</a>
+                      </li>
+                      <li>
+                        <a href="#" target="_blank"><i class="icon-print-page"></i> Print all pages</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="btn-group js-selection-actions-container fade" style="display: none">
+                  <div class="btn-group">
+                    <button class="btn btn-info dropdown-toggle" data-toggle="dropdown"><span class="hidden-xs"><span class="js-count">0</span> item(s) selected</span> <span class="js-count visible-xs-inline">0</span> <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a class="js-action" data-type="clear" href="#">Clear</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li class="dropdown dropdown-sub-menu">
+                        <a href="#">Selection filter</a>
+                        <ul class="dropdown-menu sub-menu">
+                          <li>
+                            <a class="js-action" data-condition="selected" data-type="select" href="#">Show selected only</a>
+                          </li>
+                          <li class="divider"></li>
+                          <li>
+                            <a class="js-action" data-condition="unselected" data-type="select" href="#">Show unselected only</a>
+                          </li>
+                          <li class="divider"></li>
+                          <li>
+                            <a class="js-action" data-condition="all" data-type="select" href="#">Show all</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="divider"></li>
+                      <li class="dropdown dropdown-sub-menu">
+                        <a href="#">Export</a>
+                        <ul class="dropdown-menu sub-menu">
+                          <li>
+                            <a class="js-action" data-export-type="pdf" data-type="export" href="#" target="_blank">Export to Pdf</a>
+                          </li>
+                          <li>
+                            <a class="js-action" data-export-type="excel" data-type="export"  href="#">Export to Excel</a>
+                          </li>
+                          <li>
+                            <a class="js-action" data-export-type="word" data-type="export" href="#">Export to Word</a>
+                          </li>
+                          <li>
+                            <a class="js-action" data-export-type="xml" data-type="export" href="#">Export to Xml</a>
+                          </li>
+                          <li>
+                            <a class="js-action" data-export-type="csv" data-type="export"  href="#">Export to Csv</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a class="js-action" data-type="print"  href="#" target="_blank">Print</a>
+                      </li>
+                      <li class="divider"></li>
+                      <li>
+                        <a class="js-action" data-type="update"  href="#">Update</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="addition-block-right pull-right js-quick-filter">
+                <div class="quick-filter-toolbar btn-group">
+                  <div class="input-group js-filter-control">
+                    <input class="js-input form-control" name="quick_filter" placeholder="Quick search" size="16" type="text" value="">
+                    <div class="input-group-btn dropdown dropdown-lg">
+                      <button class="btn btn-default js-submit" title="Search" type="button"><i class="icon-search"></i></button>
+                      <button class="btn btn-default js-reset" title="Clear" type="button"><i class="icon-filter-reset"></i></button>
+                    </div>
+                  </div>
+                </div><span class="hidden-xs">&thinsp;</span>
+              </div>
+            </div>
+            <div class="filter-status js-filter-status"></div>
+            <div class="js-grid-message-container"></div>
+            <table class="table text-center table-striped">
+              <thead class="js-column-filter-container">
+                <tr>
+                  <th class="row-selection" rowspan="1" style="width:1%;">
+                    <!--<input type="checkbox">-->
+                  </th>
+                  <th rowspan="1" style="width:1%;">Actions</th>
+                  <th class="" colspan="1" rowspan="1"><span>Id</span></th>
+                  <th class="" colspan="1" rowspan="1"><span>Nombre</span></th>
+                  <th class="" colspan="1" rowspan="1">
+                    <span>Descripcion</span>
+                  </th>
+                  <th class="" colspan="1" rowspan="1">
+                    <span>Departamento</span>
+                  </th>
+                  <th class="" colspan="1" rowspan="1">
+                    <span>Ciudad</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="pg-row-list">
+                <tr class="pg-row" style="" *ngFor="let zona of zonas | async  | paginate: { itemsPerPage: 10, currentPage: p }">
+                  <td style="">
+                    <div class="row-selection">
+                      <!--<input id="rec1" name="rec1" type="checkbox">-->
+                    </div>
+                  </td>
+                  <td class="operation-column">
+                    <!--<span class="operation-item" data-column-name="view">
+                      <a class="link-icon"routerLink="detail/{{zona.zonaId}}" title="Ver">
+                        <i class="icon-view"></i>
+                      </a>
+                    </span>-->
+                    <span class="operation-item" data-column-name="edit">
+                      <a class="link-icon" routerLink="edit/{{zona.zonaId}}" title="Editar">
+                        <i class="icon-edit"></i>
+                      </a>
+                    </span>
+                    <span class="operation-item" data-column-name="delete">
+                      <a class="link-icon" (click)="delete(zona.zonaId)" title="Borrar">
+                        <i class="icon-remove"></i>
+                      </a>
+                    </span>
+                  </td>
+                  <td data-column-name="id" data-edit-url="">{{zona.zonaId}}</td>
+                  <td class=" pgui-cell-edit">{{zona.zonaNombre}}</td>
+                  <td class=" pgui-cell-edit">{{zona.zonaDescripcion}}</td>
+                  <td class=" pgui-cell-edit">{{zona.depDescripcion}}</td>
+                  <td class=" pgui-cell-edit">{{zona.cimuDescripcion}}</td>
+                </tr>
+                <tr class="empty-grid hidden">
+                  <td colspan="7">
+                    <div class="alert alert-warning empty-grid">
+                      There are no records to display
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot></tfoot>
+            </table>
+          </div>
+          <div class="page_navigator">
+            <div class="pgui-pagination">
+              <pagination-controls
+                  class="pagination"
+                  (pageChange)="p = $event"
+                  previousLabel="Anterior"
+                  nextLabel="Siguiente"
+                  screenReaderPaginationLabel="Paginacion"
+                  screenReaderPageLabel="Pagina"
+                  screenReaderCurrentLabel="Estas en la pagina">
+                </pagination-controls>
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
