@@ -1,0 +1,787 @@
+<!-- Se agrego comentario nuevo comentario-->
+<div class="container-fluid">
+
+<!--Inicio cesar-->
+<div class="animated fadeIn">
+   <h1 class="text-center">Resumen cotización</h1>
+   <hr />
+   <!--<div class="col-md-12">-->
+   <div class="row">
+      <div class="col-md-2">
+         <div class="form-group" style="width:100%;max-width:100%" data-column="clientes" *ngIf="setPermisos('Resumencotizacion-cmb-clientes')">
+            <!--<app-clientes-automplete></app-clientes-automplete>-->
+            <ng-select
+                    [items]="clientes"
+                    [multiple]="false"
+                    [closeOnSelect]="true"
+                    bindLabel="NOMBRE_CLIENTE"
+                    placeholder="Seleccione clientes"
+                    [(ngModel)]="selectedClientes"
+                    (ngModelChange)="setCliente($event)"
+                    [clearable]="false">
+            </ng-select>
+
+         </div>
+      </div>
+      <div class="col-md-2">
+         <div class="form-group" style="width:100%;max-width:100%" data-column="ot" *ngIf="setPermisos('Resumencotizacion-cmb-ots')">
+            <!--<app-ot-automplete></app-ot-automplete>-->
+            <ng-select #ot
+                    [items]="ots"
+                    [multiple]="false"
+                    [closeOnSelect]="true"
+                    bindLabel="OT_FICHA"
+                    placeholder="Seleccione Ots"
+                    [(ngModel)]="selectedOts"
+                    (ngModelChange)="getCiudadesxCargo_t($event)">
+            </ng-select>
+
+         </div>
+      </div>
+      <div class="col-md-2">
+         <div class="form-group" style="width:100%;max-width:100%" data-column="prioridad" *ngIf="setPermisos('Resumencotizacion-cmb-prioridades')">
+            <!--<app-prioridad-autocomplete></app-prioridad-autocomplete>-->
+            <ng-select
+                    [items]="prioridades"
+                    [multiple]="false"
+                    [closeOnSelect]="true"
+                    bindLabel="PRIORIDAD"
+                    placeholder="Seleccione prioridad"
+                    [(ngModel)]="selectedPrioridades"
+                    (ngModelChange)="setPrioridad($event)"
+                    [clearable]="false">
+            </ng-select>
+
+         </div>
+      </div>
+      <div class="btn-group">
+         <button class="btn btn-default" title="Enviar mail" (click)="openModalSendMailOpen()" *ngIf="setPermisos('Resumencotizacion-btn-enviarmail')">
+         <i class="glyphicon glyphicon-envelope"></i>
+         </button>
+         <button class="btn btn-default" title="Generar PDF" (click)="descargarpdf(template)" *ngIf="setPermisos('Resumencotizacion-btn-generarpdf')">
+         <i class="icon-export-pdf"></i>
+         </button>
+         <button class="btn btn-default" title="Guardar cotización" (click)="operation()" *ngIf="setPermisos('Resumencotizacion-btn-savecotizacion')">
+         <i class="glyphicon glyphicon-floppy-disk"></i>
+         </button>
+         <button class="btn btn-default" title="Copiar cotización" *ngIf="setPermisos('Resumencotizacion-btn-copiarcotizacion')">
+         <i class="icon-copy"></i>
+         </button>
+         <button class="btn btn-default" title="Exportar excel"(click)="descargarExcel()" *ngIf="setPermisos('Resumencotizacion-btn-exportarexcel')">
+         <i class="icon-export-excel"></i>
+         </button>
+      </div>
+      <div class="col-md-1">
+         <!--<input type="text" [(ngModel)]="resumencotizacion.estado" class="form-control" placeholder="Estado" *ngIf="setPermisos('Resumencotizacion-txt-estado')">-->
+         <label for="" class="ml-3"><p [ngStyle]="{'color':mensaje_class}">{{mensaje_estado_cot}}</p><p style="color: #0B6623;">{{getIdSolicitud()}}</p></label>
+      </div>
+   </div>
+   <!--</div>-->
+   <!--Fin grupo de filtros-->
+   <div class="row">
+      <div class="col-md-1 py-2">
+         <button class="btn btn-default py-2" *ngIf="setPermisos('Resumencotizacion-btn-replicar')" (click)="replicar()">Replicar</button>
+      </div>
+      <div class="col-md-1 pr-1 pl-0 py-2">
+         <input type="number" [(ngModel)]="cantidad_x_persona" class="form-control" placeholder="C x P" *ngIf="setPermisos('Resumencotizacion-txt-cxp')">
+      </div>
+      <div class="col-md-2 pr-1 pl-0 py-2">
+         <!--input-group-sm-->
+         <app-lista-desplegable *ngIf="setPermisos('Resumencotizacion-cmb-facturacion')" #ctrFacturacion [lista]="tipoFacturaItem" description="VALUE" placeholder="Seleccione un registro"></app-lista-desplegable>
+      </div>
+      <div class="col-md-2 pr-1 pl-0 py-2">
+         <app-lista-desplegable *ngIf="setPermisos('Resumencotizacion-cmb-ciudad')" #ctrCiudad (cargoChange)="$event" [lista]="ciudadItem" description="DESC_CIUDAD" [multiple]="true" [closeSelect]="false" placeholder="Seleccione una ciudad"></app-lista-desplegable>
+      </div>
+      <div class="col-md-2 pr-1 pl-0 py-2">
+         <app-lista-desplegable *ngIf="setPermisos('Resumencotizacion-cmb-cargo')"  #ctrCargos (cargoChange)="$event" [lista]="cargoItem" description="DESC_CARGO" [multiple]="true" [closeSelect]="false" placeholder="Seleccione un cargo"></app-lista-desplegable>
+      </div>
+      <div class="col-md-1 pr-1 pl-0 py-2">
+         <app-lista-desplegable *ngIf="setPermisos('Resumencotizacion-cmb-frecuencia')" #ctrFrecuencia (cargoChange)="$event" [lista]="frecuenciaItem" description="HORAS" [multiple]="false" [closeSelect]="true" placeholder="Seleccione frecuencia"></app-lista-desplegable>
+      </div>
+      <div class="col-md-1 pr-1 pl-0 py-2">
+         <!--<input type="datetime" class="form-control" placeholder="dd/mm/aaaa"  />-->
+         <input
+         [(ngModel)]="fecha_entrega"
+         *ngIf="setPermisos('Resumencotizacion-txt-fecha')"
+         [min]="FechaEntrega"
+         class="form-control"
+         [owlDateTime]="fecha"
+         placeholder="dd/mm/yyyy"
+         [owlDateTimeTrigger]="fecha">
+         <owl-date-time #fecha></owl-date-time>
+      </div>
+      <div class="col-md-1 pr-1 pl-0 py-2">
+         <input type="number" [(ngModel)]="total" *ngIf="setPermisos('Resumencotizacion-txt-total')" class="form-control" placeholder="Total"  />
+      </div>
+      <div class="col-md-1 pr-1 pl-0 py-2">
+         <input type="number"  [(ngModel)]="porcentaje" *ngIf="setPermisos('Resumencotizacion-txt-porcentaje')" class="form-control" placeholder="%"  />
+      </div>
+   </div>
+   <!--Fin grupo de filtros-->
+   <!--<div class="col-md-12">-->
+   <div class="row">
+      <div class="col-md-10">
+         <!--<div class="">-->
+         <div class="btn-group btn-group-sm pr-1 mt-3 float-left">
+            <button class="btn btn-default" onclick="listView()"><i class="glyphicon glyphicon-th-list"></i></button>
+            <button class="btn btn-default" onclick="gridView()"><i class="glyphicon glyphicon-th-large"></i></button>
+         </div>
+         <div class="float-right mt-3">
+            <div class="form-inline">
+               <label class=" mr-3" *ngIf="setPermisos('Resumencotizacion-chck-aprobar-all')" >Aprobar</label>
+               <input class="" *ngIf="setPermisos('Resumencotizacion-chck-aprobar-all')" [(ngModel)]="selectedAll" (ngModelChange)="onCheckAll($event)" type="checkbox"   />
+            </div>
+         </div>
+         <!--</div>-->
+         <!--Inicia los registros-->
+         <section class="col-md-12 pl-0 pr-0 pt-3" *ngIf="resumencotizacion">
+            <div class="column card p-3 mb-3" *ngFor="let productos of resumencotizacion.detalle | paginate: { itemsPerPage: 5, currentPage: p }">
+               <div class="row row1">
+                  <div class="col-md-3 pr-1 pl-2 divImgArticle">
+                    <!--<label *ngIf="productos.estado==9" for="" class="ml-3"><p style="color: red;">RECHAZADO</p></label>
+                    <label *ngIf="productos.enviado_portafolio==2" for="" class="ml-3"><p style="color: green;">APROBADO</p></label>-->
+                    <!--<label *ngIf="productos.estado_portafolio==1" for="" class="ml-3"><p style="color: green;">Enviado a portafolio</p></label>-->
+                    <!--<label *ngIf="productos.SI_EXISTE_EN_FICHA==NULL"  for="" class="ml-3"><p style="color: green;">{{productos.SI_EXISTE_EN_FICHA}}</p></label>-->
+                    <label *ngIf="productos.SI_EXISTE_EN_FICHA==NULL"  for="" class="ml-3"><p style="color: red;">No esta en la ficha.</p></label>
+                    <label *ngIf="productos.SI_EXISTE_EN_FICHA!=NULL"  for="" class="ml-3"><p style="color: green;">Esta en la ficha.</p></label>
+
+                     <div class="d-flex bd-highlight mb-3" style="height: 100px">
+                        
+                          <img *ngIf="setPermisos('Resumencotizacion-img-detalle')" class="img-fluid rounded img-thumbnail xzoom4 imgArticle bd-highlight col-md-8 p-1 ml-2"  src="assets/images/sin-imagen.jpg" alt="Imagen no disponibble" xoriginal="../votacion.jpg" />
+                        
+                        <div class="d-flex align-items-start flex-column col-md-4 p-0" style="height: 100px;">
+                          
+                           <div class="btn-group">
+                              <button *ngIf="setPermisos('Resumencotizacion-btn-sacarcarro-detalle')" (click)="deleteProducto(productos);" type="button" class="btn btn-primary mb-auto" title="Sacar del carrito">
+                                <i class="icon-remove"></i>
+                              </button>
+                              <button type="button" class="btn btn-primary mb-auto" (click)="openImage(templateModalImage, productos.DESCRIPCION_CORTA, 'assets/images/sin-imagen.jpg')">
+                                <i class="glyphicon glyphicon-search"></i>
+                              </button>
+                            </div>
+
+                           <div>
+                              <input type="hidden" name="cantidadSeleccionadaPrev{{productos.ID_ARTICULO}}" id="cantidadSeleccionadaPrev{{productos.ID_ARTICULO}}" class="form-control" value="{{productos.CANTIDAD}}" step="">
+                              <label *ngIf="setPermisos('Resumencotizacion-txt-cantidad-detalle')" title="Consumo por Persona" >&nbsp;C x P&nbsp;</label>
+                              <input *ngIf="setPermisos('Resumencotizacion-txt-cantidad-detalle')" type="text" mask="000000" name="cantidadSeleccionada{{productos.ID_ARTICULO}}"  #cantidadSeleccionada id="cantidadSeleccionada{{productos.ID_ARTICULO}}" (change)="typeOperation(productos,cantidadSeleccionada.value,template,onIndexOf(productos));" class="numeric form-control my-1 mr-sm-2" value="{{productos.CANTIDAD}}" step="1" />
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <h5 *ngIf="setPermisos('Resumencotizacion-txt-descripcion-detalle')" class="h5 text-center">{{productos.DESCRIPCION_CORTA}}</h5>
+                     <p *ngIf="setPermisos('Resumencotizacion-txt-descripcion-detalle')">
+                        {{productos.DES_ART_ORACLE | slice:0:50 | lowercase  }}
+                        ...<button class="btn btn-link" (click)="openModalDelete(productos.DES_ART_ORACLE);">ver más</button>
+                     </p>
+                        <label  for="" class="ml-3"><p style="color: blue;" title="Categoría">{{productos.DESCRIPCION_CATEGORIA}}</p></label>
+                        <label  for="" class="ml-3"><p style="color: brown;" title="Código Producto Oracle">{{productos.ID_ORACLE}}</p></label>
+                     <!--<div class="form-inline">
+                        <label class="my-1 mr-2">Cantidad</label>
+                        <div class="custom-control my-1 mr-sm-2">
+                            <input type="hidden" name="cantidadSeleccionadaPrev{{productos.id_articulo}}" id="cantidadSeleccionadaPrev{{productos.id_articulo}}" class="form-control" value="{{productos.cantidad}}" step="">
+                            <input type="text" mask="000000" name="cantidadSeleccionada{{productos.id_articulo}}"  #cantidadSeleccionada id="cantidadSeleccionada{{productos.id_articulo}}" (change)="typeOperation(productos,cantidadSeleccionada.value,template);" class="numeric form-control my-1 mr-sm-2" value="{{productos.cantidad}}" step="1" />
+                        </div>
+                        <button (click)="deleteProducto(productos);" class="btn btn-default my-1" title="Sacar del carrito">
+                            <i class="icon-remove"></i>
+                        </button>
+                        </div>-->
+                  </div>
+                  <div class="col-md-4">
+                     <div class="grid grid-table js-grid">
+                        <table class="table text-center table-striped table-hover fixed-header table-bordered table-condensed mb-2">
+                           <thead class="js-column-filter-container">
+                              <tr>
+                                 <th colspan="1" rowspan="1" class="" *ngIf="setPermisos('Resumencotizacion-col-preciolista-detalle')">Precio Lista</th>
+                                 <th colspan="1" rowspan="1" *ngIf="setPermisos('Resumencotizacion-col-costo-detalle')">Costo</th>
+                                 <th colspan="1" rowspan="1" *ngIf="setPermisos('Resumencotizacion-col-preciolistatotal-detalle')">Precio Lista Total</th>
+                                 <th colspan="1" rowspan="1" *ngIf="setPermisos('Resumencotizacion-col-preciolistacostototal-detalle')">Costo Total</th>
+                              </tr>
+                           </thead>
+                           <tbody class="pg-row-list">
+                              <tr class="pg-row">
+                                 <td *ngIf="setPermisos('Resumencotizacion-col-preciolista-detalle')">
+                                    <em class="pgui-null-value" *ngIf="setPermisos('Resumencotizacion-lbl-valorventa-detalle')">
+                                        $ {{getNumber(productos?.PRECION_VENTA)  | number }}
+                                    </em>
+                                 </td>
+                                 <td *ngIf="setPermisos('Resumencotizacion-col-costo-detalle')">
+                                    <em class="pgui-null-value" *ngIf="setPermisos('Resumencotizacion-lbl-valorcosto-detalle')">
+                                        $ {{getNumber(productos?.PRECIO_GLOBAL) | number }}
+                                    </em>
+                                 </td>
+                                 <td *ngIf="setPermisos('Resumencotizacion-col-preciolistatotal-detalle')">
+                                    <em class="pgui-null-value" *ngIf="setPermisos('Resumencotizacion-lbl-valortotal-detalle')">
+                                       $ {{ getNumber(productos?.SUBTOTAL_VENTA_COT) | number }}
+                                    </em>
+                                 </td>
+                                 <td *ngIf="setPermisos('Resumencotizacion-col-preciolistacostototal-detalle')">
+                                    <em class="pgui-null-value" *ngIf="setPermisos('Resumencotizacion-lbl-subcosto-detalle')">
+                                      $ {{ getNumber(productos?.SUBTOTAL_COSTO) | number }}
+                                    </em>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                        <span>Tiempo de entrega {{productos.TIEMPO}}</span>
+                     </div>
+                  </div>
+                  <div class="col-md-1">
+                    <!--<em *ngIf="productos.enviado_portafolio==2; else mensaje" class="pgui-null-value">&nbsp;</em>
+                    <ng-template #mensaje>
+                      <label *ngIf="setPermisos('Resumencotizacion-chk-aprobar-detalle')" class="control-label text-center">Aprobar</label>
+                      <div class="col-input text-center" data-column="cuatro">
+                         <input *ngIf="setPermisos('Resumencotizacion-chk-aprobar-detalle')" type="checkbox" [checked]="booChecked[onIndexOf(productos)]"  [(ngModel)] ="listSelected[productos.id_articulo]" (ngModelChange)="aprobarDetalle($event,onIndexOf(productos))" />
+                      </div>
+                    </ng-template>-->
+                    <div class="col-input text-center" data-column="cuatro">
+                       <input *ngIf="setPermisos('Resumencotizacion-chk-aprobar-detalle')" type="checkbox" [checked]="booChecked[onIndexOf(productos)]"  [(ngModel)] ="listSelected[productos.ID_ARTICULO]" (ngModelChange)="aprobarDetalle($event,onIndexOf(productos))" />
+                    </div>
+                  </div>
+               </div>
+               <!--Fin grupo de filtros-->
+               <div class="groupFilterDetail col-md-12">
+                  <div class="row">
+                     <!--<div class="col-md-1 pr-1 pl-0 py-2">
+                        <input type="number" [(ngModel)]="productos.cantidad_x_persona" class="form-control" placeholder="C x P" *ngIf="setPermisos('Resumencotizacion-txt-cxp-detalle')">
+                     </div>-->
+
+
+                     <div class="col-md-2 pr-1 pl-0 py-2">
+                       <label>&nbsp;</label>
+                       <label *ngIf="setPermisos('Resumencotizacion-cmb-facturacion-detalle')">Tipo Facturación</label>
+                        <!--input-group-sm-->
+                        <!--<app-lista-desplegable  *ngIf="setPermisos('Resumencotizacion-cmb-facturacion-detalle')" #ctrFacturacion [lista]="tipoFacturaItem" description="VALUE" [multiple]="false" [closeSelect]="true" placeholder="Seleccione una factura"></app-lista-desplegable>-->
+
+                        <ng-select
+                        #ctrFacturacion
+                        *ngIf="setPermisos('Resumencotizacion-cmb-facturacion-detalle')"
+                        [items]="productos.idfacturable"
+                        name="idfacturable"
+                        [multiple]="false"
+                        [closeOnSelect]="false"
+                        bindLabel="TIPO_FACTURA"
+                        placeholder="Seleccione tipo de facturación"
+                        [(ngModel)]="selectidfacturable[productos.ID_ARTICULO]"
+                        [clearable]="false"
+                        [hideSelected] ="true"
+                        (ngModelChange)="changeTipoFactura($event , onIndexOf(productos))">
+                        </ng-select>
+                     </div>
+                     <div class="col-md-2 pr-1 pl-0 py-2">
+                       <label>&nbsp;</label>
+                       <label *ngIf="setPermisos('Resumencotizacion-cmb-frecuencia-detalle')">Frecuencia</label>
+                        <!--<app-lista-desplegable *ngIf="setPermisos('Resumencotizacion-cmb-frecuencia-detalle')" #ctrFrecuencia (cargoChange)="$event" [lista]="frecuenciaItem" description="HORAS" [multiple]="false" [closeSelect]="true" placeholder="Seleccione frecuencia"></app-lista-desplegable>-->
+                        <ng-select
+                        #ctrFrecuencia
+                        *ngIf="setPermisos('Resumencotizacion-cmb-frecuencia-detalle')"
+                        [items]="productos.idFrecuencia"
+                        name="idFrecuencia"
+                        [multiple]="false"
+                        [closeOnSelect]="false"
+                        bindLabel="FRECUENCIA"
+                        placeholder="Seleccione frecuencia"
+                        [(ngModel)]="selectidfrecuencia[productos.ID_ARTICULO]"
+                        [disabled]="stateFrecuencia[productos.ID_ARTICULO]"
+                        [clearable]="false"
+                        [hideSelected] ="true"
+                        (ngModelChange)="changeFrecuencia($event , onIndexOf(productos))">
+                        </ng-select>
+                     </div>
+                     <div class="col-md-4 pr-1 pl-0 py-2">
+                       <label>&nbsp;</label>
+                       <label *ngIf="setPermisos('Resumencotizacion-cmb-ciudadesxcargo-detalle')">Ciudades x Cargo</label>
+                        <!--<app-lista-desplegable *ngIf="setPermisos('Resumencotizacion-cmb-ciudad-detalle')" #ctrCiudad (cargoChange)="$event" [lista]="ciudadItem" description="DESC_CIUDAD" [multiple]="true" [closeSelect]="false" placeholder="Seleccione una ciudad"></app-lista-desplegable>-->
+                        <!--<ng-select
+                        class="textMin"
+                        #ctrCiudad
+                        *ngIf="setPermisos('Resumencotizacion-cmb-ciudad-detalle')"
+                        [items]="ciudadItem"
+                        name="ciudades_lista"
+                        [multiple]="true"
+                        [closeOnSelect]="false"
+                        bindLabel="DESC_CIUDAD"
+                        placeholder="Seleccione una ciudad"
+                        [(ngModel)]="productos.id_ciudad">
+                        </ng-select>-->
+
+                        <ng-select
+                            #ctrCargosCiudad
+                            *ngIf="setPermisos('Resumencotizacion-cmb-ciudadesxcargo-detalle')"
+                            [items]="productos.ciudadesxcargo"
+                            name="ciudadesxcargo"
+                            [multiple]="true"
+                            [closeOnSelect]="false"
+                            bindLabel="DESC_CARGO_CIUDAD"
+                            placeholder="Seleccione Ciudades por cargo"
+                            [(ngModel)]="selectidCiudadesCargosnew[productos.ID_ARTICULO]"
+                            (ngModelChange)="changeCiudadesXCargo($event , onIndexOf(productos))"
+                            [clearable]="false"
+                            [hideSelected] ="true"
+                            >
+                        </ng-select>
+                     </div>
+                     <!--<app-lista-desplegable *ngIf="setPermisos('Resumencotizacion-cmb-cargo-detalle')" #ctrCargos (cargoChange)="$event" [lista]="cargoItem" description="DESC_CARGO" [multiple]="true" [closeSelect]="false" placeholder="Seleccione un cargo"></app-lista-desplegable>-->
+                     <!--<div class="col-md-2 pr-1 pl-0 py-2">
+                        <ng-select
+                        class="textMin"
+                        #ctrCargos
+                        *ngIf="setPermisos('Resumencotizacion-cmb-cargo-detalle')"
+                        [items]="cargoItem"
+                        name="cargos_lista"
+                        [multiple]="true"
+                        [closeOnSelect]="false"
+                        bindLabel="DESC_CARGO"
+                        placeholder="Seleccione un cargo"
+                        [(ngModel)]="productos.id_cargo">
+                        </ng-select>
+                     </div>-->
+
+                     <div class="col-md-2 pr-1 pl-0 py-2">
+                        <label *ngIf="setPermisos('Resumencotizacion-txt-total-detalle')">Total producto</label>
+                        <input *ngIf="setPermisos('Resumencotizacion-txt-total-detalle')" [(ngModel)]="productos.TOTAL" size="10" type="number" class="form-control" placeholder="Total x producto"  />
+                     </div>
+                     <div class="col-md-1 pr-1 pl-0 py-2">
+                        <label *ngIf="setPermisos('Resumencotizacion-txt-porcentaje-detalle')">% admon</label>
+                        <input *ngIf="setPermisos('Resumencotizacion-txt-porcentaje-detalle')" [(ngModel)]="productos.PORCENTAJE"  type="number" class="form-control" placeholder="% admon"  />
+                     </div>
+                     <div class="col-md-1 pr-1 pl-0 py-2">
+                       <label>&nbsp;</label>
+                       <label *ngIf="setPermisos('Resumencotizacion-txt-fecha-detalle')">Fecha Entrega</label>
+                        <input *ngIf="setPermisos('Resumencotizacion-txt-fecha-detalle')"
+                        type="datetime"
+                        class="form-control"
+                        [owlDateTime]="fecha_detalle"
+                        placeholder="dd/mm/aaaa"
+                        [owlDateTimeTrigger]="fecha_detalle"
+                        [(ngModel)]="productos.fecha_entrega"
+                        />
+                        <owl-date-time #fecha_detalle></owl-date-time>
+                     </div>
+                  </div>
+               </div>
+               <!--Fin grupo de filtros-->
+            </div>
+            <p>
+               <pagination-controls
+                  (pageChange)="p = $event"
+                  previousLabel="Anterior"
+                  nextLabel="Siguiente"
+                  screenReaderPaginationLabel="Paginacion"
+                  screenReaderPageLabel="Pagina"
+                  screenReaderCurrentLabel="Estas en la pagina"
+                  ></pagination-controls>
+            </p>
+         </section>
+         <!--Finaliza los registros-->
+      </div>
+      <div class="col-md-2">
+         <span class="text-center">Precio de lista</span>
+         <table class="table table-bordered input-group-sm float-left">
+            <tr>
+               <td class="bg-warning">Subtotal</td>
+               <td class="">
+                  <em class="pgui-null-value" *ngIf="setPermisos('Resumencotizacion-lbl-subtotal')">
+                    $ {{ getNumber(resumencotizacion?.SUBTOTAL_VENTA_COT) | number }}
+                  </em>
+               </td>
+            </tr>
+            <tr>
+               <td class="bg-warning">Base gravable</td>
+               <td class="">
+                  <em class="pgui-null-value" *ngIf="setPermisos('Resumencotizacion-lbl-basegravable')">
+                   $ {{ getNumber(resumencotizacion?.BASE_GRAVABLE) | number }}
+                  </em>
+               </td>
+            </tr>
+            <tr>
+               <td class="bg-warning">Base exenta</td>
+               <td class="">
+                  <em class="pgui-null-value">
+                    $ {{ getNumber(resumencotizacion?.BASE_EXCENTA) | number }}
+                  </em>
+               </td>
+            </tr>
+            <tr>
+               <td class="bg-warning">Iva</td>
+               <td class="">
+                  <em class="pgui-null-value" *ngIf="setPermisos('Resumencotizacion-lbl-iva')">
+                  $ {{ getNumber(resumencotizacion?.IVA) | number }}
+                  </em>
+               </td>
+            </tr>
+            <tr>
+               <td class="bg-warning">Total</td>
+               <td class="">
+                  <em class="pgui-null-value" *ngIf="setPermisos('Resumencotizacion-lbl-total')">
+                  $ {{ getNumber(resumencotizacion?.TOTAL_VENTA)  | number }}
+                  </em>
+               </td>
+            </tr>
+         </table>
+         <br />
+         <span class="text-center" *ngIf="setPermisos('Resumencotizacion-col-preciocosto-final-detalle')" >Precio costo</span>
+         <table class="table table-bordered input-group-sm float-left" *ngIf="setPermisos('Resumencotizacion-col-preciocosto-final-detalle')">
+            <tr>
+               <td class="bg-warning">Total</td>
+               <td class="">
+                  <em class="pgui-null-value" *ngIf="setPermisos('Resumencotizacion-lbl-preciocostototal')">
+                  $ {{ getNumber(resumencotizacion?.TOTAL_COSTO) | number}}
+                  </em>
+               </td>
+            </tr>
+         </table>
+         <button type="submit" class="btn btn-primary js-save js-primary-save col-md-12 mb-3" title="Enviar a Compras" *ngIf="setPermisos('Resumencotizacion-btn-enviarcompras')"
+         (click)="showEnvioAcompras()">
+         Enviar a Compras&nbsp;&nbsp;&nbsp;
+         </button>
+         <button type="submit" class="btn btn-primary js-save js-primary-save col-md-12 mb-3" title="Enviar Aprobación" *ngIf="setPermisos('Resumencotizacion-btn-enviaraprobacion')"
+         (click)="showEnvioAprobacion()">
+         Enviar Aprobación
+         </button>
+         <div class="col-md-12">
+            <div class="row">
+               <div class="col-md-6 px-0 pr-1">
+                  <button type="submit" (click)="Aprobacion()" class="btn btn-primary js-save js-primary-save col-md-12 mb-3" title="Aprobar" *ngIf="setPermisos('Resumencotizacion-btn-aprobar')">
+                  Aprobar
+                  </button>
+               </div>
+               <div class="col-md-6 px-0">
+                  <button type="submit" class="btn btn-primary js-save js-primary-save col-md-12 mb-3" title="Rechazar" *ngIf="setPermisos('Resumencotizacion-btn-rechazar')">
+                  Rechazar
+                  </button>
+               </div>
+            </div>
+         </div>
+         <button type="submit" class="btn btn-primary js-save js-primary-save col-md-12 mb-3" title="Sincronización GC" *ngIf="setPermisos('Resumencotizacion-btn-sincronizaciongc')">
+         Sincronización GC
+         </button>
+         <button type="submit" class="btn btn-primary js-save js-primary-save col-md-12 mb-3" title="Cotizar Nuevo Articulo" *ngIf="setPermisos('Resumencotizacion-btn-nuevoarticulo')">
+         Cotizar Nuevo Articulo
+         </button>
+         <button type="submit" class="btn btn-primary js-save js-primary-save col-md-12 mb-3" title="Portafolio específico" *ngIf="setPermisos('Resumencotizacion-btn-portafolio')">
+         Portafolio específico
+         </button>
+      </div>
+   </div>
+   <!--</div>-->
+</div>
+<!--Fin Cesar-->
+<!-- <div class="backdrop" [ngStyle]="{'display':display}"></div>
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title">Descripción de producto</h4>
+            <button type="button" class="close" aria-label="Close" (click)="onCloseHandledDelete()"><span aria-hidden="true">&times;</span></button>
+         </div>
+         <div class="modal-body">
+            <p>{{desc_producto}}</p>
+         </div>
+         <div class="modal-footer">
+            <button type="button" (click)="onCloseHandledDelete()" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+         </div>
+      </div>
+   </div>
+</div> -->
+
+<!-- Mensaje guadado cotización-->
+<!-- <div class="backdrop" [ngStyle]="{'display':displaysave}"></div>
+<div class="modal" tabindex="-1"  [ngStyle]="{'display':displaysave}">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title">Confirmación guardado</h4>
+            <button type="button" class="close" aria-label="Close" (click)="openModalClose()"><span aria-hidden="true">&times;</span></button>
+         </div>
+         <div class="modal-body">
+            <p>Se guardó la cotización {{nombrecotizacion}}</p>
+         </div>
+         <div class="modal-footer">
+            <button type="button" (click)="openModalClose()" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+         </div>
+      </div>
+   </div>
+</div> -->
+<!-- Mensaje Procesado -->
+<div class="backdrop" [ngStyle]="{'display':displayprocesado}"></div>
+<div class="modal" tabindex="-1"  [ngStyle]="{'display':displayprocesado}">
+   <div [ngClass]="classModal">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title">Confirmación envio a proceso de aprobación</h4>
+            <!--<h5 class="modal-title">Para enviar una Cotización a un Aprobador, por favor diligenciar los siguientes Campos</h5>-->
+            <button type="button" class="close" aria-label="Close" (click)="openModalCloseProcesado()"><span aria-hidden="true">&times;</span></button>
+         </div>
+         <div class="modal-body">
+            <p style="color: green;">{{mensaje_procesado}}</p>
+            <em *ngIf="error_table.length==0; else error">&nbsp;</em>
+            <ng-template #error>
+              <table>
+                <tr>
+                  <th colspan="3" style="color:red"> Para enviar una Cotización a un Aprobador, por favor diligenciar los siguientes Campos.</th>
+                </tr>
+                <br>
+              </table>
+              <table class="blueTable">
+               <caption>Lista de errores del encabezado</caption>
+               <thead>
+                  <tr>
+                     <th>Cliente</th>
+                     <th>OT</th>
+                     <!--<th>Prioridad</th>-->
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr *ngFor="let error of error_table; let i = index">
+                     <td *ngIf="i==0" [ngStyle]="{'color':error.cliente === 'Diligenciar' ? 'red' : 'green' }">{{error.cliente}}</td>
+                     <td *ngIf="i==0" [ngStyle]="{'color':error.ot === 'Diligenciar' ? 'red' : 'green' }">{{error.ot}}</td>
+                     <!--<td *ngIf="i==0" [ngStyle]="{'color':error.prioridad === 'Diligenciar' ? 'red' : 'green' }">{{error.prioridad}}</td>-->
+                  </tr>
+               </tbody>
+            </table>
+            <table class="blueTable">
+              <caption>Lista de errores del detalle</caption>
+             <thead>
+                <tr>
+                   <th>Código oracle </th>
+                   <th>Categoria </th>
+                   <th >Cantidad</th>
+                   <th>Tipo facturación</th>
+                   <th>Frecuencia</th>
+                   <th>Ciudades x cargo</th>
+                   <th>Total producto</th>
+                   <th>% admon</th>
+                </tr>
+             </thead>
+             <tbody>
+                <tr *ngFor="let error of error_table | paginate: { itemsPerPage: 5, currentPage: p }">
+                   <td>{{error.id_producto}}</td>
+                   <td>{{error.categoria}}</td>
+                   <td [ngStyle]="{'color':error.cantidad === 'Diligenciar' ? 'red' : 'green' }">{{error.cantidad}}</td>
+                   <td [ngStyle]="{'color':error.tipo_facturacion === 'Diligenciar' ? 'red' : 'green' }">{{error.tipo_facturacion}}</td>
+                   <td [ngStyle]="{'color':error.frecuencia === 'Diligenciar' ? 'red' : 'green' }">{{error.frecuencia}}</td>
+                   <td [ngStyle]="{'color':error.ciudadesXCargo === 'Diligenciar' ? 'red' : 'green' }">{{error.ciudadesXCargo}}</td>
+                   <td [ngStyle]="{'color':error.total_producto === 'Diligenciar' ? 'red' : 'green' }">{{error.total_producto}}</td>
+                   <td [ngStyle]="{'color':error.admon === 'Diligenciar' ? 'red' : 'green' }">{{error.admon}}</td>
+                </tr>
+             </tbody>
+          </table>
+          <!-- <Pages> -->
+          <div class="page_navigator">
+             <div class="pgui-pagination">
+               <pagination-controls
+               (pageChange)="p = $event"
+               previousLabel="Anterior"
+               nextLabel="Siguiente"
+               screenReaderPaginationLabel="Paginacion"
+               screenReaderPageLabel="Pagina"
+               screenReaderCurrentLabel="Estas en la pagina"
+               ></pagination-controls>
+             </div>
+          </div>
+          <!-- </Pages> -->
+          </ng-template>
+         </div>
+         <div class="modal-footer">
+           <div class="container">
+              <button mat-button type="button" (click)="openModalCloseProcesado()" class="btn btn-default btn-block" data-dismiss="modal">Cerrar</button>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<!-- Open Modal se envio a probar la cotizacion -->
+<div class="backdrop" [ngStyle]="{'display':displayenvioaprobar}"></div>
+<div class="modal" tabindex="-1"  [ngStyle]="{'display':displayenvioaprobar}">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title">Envío aprobación</h4>
+            <button type="button" class="close" aria-label="Close" (click)="openModalCloseEnvApro()"><span aria-hidden="true">&times;</span></button>
+         </div>
+         <div class="modal-body">
+            <form class="form-horizontal">
+               <div class="form-group">
+                  <div class="row">
+                     <div class="col-sm-4"><label class="control-label required">Aprobador</label></div>
+                     <div class="col-sm-8">
+                        <ng-select
+                        [items]="listAprobadores"
+                        name="listaAprobadores"
+                        [multiple]="false"
+                        [closeOnSelect]="false"
+                        bindLabel="NOMBRE_COMPLETO"
+                        placeholder="Seleccione un aprobador"
+                        [(ngModel)] ="selectAprobadores">
+                        </ng-select>
+                     </div>
+                  </div>
+                  <div class="row" *ngIf="mensaje_cotizacion">
+                     <div class="col-sm-2">&nbsp;</div>
+                     <div class="col-sm-12">
+                        <p style="color: red;">{{mensaje_cotizacion}}</p>
+                     </div>
+                  </div>
+               </div>
+            </form>
+         </div>
+         <div class="modal-footer">
+           <div class="container">
+              <div class="col-md-6"><button mat-button type="button" (click)="openModalCloseEnvApro()" class="btn btn-default btn-block" data-dismiss="modal">Cerrar</button></div>
+              <div class="col-md-6"><button mat-raised-button color="primary" class="btn btn-block" cdkFocusInitial type="button" (click)="enviarAprobacion()" data-dismiss="modal">Enviar Aprobar</button></div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<!-- Open Modal se envio a  compras -->
+<div class="backdrop" [ngStyle]="{'display':displayenviocompras}"></div>
+<div class="modal" tabindex="-1"  [ngStyle]="{'display':displayenviocompras}">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title">Enviar a compras</h4>
+            <button type="button" class="close" aria-label="Close" (click)="onCloseEnvCompras()"><span aria-hidden="true">&times;</span></button>
+         </div>
+         <div class="modal-body">
+            <form class="form-horizontal">
+               <div class="form-group">
+                  <div class="row">
+                     <div class="col-sm-4"><label class="control-label required">Lista usuarios envío a compras</label></div>
+                     <div class="col-sm-8">
+                        <ng-select
+                        class="textMin"
+                        [items]="listUsuariosCompras"
+                        name="listUsuariosCompras"
+                        [multiple]="false"
+                        [closeOnSelect]="false"
+                        bindLabel="NOMBRE_COMPLETO"
+                        placeholder="Seleccione un usuario"
+                        [(ngModel)] ="selectCompradores">
+                        </ng-select>
+                     </div>
+                  </div>
+                  <div class="row" *ngIf="mensaje_compras">
+                     <div class="col-sm-2">&nbsp;</div>
+                     <div class="col-sm-12">
+                        <p style="color: red;">{{mensaje_compras}}</p>
+                     </div>
+                  </div>
+               </div>
+            </form>
+         </div>
+         <div class="modal-footer">
+            <div class="container">
+               <div class="col-md-6"><button mat-button type="button" (click)="onCloseEnvCompras()" class="btn btn-default btn-block" data-dismiss="modal">Cerrar</button></div>
+               <div class="col-md-6"><button mat-raised-button color="primary" class="btn btn-block" cdkFocusInitial type="button" (click)="envCompras()" data-dismiss="modal">Enviar Aprobar</button></div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+<div class="backdrop" [ngStyle]="{'display':displayMail}"></div>
+<div class="modal" tabindex="-1"  [ngStyle]="{'display':displayMail}">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title">Envio de mail</h4>
+            <button type="button" class="close" aria-label="Close" (click)="openModalSendMailClose()"><span aria-hidden="true">&times;</span></button>
+         </div>
+         <div class="modal-body">
+            <form class="form-horizontal" [formGroup]="form">
+               <div class="form-group" [ngClass]="displayFieldCss('email')">
+                  <div class="row">
+                     <div class="col-sm-2"><label for="email" class="control-label required">Email</label></div>
+                     <div class="col-sm-10"><input type="text" #email id="email" class="form-control" formControlName="email"></div>
+                  </div>
+                  <div class="row">
+                     <div class="col-sm-2">&nbsp;</div>
+                     <div class="col-sm-10">
+                        <app-field-error-display [displayError]="isFieldValid('email')"  errorMsg="Debe colocar un mail valido"></app-field-error-display>
+                     </div>
+                  </div>
+                  <!--<div class="row">
+                     <div class="col-sm-2"><label class="control-label required">Archivo</label></div>
+                     <div class="col-sm-10"><input type="file" class="form-control" id="file" (change)="handleFileInput($event.target.files)" ></div>
+                  </div>-->
+                  <div class="row" *ngIf="mensaje">
+                     <div class="col-sm-2">&nbsp;</div>
+                     <div class="col-sm-12">
+                        <p style="color: red;">{{mensaje}}</p>
+                     </div>
+                  </div>
+               </div>
+            </form>
+         </div>
+         <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-default" data-dismiss="modal" (click)="onSubmit(email.value)" >Enviar</button> -->
+            <button mat-raised-button color="primary" class="btn btn-block" cdkFocusInitial type="button" (click)="onSubmit(email.value)" data-dismiss="modal">Enviar</button>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- <ng-template #template>
+   <div class="modal-header">
+      <h4 class="modal-title pull-left">Validaciones</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+      </button>
+   </div>
+   <div class="modal-body">
+      {{mensaje_template}}
+   </div>
+</ng-template> -->
+
+<!-- Open Modal para mostrar errores -->
+<!-- <div class="backdrop" [ngStyle]="{'display':displayerrorshow}"></div>
+<div class="modal" tabindex="-1"  [ngStyle]="{'display':displayerrorshow}">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title">Mensaje </h4>
+            <button type="button" class="close" aria-label="Close" (click)="CloseModalCloseError()"><span aria-hidden="true">&times;</span></button>
+         </div>
+         <div class="modal-body">
+            <form class="form-horizontal">
+                  <div class="row" *ngIf="mensaje_error_show">
+                     <div class="col-sm-2">&nbsp;</div>
+                     <div class="col-sm-12">
+                        <p style="color: green;">{{mensaje_error_show}}</p>
+                     </div>
+                  </div>
+            </form>
+         </div>
+         <div class="modal-footer">
+           <div class="row">
+              <div class="col-sm-12"><button type="button" (click)="CloseModalCloseError()" class="btn btn-default" data-dismiss="modal">Cerrar</button></div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div> -->
+<div bsModal #templateModalImage="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h4 id="dialog-child-name" class="modal-title pull-left text-center">{{tituloModal}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="templateModalImage.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+            <img width="350" class="kits_negocio_img" src="{{urlImage}}">
+            <!-- <ngx-image-zoom [thumbImage]=urlImage [fullImage]=urlImage></ngx-image-zoom> -->
+        </div>
+
+        <div class="modal-footer">
+              <button type="button" mat-raised-button color="primary" class="btn btn-block" (click)="templateModalImage.hide()">Cerrar</button>
+          </div>
+
+      </div>
+    </div>
+  </div>
