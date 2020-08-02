@@ -42,6 +42,10 @@ const routes:Routes = [
     path:'departamentos',
     loadChildren: () => import('./departamentos/departamentos.module').then(m => m.DepartamentosModule)
   },
+  {
+    path:'municipios',
+    loadChildren: () => import('./municipios/municipios.module').then(m => m.MunicipiosModule)
+  },
   {path: '**', component: PageNotFoundComponent}
 ];
 

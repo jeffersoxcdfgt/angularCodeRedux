@@ -7,6 +7,7 @@ import * as fromPersonas from './personas/store/reducers/personas.reducers';
 import * as fromContratos from './contratos/store/reducers/contratos.reducers';
 import * as fromServicios from './servicios/store/reducers/servicios.reducers';
 import * as fromDepartamentos from './departamentos/store/reducers/departamentos.reducers';
+import * as fromMunicipios from './municipios/store/reducers/municipios.reducers';
 
 
 export interface AppState {
@@ -19,4 +20,5 @@ export interface AppState {
   contratos:fromContratos.State;
   servicios:fromServicios.State;
   departamentos:fromDepartamentos.State;
+  municipios:fromMunicipios.State;
 }

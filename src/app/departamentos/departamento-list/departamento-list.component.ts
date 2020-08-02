@@ -23,7 +23,6 @@ export class DepartamentoListComponent implements OnInit {
     this.departamentos.subscribe( data =>{
           console.log(data)
     });
-
   }
 
 }
