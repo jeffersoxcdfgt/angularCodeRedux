@@ -38,6 +38,10 @@ const routes:Routes = [
     path:'servicios',
     loadChildren: () => import('./servicios/servicios.module').then(m => m.ServiciosModule)
   },
+  {
+    path:'departamentos',
+    loadChildren: () => import('./departamentos/departamentos.module').then(m => m.DepartamentosModule)
+  },
   {path: '**', component: PageNotFoundComponent}
 ];
 

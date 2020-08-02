@@ -46,7 +46,7 @@ export class AddContrato implements Action {
 
 export class AddContratoSuccess implements Action {
     readonly type = CREATE_CONTRATO_SUCCESS;
-    constructor(public payload: number) {}
+    constructor(public payload: Contrato) {}
 }
 
 export class AddContratoError implements Action {

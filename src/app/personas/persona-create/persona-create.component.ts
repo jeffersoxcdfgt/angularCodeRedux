@@ -43,7 +43,7 @@ export class PersonaCreateComponent implements OnInit {
         nombres:[''],
         apellidos:[''],
         email:[''],
-        tipo_persona:[{ id: 1, value: 'Juridica'}],
+        tipo_persona:[{ id: 2, value: 'Natural'}],
         sexo:[{ id: 1, value: 'Hombre'}],
         estado_civil:[{ id: 1, value: 'Soltero(a)'}],
         fecha_nacimiento:[''],
@@ -51,7 +51,8 @@ export class PersonaCreateComponent implements OnInit {
         telefono:[''],
         celular:[''],
         usuario:[''],
-        empresa:['']
+        empresa:[''],
+        password:['']
    })
 
   }

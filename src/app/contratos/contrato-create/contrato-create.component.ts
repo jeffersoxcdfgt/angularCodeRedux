@@ -14,8 +14,14 @@ import { Sector } from '../../sectores/shared/sector';
 import  * as  serviciosActions from '../../servicios/store/actions/servicios.actions';
 import { getAllServicios } from '../../servicios/store/reducers/servicios.reducers';
 import { Servicio } from '../../servicios/shared/servicio';
+
+import { Contrato } from '../shared/contrato';
+import  * as  contratoActions from '../store/actions/contratos.actions';
+import { isCreated } from '../store/reducers/contratos.reducers';
+
 import { DataList , listPersonas , listTipoCliente , listTipoZonas , listTipoSectores , listTipoServicios } from '../shared/list'
 import { Observable , of , from , Subject , BehaviorSubject , iif ,combineLatest , NEVER ,interval   } from 'rxjs';
+
 
 @Component({
   selector: 'app-contrato-create',
@@ -53,6 +59,11 @@ export class ContratoCreateComponent implements OnInit {
   strtabthird:string  ='tab-pane'
   booNoLet : boolean = true
 
+  numeroContrato:string;
+  fechaContrato:string;
+  clienteInfo:string;
+  servicioInfo:string;
+
   constructor(
     private store: Store<AppState>,
     private formBuilder: FormBuilder
@@ -69,7 +80,8 @@ export class ContratoCreateComponent implements OnInit {
         sectores:[''],
         servicios:[''],
         valorservicio:[''],
-        preciocontrato:['']
+        preciocontrato:[''],
+        ressolidario:['']
    })
 
   }
@@ -128,15 +140,53 @@ export class ContratoCreateComponent implements OnInit {
   }
 
   onSaveContrato(){
-    console.log('onSaveContrato')
     this.booThirdStep = true
     this.booSeconStep = false
     this.strtabsecond  ='tab-pane'
     this.strtabthird  ='tab-pane active'
     this.booFinish = true;
-
     this.booSeconStep = false
 
+    const payload:Contrato = {
+        clclId: this.form.get('clacliente').value.id,
+        sectId: this.form.get('sectores').value.id,
+        escoId: 1, //Estado contrato
+        contCuota: 12.0,
+        contDireccion:`${this.form.get('direccion').value}`,
+        contTelefono:`${this.form.get('telefonos').value}`,
+        Registradopor: "user prueba",
+        persId: `${this.form.get('cedulaname').value.id}`,
+        Responsable: `${this.form.get('ressolidario').value.id}`,
+        SolicitudServicio : [{
+            SoseEmpleado: 114356,
+            SoseDescripcion: "orden de instalacion"
+        }],
+        Factura : [{
+            FopaId : 12,
+            FactIva : 19,
+            FactBase : this.form.get('preciocontrato').value,
+            SerId : this.form.get('servicios').value.id,
+            FactCodigoPago : null,
+            FactConcepto : "pago de contrato",
+            persId:`${this.form.get('cedulaname').value.id}`
+        }]
+     }
+
+     this.store.dispatch(new contratoActions.AddContrato(payload))
+     this.store.select(isCreated).subscribe((data) => {
+           if(data!=null){
+              this.numeroContrato = data['contNumero']
+
+              let date = new Date(data['contFechaCreacion']);
+              let year = date.getFullYear();
+              let month = ("00"+(date.getMonth()+1)).slice(-2);
+              let day = ("00"+date.getDate()).slice(-2);
+              this.fechaContrato =  `${year}-${month}-${day}`
+
+              this.clienteInfo = this.form.get('cedulaname').value.value
+              this.servicioInfo =  this.form.get('servicios').value.value
+           }
+     });
   }
 
 
@@ -155,6 +205,7 @@ export class ContratoCreateComponent implements OnInit {
     this.strtabfirst='tab-pane active'
     this.strtabsecond='tab-pane'
   }
+
 
   selectPersonas(value){
       if(value==undefined){

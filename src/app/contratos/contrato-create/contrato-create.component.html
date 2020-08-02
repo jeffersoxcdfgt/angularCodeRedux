@@ -61,7 +61,7 @@
                     </span>
                   </a>
                 </li>
-              </ng-template>              
+              </ng-template>
 						</ul>
 					</div>
 					<form class="form-horizontal" [formGroup]="form" novalidate (ngSubmit)="onSaveContrato()">
@@ -88,13 +88,24 @@
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-md-6">
+										<div class="col-md-4">
 											<label for="emaillabel">Email</label>
                       <input class="form-control" formControlName ="email" id="email" readonly placeholder="Email" type="text">
 										</div>
-										<div class="col-md-6">
+										<div class="col-md-4">
 											<label for="telefonolabel">Telefonos</label>
                       <input class="form-control" formControlName ="telefonos" readonly  id="telefono" placeholder="Telefonos" type="text">
+										</div>
+                    <div class="col-md-4">
+											<label for="telefonolabel">Responsable Solidario</label>
+                      <ng-select
+                        [items]="listPersonas"
+                        [multiple]="false"
+                        [closeOnSelect]="true"
+                        bindLabel="value"
+                        placeholder="Buscar Responsable Solidario"
+                        formControlName ="ressolidario">
+                      </ng-select>
 										</div>
 									</div>
 									<div class="row">
@@ -225,7 +236,7 @@
                           </div>
                           <div class="form-group col-sm-9">
                             <div class="form-control-static pgui-cell-edit">
-                                <span>2020071914</span>
+                                <span>{{numeroContrato}}</span>
                             </div>
                           </div>
                         </div>
@@ -239,7 +250,7 @@
                           </div>
                           <div class="form-group col-sm-9">
                             <div class="form-control-static pgui-cell-edit">
-                                <span>2020-07-19</span>
+                                <span>{{fechaContrato}}</span>
                             </div>
                           </div>
                         </div>
@@ -253,7 +264,7 @@
                           </div>
                           <div class="form-group col-sm-9">
                             <div class="form-control-static pgui-cell-edit">
-                                <span>(94541178) - Jefferson Jose Medina Cedeño</span>
+                                <span>{{clienteInfo}}</span>
                             </div>
                           </div>
                         </div>
@@ -269,7 +280,7 @@
                           </div>
                           <div class="form-group col-sm-9">
                             <div class="form-control-static pgui-cell-edit">
-                                <span>Inter Banda Ancha 4 mg</span>
+                                <span>{{servicioInfo}}</span>
                             </div>
                           </div>
                         </div>

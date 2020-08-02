@@ -5,10 +5,11 @@ import { tap , catchError , retryWhen} from 'rxjs/operators';
 import { Contrato } from '../../shared/contrato';
 import { TraceService } from '../../../shared/utils/traceService';
 import { genericRetryStrategy } from '../../../shared/rxjs-utils';
+import { environment } from '../../../../environments/environment';
 
 @Injectable()
 export class ContratosService {
-  protected URL ='http://localhost:3000/api/contratos';
+  protected URL =environment.urlContratos
 
   constructor(private http: HttpClient ,private traceService: TraceService){ }
 
@@ -33,7 +34,7 @@ export class ContratosService {
      headers = headers.set('Content-Type','application/json; charset=utf-8');
      return this.http.post<Contrato>(this.URL , data  ,{headers: headers })
      .pipe(
-        tap((newContrato:Contrato) => this.traceService.log(`added contrato w/ id=${newContrato.id}`)),
+        tap((newContrato:Contrato) => this.traceService.log(`added contrato`)),
          catchError(this.traceService.handleError<Contrato>('insert'))
       )
    }
@@ -58,8 +59,8 @@ export class ContratosService {
    public update(contrato: Contrato): Observable<Contrato> {
      let headers = new HttpHeaders();
      headers = headers.set('Content-Type', 'application/json; charset=utf-8');
-     return this.http.put<Contrato>(this.URL + '/' + contrato.id, contrato, {headers: headers}).pipe(
-       tap(_ => this.traceService.log(`updated contrato id=${contrato.id}`)),
+     return this.http.put<Contrato>(this.URL , contrato, {headers: headers}).pipe(
+       tap(_ => this.traceService.log(`updated contrato id=${contrato.clclId}`)),
       catchError(this.traceService.handleError<any>('update'))
      )
    }

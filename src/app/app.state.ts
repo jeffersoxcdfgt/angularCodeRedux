@@ -6,6 +6,7 @@ import * as fromEmpresas from './empresas/store/reducers/empresas.reducers';
 import * as fromPersonas from './personas/store/reducers/personas.reducers';
 import * as fromContratos from './contratos/store/reducers/contratos.reducers';
 import * as fromServicios from './servicios/store/reducers/servicios.reducers';
+import * as fromDepartamentos from './departamentos/store/reducers/departamentos.reducers';
 
 
 export interface AppState {
@@ -17,4 +18,5 @@ export interface AppState {
   personas:fromPersonas.State;
   contratos:fromContratos.State;
   servicios:fromServicios.State;
+  departamentos:fromDepartamentos.State;
 }

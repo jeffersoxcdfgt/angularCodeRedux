@@ -46,7 +46,7 @@ export class ContratoEffects {
         ofType<AddContrato>(contratoActions.CREATE_CONTRATO),
           mergeMap((action:AddContrato) =>
             this.svc.insert(action.payload).pipe(
-                map((contrato:Contrato) => new AddContratoSuccess(contrato.id)),
+                map((contrato:Contrato) => new AddContratoSuccess(contrato)),
                 catchError(err => of(new AddContratoError(err)))
               )
           )

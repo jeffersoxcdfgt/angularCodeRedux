@@ -48,9 +48,10 @@ export class ContratosComponent implements OnInit {
     this.store.select(getAllContratosError).subscribe((error) => this.loadingError(error));
 
     //Add Contrato
-    this.store.select(isCreated).subscribe((done) => {
+    /*this.store.select(isCreated).subscribe((done) => {
         this.actionSuccess(done,'Insert contrato succesfull');
-    });
+    });*/
+
     this.store.select(getCreateError).subscribe((error) => {
       this.actionError(error, 'Error while creating the contrato');
     });
@@ -87,7 +88,7 @@ export class ContratosComponent implements OnInit {
   actionSuccess(done: boolean, message: string) {
     if (done) {
       swal.fire({ icon: 'success', title: message})
-      this.router.navigate(['/contratos']);
+      //this.router.navigate(['/contratos']);
     }
   }
 

@@ -54,7 +54,8 @@ export class PersonaEditComponent implements OnInit {
         telefono:[''],
         celular:[''],
         usuario:[''],
-        empresa:['']
+        empresa:[''],
+        password:['']
    })
 
    this.route.params.subscribe( params =>{

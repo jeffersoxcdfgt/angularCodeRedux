@@ -65,7 +65,7 @@ export function reducer (state = initialState , action :AppAction){
        case contratoActions.CREATE_CONTRATO_SUCCESS:{
          const newContrato = {
            ...state.selected,
-           id: action.payload
+           id: action.payload.contNumero
          }
          const data = [
            ...state.data,
@@ -74,7 +74,7 @@ export function reducer (state = initialState , action :AppAction){
          return {
            ...state,
            data,
-           selected: null,
+           selected: action.payload,
            done: true,
            error:null
          }
@@ -129,7 +129,7 @@ export function reducer (state = initialState , action :AppAction){
         {
                 const index = state
                 .data
-                .findIndex(h => h.id === state.selected.id);
+                .findIndex(h => h.clclId === state.selected.clclId);
                 if (index >= 0) {
                   const data = [
                     ...state.data.slice(0, index),
@@ -157,7 +157,7 @@ export function reducer (state = initialState , action :AppAction){
           }
           case contratoActions.DELETE_CONTRATO:
           {
-              const selected = state.data.find(h => h.id === action.payload)
+              const selected = state.data.find(h => h.clclId === action.payload)
               return  {
                 ...state,
                 selected,
@@ -168,7 +168,7 @@ export function reducer (state = initialState , action :AppAction){
           }
           case contratoActions.DELETE_CONTRATO_SUCCESS:
           {
-              const data = state.data.filter( h => h.id !== state.selected.id)
+              const data = state.data.filter( h => h.clclId !== state.selected.clclId)
               return {
                 ...state,
                 data,
@@ -199,8 +199,11 @@ export const getAllContratosError = createSelector(getContratosState, (state: St
    : null;
 });
 
-export const isCreated =  createSelector( getContratosState , ( state: State ) =>
-  state.action === contratoActions.CREATE_CONTRATO && state.done && !state.error);
+
+export const isCreated = createSelector( getContratosState , (state: State) => {
+    return state.action === contratoActions.CREATE_CONTRATO  && state.done && !state.error   ? state.selected
+   : null;
+})
 
 export const getCreateError = createSelector( getContratosState , (state: State) => {
       return state.action === contratoActions.CREATE_CONTRATO

@@ -66,7 +66,7 @@ export class ServicioEditComponent implements OnInit {
       serId: +this.id ,
       serNombre:`${this.form.get('nombre_servicio').value}`,
       serDescripcion:`${this.form.get('descripcion_servicio').value}`,
-      serCodigo:+this.form.get('descripcion_servicio').value,
+      serCodigo:0,
       serFechaCreacion: `${d.toLocaleString()}`,
       serRegistradopor: "front",
       serActivo: true,

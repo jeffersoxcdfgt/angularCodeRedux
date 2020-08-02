@@ -3,46 +3,6 @@ import { InMemoryDbService } from 'angular-in-memory-web-api';
 export class AppInMemoryApi  implements InMemoryDbService{
       createDb(){
         return {
-          'players':[
-             {
-                "id":1,
-                "first_name":"Kobe",
-                "last_name":"Bryant",
-                "photo":"./kobe2.jpg",
-                "career_end_year":"2016",
-                "career_start_year":"1996",
-                "country_id":1,
-                "height":198,
-                "weight":"96.20",
-                "birthday":"1978-08-23",
-                "current_team_id":1,
-                "college_id":1,
-                "current_number":24,
-                "rating":9,
-                "nba_profile":977,
-                "photo_play":"/path/photo.jpg",
-                "position":"2"
-             },
-             {
-                "id":2,
-                "first_name":"Vince",
-                "last_name":"Carter",
-                "photo":"./vince2.jpg",
-                "career_end_year":null,
-                "career_start_year":"1998",
-                "country_id":2,
-                "height":198,
-                "weight":"99.80",
-                "birthday":"1977-01-26",
-                "current_team_id":2,
-                "college_id":2,
-                "current_number":15,
-                "rating":8,
-                "nba_profile":1713,
-                "photo_play":"/path/photo2.jpg",
-                "position":"3"
-             }
-          ],
           'roles':[
             {
               "id":1,
@@ -253,7 +213,14 @@ export class AppInMemoryApi  implements InMemoryDbService{
               "serCodigo": 12012,
               "serValor": 32000.0,
               "emprId": 1
-            }                  
+            }
+          ],
+          'departamentos':[
+           {
+              "cimuId": 0,
+              "cimuDescripcion": "No aplica",
+              "depDepartamento": 0
+            }
           ]
        }
      }
