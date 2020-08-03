@@ -75,7 +75,14 @@ export class PersonaEditComponent implements OnInit {
 
          this.form.get('nombres').setValue(persona.persNombre)
          this.form.get('apellidos').setValue(persona.persApellido)
-         this.form.get('fecha_nacimiento').setValue(persona.persFechanacimiento)
+
+         let date = new Date(persona.persFechanacimiento);
+         let year = date.getFullYear();
+         let month = ("00"+(date.getMonth()+1)).slice(-2);
+         let day = ("00"+date.getDate()).slice(-2);
+         let fecha_nacimiento =  `${year}-${month}-${day}`
+         this.form.get('fecha_nacimiento').setValue(fecha_nacimiento)
+
          this.form.get('direccion').setValue(persona.persDireccion)
          this.form.get('telefono').setValue(persona.persTelefono)
          this.form.get('celular').setValue(persona.persCelular)

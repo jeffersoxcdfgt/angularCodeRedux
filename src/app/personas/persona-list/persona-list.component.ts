@@ -8,6 +8,7 @@ import { getAllPersonas } from '../store/reducers/personas.reducers';
 import {NgxPaginationModule} from 'ngx-pagination';
 import swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-persona-list',
   templateUrl: './persona-list.component.html',
@@ -25,6 +26,8 @@ export class PersonaListComponent implements OnInit {
     /*this.personas.subscribe( data =>{
           console.log(data)
     });*/
+
+
   }
   /**
    * Delete the selected persona

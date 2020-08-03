@@ -5,10 +5,16 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
 import { AddPersona } from '../store/actions/personas.actions';
 import { Persona } from  '../shared/persona';
-import { DataList, listTipoDocumento, listTipoPersona , listTipoSexo , listEstadoCivil } from '../shared/list';
+import { DataList, listTipoDocumento, listTipoPersona , listTipoSexo , listEstadoCivil , listTipoRol , listTipoEmpresa} from '../shared/list';
 import * as  fromValidation from '../../shared/validation';
 import { Observable , of , from , Subject , BehaviorSubject , iif ,combineLatest , NEVER ,interval   } from 'rxjs';
 import { tap , map} from 'rxjs/operators';
+import { Rol } from '../../roles/shared/rol';
+import  * as  rolesActions from '../../roles/store/actions/roles.actions';
+import { getAllRoles } from '../../roles/store/reducers/roles.reducers';
+import { Empresa } from '../../empresas/shared/empresa';
+import  * as  empresasActions from '../../empresas/store/actions/empresas.actions';
+import { getAllEmpresas } from '../../empresas/store/reducers/empresas.reducers';
 
 
 @Component({
@@ -20,11 +26,15 @@ export class PersonaCreateComponent implements OnInit {
 
   form: FormGroup;
   persona:Persona = new Persona();
+  roles : Observable<Rol[]>;
+  empresas : Observable<Empresa[]>;
 
   listTipoDocumento:DataList[];
   listTipoPersona:DataList[];
   listTipoSexo:DataList[];
   listTipoEstadoCivil:DataList[];
+  listTipoRol:DataList[];
+  listTipoEmpresa:DataList[];
 
   constructor(
     private router:Router ,
@@ -34,6 +44,8 @@ export class PersonaCreateComponent implements OnInit {
       this.listTipoPersona = listTipoPersona
       this.listTipoSexo = listTipoSexo
       this.listTipoEstadoCivil = listEstadoCivil
+      this.listTipoRol= listTipoRol
+      this.listTipoEmpresa = listTipoEmpresa
     }
 
   ngOnInit(): void {
@@ -52,9 +64,29 @@ export class PersonaCreateComponent implements OnInit {
         celular:[''],
         usuario:[''],
         empresa:[''],
-        password:['']
+        password:[''],
+        rol:[],
    })
 
+   this.empresas = this.store.select(getAllEmpresas);
+   this.empresas.subscribe( data =>{
+       this.listTipoEmpresa = data.map((val:Empresa)=>{
+        return {
+          id:val.emprId,
+          value: `${val.emprNombre}`
+        }
+      })
+   });
+
+    this.roles = this.store.select(getAllRoles);
+    this.roles.subscribe( data =>{
+      this.listTipoRol = data.map((val:Rol)=>{
+         return {
+             id:val.rolId,
+             value: `${val.rolNombre}`
+         }
+       })
+     });
   }
 
   onSavePersona(){
@@ -80,11 +112,20 @@ export class PersonaCreateComponent implements OnInit {
       tidoId:+this.form.get('tipo_documento').value.id,
       tipeId: +this.form.get('tipo_persona').value.id,
       sexId:+this.form.get('sexo').value.id,
-      persNumDocumento: `${this.form.get('numero_documento').value}`
+      persNumDocumento: `${this.form.get('numero_documento').value}`,
+      personaRol:
+         this.form.get('rol').value != null ? this.form.get('rol').value.map((val:Rol)=>{
+            return {
+                persId:`${this.form.get('usuario').value}`,
+                rolId:val['id'],
+                peroEstado:true,
+                peroRegistradopor:"string",
+                peroFechaCreacion:`${new Date().toLocaleString()}`
+            }
+        }):[]
     }
 
     this.store.dispatch(new AddPersona(payload));
-
   }
 
 }

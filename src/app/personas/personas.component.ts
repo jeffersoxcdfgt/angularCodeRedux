@@ -4,7 +4,13 @@ import { Router } from '@angular/router';
 import { AppState } from '../app.state';
 import { GetAllPersonas } from './store/actions/personas.actions';
 import { getAllPersonasError , isCreated , getCreateError , isUpdated , getUpdateError , getDeleteError} from './store/reducers/personas.reducers';
+import { GetAllRoles } from '../roles/store/actions/roles.actions';
+import { getAllRolesError } from '../roles/store/reducers/roles.reducers';
+
+import { GetAllEmpresas } from '../empresas/store/actions/empresas.actions';
+import { getAllEmpresasError } from '../empresas/store/reducers/empresas.reducers';
 import swal from 'sweetalert2';
+
 
 
 @Component({
@@ -18,6 +24,16 @@ export class PersonasComponent implements OnInit {
   }
 
   ngOnInit() {
+
+
+    // subscriptions when success or error action
+    this.store.dispatch(new GetAllEmpresas());
+    this.store.select(getAllEmpresasError).subscribe((error) => this.loadingError(error));
+
+    //Roles
+    this.store.dispatch(new GetAllRoles());
+    this.store.select(getAllRolesError).subscribe((error) => this.loadingError(error));
+
     // subscriptions when success or error action
     this.store.dispatch(new GetAllPersonas());
     this.store.select(getAllPersonasError).subscribe((error) => this.loadingError(error));

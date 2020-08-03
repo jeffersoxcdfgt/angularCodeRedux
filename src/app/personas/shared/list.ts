@@ -26,3 +26,13 @@ export const listEstadoCivil: DataList[] = [
 { id: 3 , value:'Divorciado(a)'},
 { id: 4 , value:'Viudo(a)'}
 ];
+
+export const listTipoRol: DataList[] = [
+{ id: 1, value: 'xxx'},
+{ id: 2 , value:'yyy'}
+];
+
+export const listTipoEmpresa: DataList[] = [
+{ id: 1, value: 'emp 1'},
+{ id: 2 , value:'emp 2'}
+];

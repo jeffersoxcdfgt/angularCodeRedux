@@ -23,9 +23,19 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { AppInMemoryApi } from '../app.in-memory.api';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
+import { RolEffects } from '../roles/store/effects/roles.effects';
+import  * as rolesReducers from '../roles/store/reducers/roles.reducers';
+import { RolesService } from '../roles/store/services/roles.service';
+
+import { EmpresaEffects } from '../empresas/store/effects/empresas.effects';
+import  * as empresasReducers from '../empresas/store/reducers/empresas.reducers';
+import { EmpresasService } from '../empresas/store/services/empresas.service';
+
 
 export const reducers: ActionReducerMap<any> = {
-  personas:personasReducers.reducer
+  personas:personasReducers.reducer,
+  roles:rolesReducers.reducer,
+  empresas:empresasReducers.reducer
 }
 
 @NgModule({
@@ -39,7 +49,7 @@ export const reducers: ActionReducerMap<any> = {
        strictActionImmutability: true
      }
     }),
-    EffectsModule.forRoot([PersonaEffects]),
+    EffectsModule.forRoot([PersonaEffects,RolEffects,EmpresaEffects]),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgSelectModule,
@@ -62,7 +72,9 @@ export const reducers: ActionReducerMap<any> = {
   ],
   providers:[
     TraceService,
-    PersonasService
+    PersonasService,
+    RolesService,
+    EmpresasService
   ]
 })
 export class PersonasModule {

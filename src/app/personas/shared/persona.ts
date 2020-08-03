@@ -27,4 +27,5 @@ export class Persona {
   persFechaCreacion?: string;
   persActivo?: boolean;
   clclId?:number;
+  personaRol?:[]
 }
