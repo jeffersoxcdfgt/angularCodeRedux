@@ -15,6 +15,7 @@ import { getAllRoles } from '../../roles/store/reducers/roles.reducers';
 import { Empresa } from '../../empresas/shared/empresa';
 import  * as  empresasActions from '../../empresas/store/actions/empresas.actions';
 import { getAllEmpresas } from '../../empresas/store/reducers/empresas.reducers';
+import { ValidationPersonService } from '../../shared/validations/validationPerson.service';
 
 
 @Component({
@@ -39,7 +40,11 @@ export class PersonaCreateComponent implements OnInit {
   constructor(
     private router:Router ,
     private store: Store<AppState>,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    public validationService:ValidationPersonService
+
+  ) {
+      this.validationService.initValidation();
       this.listTipoDocumento = listTipoDocumento;
       this.listTipoPersona = listTipoPersona
       this.listTipoSexo = listTipoSexo
@@ -50,20 +55,20 @@ export class PersonaCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-        tipo_documento:[{ id: 1, value: 'CC'}],
+        tipo_documento:[''],
         numero_documento:[''],
         nombres:[''],
         apellidos:[''],
         email:[''],
-        tipo_persona:[{ id: 2, value: 'Natural'}],
-        sexo:[{ id: 1, value: 'Hombre'}],
-        estado_civil:[{ id: 1, value: 'Soltero(a)'}],
+        tipo_persona:[''],
+        sexo:[''],
+        estado_civil:[''],
         fecha_nacimiento:[''],
         direccion:[''],
         telefono:[''],
         celular:[''],
         usuario:[''],
-        empresa:[''],
+        empresa:[],
         password:[''],
         rol:[],
    })
@@ -89,10 +94,28 @@ export class PersonaCreateComponent implements OnInit {
      });
   }
 
-  onSavePersona(){
-    let d = new Date();
 
-    const payload:Persona = {
+  changeState(val,validateType:string){
+    if(val == undefined){
+      val = " "
+    }
+    val =  val.value
+
+    if(validateType=='tipodocumento')
+        this.validationService.inputTipoDocumento(val)
+    else if(validateType=='tipopersonas')
+        this.validationService.inputTipoPersonas(val)
+    else if(validateType=='tiposexo')
+        this.validationService.inputSexo(val)
+    else if(validateType=='tipoestadocivil')
+        this.validationService.inputEstadoCivil(val)
+  }
+
+  onSavePersona(){
+
+    if(this.validationService.ifGood()){
+      let d = new Date();
+      const payload:Persona = {
       persId: `${this.form.get('usuario').value}`,
       esciId: this.form.get('estado_civil').value.id,
       persIscontribuyente: true,
@@ -124,8 +147,9 @@ export class PersonaCreateComponent implements OnInit {
             }
         }):[]
     }
+      this.store.dispatch(new AddPersona(payload));
+    }
 
-    this.store.dispatch(new AddPersona(payload));
   }
 
 }

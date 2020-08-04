@@ -7,9 +7,17 @@ import { GetPersona , UpdatePersona } from '../store/actions/personas.actions';
 import { getPersona } from '../store/reducers/personas.reducers';
 import { Persona } from '../shared/persona';
 import * as  fromValidation from '../../shared/validation';
-import { DataList, listTipoDocumento, listTipoPersona , listTipoSexo , listEstadoCivil } from '../shared/list';
+import { DataList, listTipoDocumento, listTipoPersona , listTipoSexo , listEstadoCivil , listTipoRol , listTipoEmpresa } from '../shared/list';
 import { Observable , of , from , Subject , BehaviorSubject , iif ,combineLatest , NEVER ,interval   } from 'rxjs';
 import { tap , map} from 'rxjs/operators';
+
+import { Rol } from '../../roles/shared/rol';
+import  * as  rolesActions from '../../roles/store/actions/roles.actions';
+import { getAllRoles } from '../../roles/store/reducers/roles.reducers';
+import { Empresa } from '../../empresas/shared/empresa';
+import  * as  empresasActions from '../../empresas/store/actions/empresas.actions';
+import { getAllEmpresas } from '../../empresas/store/reducers/empresas.reducers';
+
 const FIRSTELEMENT =0
 
 @Component({
@@ -21,12 +29,16 @@ export class PersonaEditComponent implements OnInit {
 
   form: FormGroup;
   persona:Persona = new Persona();
+  roles : Observable<Rol[]>;
+  empresas : Observable<Empresa[]>;
   id:number=0;
 
   listTipoDocumento:DataList[];
   listTipoPersona:DataList[];
   listTipoSexo:DataList[];
   listTipoEstadoCivil:DataList[];
+  listTipoRol:DataList[];
+  listTipoEmpresa:DataList[];
   persId:string;
 
   constructor(
@@ -37,6 +49,8 @@ export class PersonaEditComponent implements OnInit {
       this.listTipoPersona = listTipoPersona
       this.listTipoSexo = listTipoSexo
       this.listTipoEstadoCivil = listEstadoCivil
+      this.listTipoRol= listTipoRol
+      this.listTipoEmpresa = listTipoEmpresa
     }
 
   ngOnInit(): void {
@@ -55,8 +69,29 @@ export class PersonaEditComponent implements OnInit {
         celular:[''],
         usuario:[''],
         empresa:[''],
-        password:['']
+        password:[''],
+        rol:[]
    })
+
+   this.empresas = this.store.select(getAllEmpresas);
+   this.empresas.subscribe( data =>{
+       this.listTipoEmpresa = data.map((val:Empresa)=>{
+        return {
+          id:val.emprId,
+          value: `${val.emprNombre}`
+        }
+      })
+   });
+
+    this.roles = this.store.select(getAllRoles);
+    this.roles.subscribe( data =>{
+      this.listTipoRol = data.map((val:Rol)=>{
+         return {
+             id:val.rolId,
+             value: `${val.rolNombre}`
+         }
+       })
+    });
 
    this.route.params.subscribe( params =>{
        this.store.dispatch(new GetPersona(+params['id']))
@@ -64,11 +99,8 @@ export class PersonaEditComponent implements OnInit {
 
    this.store.select(getPersona).subscribe((persona:Persona) => {
        if(persona != null){
-         console.log(persona)
          persona =persona[FIRSTELEMENT]
-         console.log(persona)
          this.persId = persona.persId;
-
 
          let resCivil =  this.listTipoEstadoCivil.find((val) => val.id== persona.esciId )
          this.form.get('estado_civil').setValue(resCivil)
@@ -104,10 +136,11 @@ export class PersonaEditComponent implements OnInit {
   }
 
   onSavePersona(){
+
     let d = new Date();
     const payload:Persona={
       persId:`${this.persId}`,
-      esciId:+this.form.get('estado_civil').value,
+      esciId:+this.form.get('estado_civil').value.id,
       persIscontribuyente: true,
       persNombre: `${this.form.get('nombres').value}`,
       persApellido:  `${this.form.get('apellidos').value}`,
@@ -125,7 +158,17 @@ export class PersonaEditComponent implements OnInit {
       tidoId:+this.form.get('tipo_documento').value.id,
       tipeId:+this.form.get('tipo_persona').value.id,
       sexId: +this.form.get('sexo').value.id,
-      persNumDocumento: `${this.form.get('numero_documento').value}`
+      persNumDocumento: `${this.form.get('numero_documento').value}`,
+      personaRol:
+         this.form.get('rol').value != null ? this.form.get('rol').value.map((val:Rol)=>{
+            return {
+                persId:`${this.form.get('usuario').value}`,
+                rolId:val['id'],
+                peroEstado:true,
+                peroRegistradopor:"string",
+                peroFechaCreacion:`${new Date().toLocaleString()}`
+            }
+        }):[]
     }
 
     this.store.dispatch(new UpdatePersona(payload));
