@@ -9,6 +9,7 @@ import { DataList } from '../shared/list';
 import * as  fromValidation from '../../shared/validation';
 import { Observable , of , from , Subject , BehaviorSubject , iif ,combineLatest , NEVER ,interval   } from 'rxjs';
 import { tap , map} from 'rxjs/operators';
+import { ValidationRolService } from '../../shared/validations/validationRol.service';
 
 
 @Component({
@@ -24,9 +25,11 @@ export class RolCreateComponent implements OnInit {
   constructor(
     private router:Router ,
     private store: Store<AppState>,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    public validationService:ValidationRolService) { }
 
   ngOnInit(): void {
+    this.validationService.initValidation();
     this.form = this.formBuilder.group({
         rol_name:[''],
         rol_desc:['']
@@ -34,17 +37,18 @@ export class RolCreateComponent implements OnInit {
   }
 
   onSaveRol(){
+    if(this.validationService.ifGood()){
+        let d = new Date();
+        const payload:Rol = {
+          rolNombre:`${this.form.get('rol_name').value}`,
+          rolDescripcion:`${this.form.get('rol_desc').value}`,
+          rolEstado: true,
+          rolRegistradopor: "front",
+          rolFechaCreacion: `${d.toLocaleString()}`
+        }
 
-    let d = new Date();
-    const payload:Rol = {
-      rolNombre:`${this.form.get('rol_name').value}`,
-      rolDescripcion:`${this.form.get('rol_desc').value}`,
-      rolEstado: true,
-      rolRegistradopor: "front",
-      rolFechaCreacion: `${d.toLocaleString()}`
+        this.store.dispatch(new AddRol(payload));
     }
-
-    this.store.dispatch(new AddRol(payload));
   }
 
 }

@@ -16,7 +16,7 @@ import { Empresa } from '../../empresas/shared/empresa';
 import  * as  empresasActions from '../../empresas/store/actions/empresas.actions';
 import { getAllEmpresas } from '../../empresas/store/reducers/empresas.reducers';
 import { ValidationPersonService } from '../../shared/validations/validationPerson.service';
-
+const FIRST=0
 
 @Component({
   selector: 'app-persona-create',
@@ -109,6 +109,17 @@ export class PersonaCreateComponent implements OnInit {
         this.validationService.inputSexo(val)
     else if(validateType=='tipoestadocivil')
         this.validationService.inputEstadoCivil(val)
+    else if(validateType=='tipoempresa')
+        this.validationService.inputEmpresa(val)
+    else if(validateType=='tiporol'){
+        if(this.form.get('rol').value.length ==0){
+            this.validationService.inputRol(' ');
+        }
+        else{
+            let data = this.form.get('rol').value[FIRST].value
+            this.validationService.inputRol(data);
+        }
+    }
   }
 
   onSavePersona(){
@@ -137,7 +148,7 @@ export class PersonaCreateComponent implements OnInit {
       sexId:+this.form.get('sexo').value.id,
       persNumDocumento: `${this.form.get('numero_documento').value}`,
       personaRol:
-         this.form.get('rol').value != null ? this.form.get('rol').value.map((val:Rol)=>{
+          this.form.get('rol').value != null ? this.form.get('rol').value.map((val:Rol)=>{
             return {
                 persId:`${this.form.get('usuario').value}`,
                 rolId:val['id'],

@@ -292,18 +292,32 @@
                       </div>
 
                       <div class="row">
-                        <div class="form-group form-group-label col-sm-3">
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                             'has-error' : !(validationService.obsPassword | async)
+                          }">
                           <label class="control-label">Password <span class="required-mark">*</span></label>
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" data-column="usuario" style="width:100%;max-width:100%">
-                            <input class="form-control"  formControlName="password" id="password" name="password" maxlength="50" type="password" value="">
+                            <input
+                            class="form-control"
+                            formControlName="password"
+                            id="password"
+                            (input)="validationService.inputPassword( $event.target.value )"
+                            name="password"
+                            maxlength="50"
+                            type="password"
+                            value="">
+                            <span *ngIf="!(validationService.obsPassword | async)" class="help-block" style="color:#E74C3C" >El password ,no puede ser vacio.</span>
                           </div>
                         </div>
                       </div>
-
                       <div class="row">
-                        <div class="form-group form-group-label col-sm-3">
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                          'has-error' : !(validationService.obsEmpresa | async)
+                          }">
                           <label class="control-label">Empresa <span class="required-mark">*</span></label>
                         </div>
                         <div class="form-group col-sm-9">
@@ -314,13 +328,18 @@
                             [closeOnSelect]="true"
                             bindLabel="value"
                             formControlName="empresa"
+                            (change)="changeState( $event ,'tipoempresa')"
                             placeholder="Asignar empresa">
-                        </ng-select>
+                           </ng-select>
+                           <span *ngIf="!(validationService.obsEmpresa | async)" class="help-block" style="color:#E74C3C" >La empresa ,no puede ser vacia.</span>
                           </div>
                         </div>
                       </div>
                       <div class="row">
-                        <div class="form-group form-group-label col-sm-3">
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                          'has-error' : !(validationService.obsRol | async)
+                          }">
                           <label class="control-label">Rol <span class="required-mark">*</span></label>
                         </div>
                         <div class="form-group col-sm-9">
@@ -331,8 +350,10 @@
                               [closeOnSelect]="true"
                               bindLabel="value"
                               formControlName="rol"
+                              (change)="changeState( $event ,'tiporol')"
                               placeholder="Asignar Rol">
                           </ng-select>
+                          <span *ngIf="!(validationService.obsRol | async)" class="help-block" style="color:#E74C3C" >El Rol ,no puede ser vacio.</span>
                           </div>
                         </div>
                       </div>
@@ -340,7 +361,7 @@
                   </div>
                   <div class="row">
                     <div class="col-sm-9 col-sm-offset-3">
-                      <span class="required-mark">*</span> - Required field
+                      <span class="required-mark">*</span> - Campo requerido
                     </div>
                   </div><input name="flash_messages" type="hidden" value="1">
                   <div class="row">

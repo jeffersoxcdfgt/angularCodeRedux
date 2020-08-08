@@ -65,7 +65,7 @@ export function reducer (state = initialState , action :AppAction){
        case zonaActions.CREATE_ZONA_SUCCESS:{
          const newZona = {
            ...state.selected,
-           zonaId: action.payload[0].zonaId
+           zonaId: action.payload.zonaId
          }
          const data = [
            ...state.data,

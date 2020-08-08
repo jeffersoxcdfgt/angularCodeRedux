@@ -5,6 +5,11 @@ import { AppState } from '../app.state';
 import { GetAllZonas } from './store/actions/zonas.actions';
 import { getAllZonasError , isCreated , getCreateError , isUpdated , getUpdateError , getDeleteError} from './store/reducers/zonas.reducers';
 import swal from 'sweetalert2';
+import { GetAllDepartamentos } from '../departamentos/store/actions/departamentos.actions';
+import { getDepartamentosError  } from '../departamentos/store/reducers/departamentos.reducers';
+
+import { GetAllMunicipios } from '../municipios/store/actions/municipios.actions';
+import { getMunicipiosError  } from '../municipios/store/reducers/municipios.reducers';
 
 
 @Component({
@@ -18,6 +23,16 @@ export class ZonaComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    // subscriptions when success or error action
+    this.store.dispatch(new GetAllMunicipios());
+    this.store.select(getMunicipiosError).subscribe((error) => this.loadingError(error));
+
+    // subscriptions when success or error action
+    this.store.dispatch(new GetAllDepartamentos());
+    this.store.select(getDepartamentosError).subscribe((error) => this.loadingError(error));
+
+
     // subscriptions when success or error action
     this.store.dispatch(new GetAllZonas());
     this.store.select(getAllZonasError).subscribe((error) => this.loadingError(error));

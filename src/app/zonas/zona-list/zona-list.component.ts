@@ -8,6 +8,7 @@ import { getAllZonas } from '../store/reducers/zonas.reducers';
 import {NgxPaginationModule} from 'ngx-pagination';
 import swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-zona-list',
   templateUrl: './zona-list.component.html',
@@ -26,6 +27,8 @@ export class ZonaListComponent implements OnInit {
     /**this.zonas.subscribe( data =>{
           console.log(data)
     });*/
+
+
 
   }
   /**

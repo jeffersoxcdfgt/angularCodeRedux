@@ -42,6 +42,15 @@ export class ValidationPersonService {
   subUsuario:BehaviorSubject<string>
   obsUsuario:any
 
+  subPassword:BehaviorSubject<string>
+  obsPassword:any
+
+  subEmpresa:BehaviorSubject<string>
+  obsEmpresa:any
+
+  subRol:BehaviorSubject<string>
+  obsRol:any
+
   click$:boolean;
 
   constructor(){ }
@@ -83,6 +92,15 @@ export class ValidationPersonService {
 
     this.subUsuario = new BehaviorSubject<string>('')
     this.obsUsuario  = of(true)
+
+    this.subPassword = new BehaviorSubject<string>('')
+    this.obsPassword  = of(true)
+
+    this.subEmpresa =  new BehaviorSubject<string>('')
+    this.obsEmpresa = of(true)
+
+    this.subRol =  new BehaviorSubject<string>('')
+    this.obsRol = of(true)
   }
 
   inputTipoDocumento(str:string):void{
@@ -169,6 +187,28 @@ export class ValidationPersonService {
                     ifEmpty)
   }
 
+  inputPassword(str:string):void{
+      this.subPassword.next(str)
+        this.obsPassword = this.subPassword.pipe(
+                cleanBlank,
+                    ifEmpty)
+  }
+
+  inputEmpresa(str:string):void{
+      this.subEmpresa.next(str)
+        this.obsEmpresa = this.subEmpresa.pipe(
+                cleanBlank,
+                    ifEmpty)
+  }
+
+  inputRol(value ):void{
+      this.subRol.next(value)
+        this.obsRol = this.subRol.pipe(
+                cleanBlank,
+                    ifEmpty)
+  }
+
+
   ifGood():boolean{
       this.click$ = false
       this.obsTipoDocumento = this.subTipoDocumento.pipe(cleanBlank,ifEmpty)
@@ -183,6 +223,9 @@ export class ValidationPersonService {
       this.obsTelefono = this.subTelefono.pipe(cleanBlank,ifEmpty)
       this.obsCelular = this.subCelular.pipe(cleanBlank,ifEmpty)
       this.obsUsuario = this.subUsuario.pipe(cleanBlank,ifEmpty)
+      this.obsPassword = this.subPassword.pipe(cleanBlank,ifEmpty)
+      this.obsEmpresa =  this.subEmpresa.pipe(cleanBlank,ifEmpty)
+      this.obsRol =  this.subRol.pipe(cleanBlank,ifEmpty)
 
       combineLatest(
         this.obsTipoDocumento.pipe(validObs),
@@ -196,7 +239,10 @@ export class ValidationPersonService {
         this.obsDireccion.pipe(validObs),
         this.obsTelefono.pipe(validObs),
         this.obsCelular.pipe(validObs),
-        this.obsUsuario.pipe(validObs)
+        this.obsUsuario.pipe(validObs),
+        this.obsPassword.pipe(validObs),
+        this.obsEmpresa.pipe(validObs),
+        this.obsRol.pipe(validObs)
       ).subscribe(() => this.click$ =  true )
 
       if(this.click$){
