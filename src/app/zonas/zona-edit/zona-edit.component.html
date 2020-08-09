@@ -24,64 +24,92 @@
                   <div class="row">
                     <fieldset class="col-md-12 form-horizontal">
                       <div class="row">
-                        <div class="form-group form-group-label col-sm-3">
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                          'has-error' : !(validationService.obsNombreZona | async)
+                          }">
                           <label class="control-label" data-column="name" for="Form5ef0f00ceb5ac_name_edit">Nombre Zona <span class="required-mark">*</span></label>
-                          <div class="pgui-field-options btn-group btn-group-xs btn-group-justified" data-toggle="buttons">
-                            <label class="control-label" data-column="name" for="Form5ef0f00ceb5ac_name_edit"></label>
-                          </div>
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" data-column="name" style="width:100%;max-width:100%">
-                            <input class="form-control" formControlName="nombre_zona" data-editor="text" data-field-name="name" data-legacy-field-name="name" data-pgui-legacy-validate="true" data-required-error-message="Name is required." data-validation="required" id="Form5ef0f00ceb5ac_name_edit" maxlength="35" name="name_edit" type="text" value="">
+                            <input
+                            class="form-control"
+                            (input)="validationService.inputNombreZona( $event.target.value)"
+                            formControlName="nombre_zona"
+                            data-editor="text"
+                            data-field-name="name"
+                            data-legacy-field-name="name"
+                            data-pgui-legacy-validate="true"
+                            maxlength="35"
+                            name="name_edit"
+                            type="text"
+                            value="">
+                            <span *ngIf="!(validationService.obsNombreZona | async)" class="help-block" style="color:#E74C3C" >El nombre de la zona es obligatorio.</span>
                           </div>
                         </div>
                       </div>
                       <div class="row">
-                        <div class="form-group form-group-label col-sm-3">
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                          'has-error' : !(validationService.obsDescripcionZona | async)
+                          }">
                           <label class="control-label" data-column="countrycode" for="Form5ef0f00ceb5ac_countrycode_edit">Descripcion <span class="required-mark">*</span></label>
-                          <div class="pgui-field-options btn-group btn-group-xs btn-group-justified" data-toggle="buttons">
-                            <label class="control-label" data-column="countrycode" for="Form5ef0f00ceb5ac_countrycode_edit"></label>
-                          </div>
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" data-column="countrycode" style="width:100%;max-width:100%">
-                            <input class="form-control" formControlName="descripcion" maxlength="35" name="descripcion_edit" type="text" value="">
+                            <input
+                            class="form-control"
+                            (input)="validationService.inputDescripcionZona( $event.target.value )"
+                            formControlName="descripcion"
+                            maxlength="35"
+                            name="descripcion_edit"
+                            type="text"
+                            value="">
+                            <span *ngIf="!(validationService.obsDescripcionZona | async)" class="help-block" style="color:#E74C3C" >La descripción de la zona es obligatoria.</span>
                           </div>
                         </div>
                       </div>
                       <div class="row">
-                        <div class="form-group form-group-label col-sm-3">
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                          'has-error' : !(validationService.obsDepartamentoZona | async)
+                          }">
                           <label class="control-label" data-column="district" for="Form5ef0f00ceb5ac_district_edit">Departamento <span class="required-mark">*</span></label>
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" data-column="district" style="width:100%;max-width:100%">
-                            <!--<input class="form-control" formControlName="departamento" data-editor="text" data-field-name="district" data-legacy-field-name="district" data-pgui-legacy-validate="true" data-required-error-message="District is required." data-validation="required" id="Form5ef0f00ceb5ac_district_edit" maxlength="20" name="district_edit" type="text" value="">-->
                             <ng-select
                               [items]="listCreateDpto"
                               [multiple]="false"
                               [closeOnSelect]="true"
                               bindLabel="depDescripcion"
                               formControlName="departamento"
+                              (change)="selectDepartamentos($event)"
                               placeholder="Asignar Departamento">
                           </ng-select>
+                          <span *ngIf="!(validationService.obsDepartamentoZona | async)" class="help-block" style="color:#E74C3C" >El departamento de la zona es obligatorio.</span>
                           </div>
                         </div>
                       </div>
                       <div class="row">
-                        <div class="form-group form-group-label col-sm-3">
-                          <label class="control-label" data-column="population" for="Form5ef0f00ceb5ac_population_edit">Municipio <span class="required-mark">*</span></label>
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                          'has-error' : !(validationService.obsMunicipioZona | async)
+                          }">
+                          <label class="control-label">Municipio <span class="required-mark">*</span></label>
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" data-column="population" style="width:100%;max-width:100%">
-                            <!--<input class="form-control" formControlName="municipio" data-editor="text" data-field-name="population" data-legacy-field-name="population" data-pgui-legacy-validate="true" data-required-error-message="Population is required." data-validation="required" id="Form5ef0f00ceb5ac_population_edit" name="population_edit" type="text" value="">-->
                             <ng-select
                               [items]="listCreateCiud"
                               [multiple]="false"
                               [closeOnSelect]="true"
                               bindLabel="cimuDescripcion"
                               formControlName="municipio"
+                              (change)="selectMunicipios($event)"
                               placeholder="Asignar Municipio">
                           </ng-select>
+                          <span *ngIf="!(validationService.obsMunicipioZona | async)" class="help-block" style="color:#E74C3C" >El municipio de la zona es obligatorio.</span>
                           </div>
                         </div>
                       </div>
@@ -89,7 +117,7 @@
                   </div>
                   <div class="row">
                     <div class="col-sm-9 col-sm-offset-3">
-                      <span class="required-mark">*</span> - Required field
+                      <span class="required-mark">*</span> - Campo requerido
                     </div>
                   </div><input name="flash_messages" type="hidden" value="1">
                   <div class="row">

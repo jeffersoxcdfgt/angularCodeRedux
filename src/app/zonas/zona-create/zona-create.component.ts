@@ -18,6 +18,7 @@ import { getAllDepartamentos } from '../../departamentos/store/reducers/departam
 import { Municipio } from '../../municipios/shared/municipio';
 import  * as  municipiosActions from '../../municipios/store/actions/municipios.actions';
 import { getAllMunicipios } from '../../municipios/store/reducers/municipios.reducers';
+import { ValidationZonasService } from '../../shared/validations/validationZonas.service';
 
 @Component({
   selector: 'app-zona-create',
@@ -38,7 +39,10 @@ export class ZonaCreateComponent implements OnInit {
   constructor(
     private router:Router ,
     private store: Store<AppState>,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    public validationService:ValidationZonasService) {
+      this.validationService.initValidation();
+
       this.departamentos = this.store.select(getAllDepartamentos);
       this.departamentos.subscribe( data =>{
           this.searchdepartamento =  data
@@ -79,9 +83,11 @@ export class ZonaCreateComponent implements OnInit {
       this.form.get('municipio').setValue([])
       this.listCreateCiud = this.auxciudad
       if(value==undefined){
+          this.validationService.inputDepartamentoZona(' ');
         return
       }
 
+      this.validationService.inputDepartamentoZona(value['depDescripcion']);
       let res = this.listCreateCiud.filter((val:DataListCiudad)=> val.depDepartamento == value.depDepartamento)
       this.listCreateCiud = res
     }
@@ -90,14 +96,19 @@ export class ZonaCreateComponent implements OnInit {
       if(value==undefined){
         this.listCreateCiud =this.auxciudad
         this.form.get('departamento').setValue(null)
+        this.validationService.inputMunicipioZona(' ');
+        this.validationService.inputDepartamentoZona(' ');
         return
       }
 
+      this.validationService.inputMunicipioZona(value['cimuDescripcion']);
       if(this.form.get('departamento').value){
         return
       }
 
       let res =  this.searchdepartamento.find((val:Departamento) => val.depDepartamento == value.depDepartamento)
+      this.validationService.inputDepartamentoZona(res['depDescripcion']);
+
       this.form.get('departamento').setValue(
         {
           depDepartamento:+res['depDepartamento'],
@@ -109,24 +120,21 @@ export class ZonaCreateComponent implements OnInit {
     }
 
     onSaveZona():void {
-      let d = new Date();
+      if(this.validationService.ifGood()){
+          let d = new Date();
+          const payloadZona:ZonaCreate ={
+            zonaNombre: `${this.form.get('zona_name').value}`,
+            zonaDescripcion: `${this.form.get('descripcion').value}`,
+            zonaRegistradopor: "front",
+            zonaFechaCreacion: `${d.toLocaleString()}`,
+            cimuId: +this.form.get('municipio').value['cimuId'],
+            zonaActivo: true,
+            depDescripcion:`${this.form.get('departamento').value['depDescripcion']}`,
+            cimuDescripcion:`${this.form.get('municipio').value['cimuDescripcion']}`
+          }
 
-      console.log(this.form.get('departamento').value['depDescripcion'])
-      console.log(this.form.get('municipio').value['cimuId'])
-
-      const payloadZona:ZonaCreate ={
-        zonaNombre: `${this.form.get('zona_name').value}`,
-        zonaDescripcion: `${this.form.get('descripcion').value}`,
-        zonaRegistradopor: "front",
-        zonaFechaCreacion: `${d.toLocaleString()}`,
-        cimuId: +this.form.get('municipio').value['cimuId'],
-        zonaActivo: true,
-        depDescripcion:`${this.form.get('departamento').value['depDescripcion']}`,
-        cimuDescripcion:`${this.form.get('municipio').value['cimuDescripcion']}`
-      }
-
-      this.store.dispatch(new AddZona(payloadZona));
-
+          this.store.dispatch(new AddZona(payloadZona));
+       }
     }
 
 }
