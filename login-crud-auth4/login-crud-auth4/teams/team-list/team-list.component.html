@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-sm-6">
+    <h2>{{title}}</h2>
+  </div>
+  <div class="col-sm-6 align-bottom">
+    <button class="btn btn-primary pull-right" routerLink="/teams/create">Create new team</button>
+  </div>
+</div>
+<table class="table table-striped" style="text-align: left">
+  <thead>
+  <tr>
+    <th></th>
+    <th>Preview</th>
+    <th>Name</th>
+    <th>Cities</th>
+    <th>Released</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let team of teams | async">
+    <td>
+      <div class="btn-group">
+        <button routerLink="/teams/detail/{{team.id}}" class="btn btn-secondary btn-sm">
+          <i class="fa fa-search"></i>
+        </button>
+        <button routerLink="/teams/edit/{{team.id}}" class="btn btn-info btn-sm">
+          <i class="fa fa-pencil-square-o"></i>
+        </button>
+        <button (click)="delete(team.id)" class="btn btn-danger btn-sm">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+    </td>
+    <td><img *ngIf="team.image" src="assets/images/{{team.image}}" alt="{{team.name}}" width="80px" height="80px"/></td>
+    <td>{{team.name}}</td>
+    <td>{{team.cities | extractNames : (cities|async)}}</td>
+    <td>{{team.releaseDate}}</td>
+  </tr>
+  </tbody>
+</table>
