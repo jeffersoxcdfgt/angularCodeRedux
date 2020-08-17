@@ -63,7 +63,6 @@ export function reducer (state = initialState , action :AppAction){
            }
        }
        case sectorActions.CREATE_SECTOR_SUCCESS:{
-         debugger;
          const newSector = {
            ...state.selected,
            sectId: action.payload

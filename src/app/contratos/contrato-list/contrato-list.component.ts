@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
-import { Contrato } from '../shared/contrato';
+import { Contrato , ContratoRender } from '../shared/contrato';
 import { Observable , from } from 'rxjs';
 import  * as  contratosActions from '../store/actions/contratos.actions';
 import { getAllContratos } from '../store/reducers/contratos.reducers';
 import {NgxPaginationModule} from 'ngx-pagination';
 import swal from 'sweetalert2';
+import { GetAllContratos } from '../store/actions/contratos.actions';
 
 @Component({
   selector: 'app-contrato-list',
@@ -15,15 +16,17 @@ import swal from 'sweetalert2';
 })
 export class ContratoListComponent implements OnInit {
   contratos : Observable<Contrato[]>;
+  listContratos : Contrato[];
   p: number = 1;
   order:any;
 
   constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
+    this.store.dispatch(new GetAllContratos())
     this.contratos = this.store.select(getAllContratos);
     this.contratos.subscribe( data =>{
-          console.log(data)
+       this.listContratos = data
     });
   }
 

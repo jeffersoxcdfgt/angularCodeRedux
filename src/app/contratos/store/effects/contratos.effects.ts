@@ -23,7 +23,8 @@ DeleteContratoError
 }
 from '../actions/contratos.actions';
 import { ContratosService } from '../services/contratos.service';
-import { Contrato } from '../../shared/contrato';
+import { Contrato  } from '../../shared/contrato';
+import { MapAllRegister  } from '../../shared/map';
 
 
 @Injectable()
@@ -35,7 +36,7 @@ export class ContratoEffects {
         ofType<GetAllContratos>(contratoActions.GET_CONTRATOS),
           mergeMap((action:GetAllContratos) =>
             this.svc.findAll().pipe(
-                map((contratos: Contrato[]) => new GetAllContratosSuccess(contratos)),
+                map((contratos: Contrato[]) => new GetAllContratosSuccess(MapAllRegister(contratos))),
                   catchError(err => of(new GetAllContratosError(err)))
             )
         )

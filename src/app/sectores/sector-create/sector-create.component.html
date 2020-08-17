@@ -24,11 +24,11 @@
                   <div class="row">
                     <fieldset class="col-md-12 form-horizontal">
                       <div class="row">
-                        <div class="form-group form-group-label col-sm-3">
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                          'has-error' : !(validationService.obsNombreZona | async)
+                          }">
                           <label class="control-label" data-column="name" for="Form5ef0f00ceb5ac_name_edit">Zona <span class="required-mark">*</span></label>
-                          <div class="pgui-field-options btn-group btn-group-xs btn-group-justified" data-toggle="buttons">
-                            <label class="control-label" data-column="name" for="Form5ef0f00ceb5ac_name_edit"></label>
-                          </div>
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" data-column="name" style="width:100%;max-width:100%">
@@ -38,48 +38,96 @@
                               [closeOnSelect]="true"
                               bindLabel="value"
                               formControlName="zona"
+                              (change)="selectSector($event)"
                               placeholder="Asignar zona">
                             </ng-select>
+                            <span *ngIf="!(validationService.obsNombreZona | async)" class="help-block" style="color:#E74C3C" >El nombre de la zona es obligatoria.</span>
                           </div>
                         </div>
                       </div>
                       <div class="row">
-                        <div class="form-group form-group-label col-sm-3">
-                          <label class="control-label" data-column="countrycode" for="Form5ef0f00ceb5ac_countrycode_edit">Abreviatura Sector <span class="required-mark">*</span></label>
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                          'has-error' : !(validationService.obsSectorAbr | async)
+                          }">
+                          <label class="control-label" data-column="countrycode" for="">Abreviatura Sector <span class="required-mark">*</span></label>
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" data-column="countrycode" style="width:100%;max-width:100%">
-                            <input class="form-control" formControlName="abrsector" id="abr_sector" maxlength="35" name="abr_sector" type="text" value="">
+                            <input
+                             class="form-control"
+                             (input)="validationService.inputAbrSector( $event.target.value )"
+                             formControlName="abrsector"
+                             id="abr_sector"
+                             maxlength="35"
+                             name="abr_sector"
+                             type="text"
+                             value="">
                           </div>
+                          <span *ngIf="!(validationService.obsSectorAbr | async)" class="help-block" style="color:#E74C3C" >La Abreviatura del sector es obligatoria.</span>
                         </div>
                       </div>
                       <div class="row">
-                        <div class="form-group form-group-label col-sm-3">
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                          'has-error' : !(validationService.obsNombreSector | async)
+                          }">
                           <label class="control-label" data-column="district" for="Form5ef0f00ceb5ac_district_edit">Nombre Sector <span class="required-mark">*</span></label>
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" data-column="district" style="width:100%;max-width:100%">
-                            <input class="form-control"  formControlName="sector_name"  id="sector_name" maxlength="20" name="sector_name" type="text" value="">
+                            <input
+                             class="form-control"
+                             (input)="validationService.inputNombreSector( $event.target.value )"
+                             formControlName="sector_name"
+                             id="sector_name"
+                             maxlength="20"
+                             name="sector_name"
+                             type="text"
+                             value="">
+                             <span *ngIf="!(validationService.obsNombreSector | async)" class="help-block" style="color:#E74C3C" >El nombre del sector es obligatorio.</span>
                           </div>
                         </div>
                       </div>
                       <div class="row">
-                        <div class="form-group form-group-label col-sm-3">
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                          'has-error' : !(validationService.obsRecargo | async)
+                          }">
                           <label class="control-label" data-column="population" for="Form5ef0f00ceb5ac_population_edit">Recargo <span class="required-mark">*</span></label>
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" data-column="population" style="width:100%;max-width:100%">
-                            <input class="form-control" formControlName="recargo"  id="recargo1" name="recargo1" type="text" value="">
+                            <input
+                            class="form-control"
+                            (input)="validationService.inputRecargo( $event.target.value )"
+                            formControlName="recargo"
+                            id="recargo1"
+                            name="recargo1"
+                            type="text"
+                            value="">
+                            <span *ngIf="!(validationService.obsRecargo | async)" class="help-block" style="color:#E74C3C" >El recargo es obligatorio.</span>
                           </div>
                         </div>
                       </div>
                       <div class="row">
-                        <div class="form-group form-group-label col-sm-3">
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                          'has-error' : !(validationService.obsDescripcionSector | async)
+                          }">
                           <label class="control-label" data-column="descripcion" for="">Descripción <span class="required-mark">*</span></label>
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" data-column="population" style="width:100%;max-width:100%">
-                            <input class="form-control" formControlName="descripcion"  id="recargo" name="descripcion" type="text" value="">
+                            <input
+                            class="form-control"
+                            (input)="validationService.inputDescripcionSector( $event.target.value )"
+                            formControlName="descripcion"
+                            id="recargo"
+                            name="descripcion"
+                            type="text"
+                            value="">
+                            <span *ngIf="!(validationService.obsDescripcionSector | async)" class="help-block" style="color:#E74C3C" >La descripción del sector es obligatoria.</span>
                           </div>
                         </div>
                       </div>

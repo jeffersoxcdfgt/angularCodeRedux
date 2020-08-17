@@ -219,7 +219,7 @@ export class ContratoCreateComponent implements OnInit {
 
       this.form.get('direccion').setValue(res.persDireccion)
       this.form.get('email').setValue(res.persEmail)
-      this.form.get('telefonos').setValue(`${res.persCelular} - ${res.persTelefono}`)
+      this.form.get('telefonos').setValue(`${res.persCelular}`)
   }
 
   selectZonas(value){

@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { AppState } from '../app.state';
 import { GetAllContratos } from './store/actions/contratos.actions';
+import  * as reducersContratos from './store/reducers/contratos.reducers';
 import { getAllContratosError , isCreated , getCreateError , isUpdated , getUpdateError , getDeleteError} from './store/reducers/contratos.reducers';
 import { GetAllPersonas } from '../personas/store/actions/personas.actions';
 import  * as reducersPersonas from '../personas/store/reducers/personas.reducers';
@@ -25,6 +26,10 @@ export class ContratosComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    //contratos
+    //this.store.dispatch(new GetAllContratos())
+    //this.store.select(reducersContratos.getAllContratosError).subscribe((error) => this.loadingError(error));
 
     //Personas
     this.store.dispatch(new GetAllPersonas());

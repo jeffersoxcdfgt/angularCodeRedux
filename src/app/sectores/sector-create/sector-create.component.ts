@@ -14,6 +14,7 @@ import { isCreated } from '../store/reducers/sectores.reducers';
 import { Zona } from '../../zonas/shared/zona';
 import  * as  zonasActions from '../../zonas/store/actions/zonas.actions';
 import { getAllZonas } from '../../zonas/store/reducers/zonas.reducers';
+import { ValidationSectoresService } from '../../shared/validations/validationSectores.service';
 
 @Component({
   selector: 'app-sector-create',
@@ -28,7 +29,9 @@ export class SectorCreateComponent implements OnInit {
   constructor(
     private router:Router ,
     private store: Store<AppState>,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    public validationService:ValidationSectoresService) {
+     this.validationService.initValidation();
 
       this.store.dispatch(new zonasActions.GetAllZonas());
       this.zonas = this.store.select(getAllZonas);
@@ -47,20 +50,30 @@ export class SectorCreateComponent implements OnInit {
    })
   }
 
-  onSaveSector(){
-     let d = new Date();
-     const payload:Sector ={
-      zonaId:+this.form.get('zona').value.id,
-      sectAbreviatura:`${this.form.get('abrsector').value}`,
-      sectNombre:`${this.form.get('sector_name').value}`,
-      sectDescripcion:`${this.form.get('descripcion').value}`,
-      sectRecargo:+this.form.get('recargo').value,
-      sectRegistradopor: "front",
-      sectFechaCreacion: `${d.toLocaleString()}`,
-      sectActivo: true
-    }
 
-    this.store.dispatch(new AddSector(payload));
+  selectSector(value){
+    if(value==undefined){
+        this.validationService.inputNombreZona(' ');
+      return
+    }
+    this.validationService.inputNombreZona(value['value']);
+  }
+
+  onSaveSector(){
+    if(this.validationService.ifGood()){
+        let d = new Date();
+         const payload:Sector ={
+          zonaId:+this.form.get('zona').value.id,
+          sectAbreviatura:`${this.form.get('abrsector').value}`,
+          sectNombre:`${this.form.get('sector_name').value}`,
+          sectDescripcion:`${this.form.get('descripcion').value}`,
+          sectRecargo:+this.form.get('recargo').value,
+          sectRegistradopor: "front",
+          sectFechaCreacion: `${d.toLocaleString()}`,
+          sectActivo: true
+        }
+        this.store.dispatch(new AddSector(payload));
+    }
   }
 
 }
