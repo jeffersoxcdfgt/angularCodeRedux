@@ -60,11 +60,11 @@
               <tbody class="pg-row-list">
                 <tr class="pg-row" style="" *ngFor="let cont of listContratos | paginate: { itemsPerPage: 10, currentPage: p }" >
                   <td class="operation-column">
-                    <span class="operation-item" data-column-name="view">
+                    <!--<span class="operation-item" data-column-name="view">
                       <a class="link-icon" routerLink="/contratos/detail/{{cont.numeroContrato}}" title="View">
                         <i class="icon-view"></i>
                       </a>
-                    </span>
+                    </span>-->
                     <span class="operation-item" data-column-name="edit">
                       <a class="link-icon" routerLink="/contratos/edit/{{cont.numeroContrato}}" title="Edit">
                         <i class="icon-edit"></i>

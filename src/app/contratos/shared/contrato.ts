@@ -35,3 +35,20 @@ export class ContratoRender {
    Servicios:string;
    EstadoContrato:string
 }
+
+export class ContratoUpdate{
+  contId: number;
+  clclId: number;
+  sectId: number;
+  escoId: number;
+  soseId: number;
+  persId: string;
+  contNumero: string;
+  contCuota: number;
+  contDireccion: string;
+  contTelefono: string;
+  contFechaInstalacion: string;
+  servicio: {
+     serId: number;
+  }  
+}

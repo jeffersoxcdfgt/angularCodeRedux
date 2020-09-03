@@ -2,15 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators ,FormControl ,FormArray , AbstractControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
+
 import  * as  personasActions from '../../personas/store/actions/personas.actions';
 import { getAllPersonas } from '../../personas/store/reducers/personas.reducers';
 import { Persona } from '../../personas/shared/persona';
+
 import  * as  zonasActions from '../../zonas/store/actions/zonas.actions';
 import { getAllZonas } from '../../zonas/store/reducers/zonas.reducers';
 import { Zona } from '../../zonas/shared/zona';
+
 import  * as  sectoresActions from '../../sectores/store/actions/sectores.actions';
 import { getAllSectores } from '../../sectores/store/reducers/sectores.reducers';
 import { Sector } from '../../sectores/shared/sector';
+
 import  * as  serviciosActions from '../../servicios/store/actions/servicios.actions';
 import { getAllServicios } from '../../servicios/store/reducers/servicios.reducers';
 import { Servicio } from '../../servicios/shared/servicio';
