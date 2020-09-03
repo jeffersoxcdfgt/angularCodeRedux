@@ -1,0 +1,50 @@
+#sales-invoice-content {
+
+  table.invoice-info, table.invoice-detail {
+    th, td {
+      border: 1px solid;  
+    }
+    width: 100%;  
+  }
+  
+  table.invoice-detail {
+    margin-top:20px;
+    margin-bottom: 100px;
+  }
+
+  table.invoice-header, table.invoice-detail {
+    max-width: 800px;
+    font-size: 1.2em;
+  }
+   
+}
+
+// <Exporting & Printing.User Defined Styles>
+// Styles for export to PDF
+#pdf-v_data_exporting_user_defined_styles {
+  table, th, td {
+    border: 3px solid white;
+  }
+  
+  table {
+    tr.odd td {
+      background-color: inherit;
+    }
+
+    tr {
+     
+      th {
+        background-color: silver;
+      }
+      
+      td:nth-child(5n+5) {
+        font-size: 14px;
+        color: ForestGreen;
+        font-weight: bold;
+      }       
+    }
+    
+    background-image: url(external_data/images/custom-background-image.png);
+  }  
+}
+// </Exporting & Printing.User Defined Styles>

@@ -1,0 +1,114 @@
+<div class="container-fluid">
+  <div class="row sidebar-owner">
+    <div class="sidebar-backdrop"></div>
+    <div class=" col-md-12">
+      <div class="sidebar-outer">
+        <div class="container-padding">
+          <div class="page-header">
+            <ol class="breadcrumb pgui-breadcrumb">
+              <li>
+                <a href="#"><i class="icon-home"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#">Roles</a>
+              </li>
+              <li class="dropdown">Administración roles</li>
+            </ol>
+            <h1>Listado de roles</h1>
+          </div>
+          <div class="grid grid-table js-grid">
+            <div class="addition-block js-actions">
+              <div class="btn-toolbar addition-block-left pull-left">
+                <div class="btn-group">
+                  <a class="btn btn-default pgui-add" routerLink="create" title="Agregar rol">
+                    <i class="icon-plus"></i>
+                    <span class="visible-lg-inline">Agregar</span>
+                  </a>
+                </div>
+              </div>
+              <div class="addition-block-right pull-right js-quick-filter">
+                <div class="quick-filter-toolbar btn-group">
+                  <div class="input-group js-filter-control">
+                    <input class="js-input form-control" name="quick_filter" placeholder="Busqueda rápida" size="16" type="text" value="">
+                  </div>
+                </div><span class="hidden-xs">&thinsp;</span>
+              </div>
+            </div>
+            <div class="filter-status js-filter-status"></div>
+            <div class="js-grid-message-container"></div>
+            <table class="table text-center table-striped">
+              <thead class="js-column-filter-container">
+                <tr>
+                  <th class="row-selection" rowspan="1" style="width:1%;">
+                    <!--<input type="checkbox">-->
+                  </th>
+                  <th rowspan="1" style="width:1%;">Acciones</th>
+                  <th class="" colspan="1" rowspan="1">
+                    <span>Id</span>
+                  </th>
+                  <th class="" colspan="1" rowspan="1">
+                      <span>Name Rol</span>
+                  </th>
+                  <th class="" colspan="1" rowspan="1">
+                      <span>Decripción Rol</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="pg-row-list">
+                <tr class="pg-row" style="" *ngFor="let rol of roles | async | paginate: { itemsPerPage: 10, currentPage: p }">
+                  <td style="" >
+                    <div class="row-selection">
+                      <!--<input id="rec1" name="rec1" type="checkbox">-->
+                    </div>
+                  </td>
+                  <td class="operation-column">
+                    <!--<span class="operation-item" data-column-name="view">
+                      <a class="link-icon" routerLink="detail/{{rol.rolId}}"  title="View">
+                        <i class="icon-view"></i>
+                      </a>
+                    </span>-->
+                    <span class="operation-item" data-column-name="edit">
+                      <a class="link-icon" routerLink="edit/{{rol.rolId}}" title="Edit">
+                        <i class="icon-edit"></i>
+                      </a>
+                    </span>
+                    <span class="operation-item" data-column-name="delete">
+                      <a class="link-icon" (click)="delete(rol.rolId)" title="Delete">
+                        <i class="icon-remove"></i>
+                      </a>
+                    </span>
+                  </td>
+                  <td data-column-name="id" data-edit-url="">{{rol.rolId}}</td>
+                  <td class=" pgui-cell-edit">{{rol.rolNombre}}</td>
+                  <td class=" pgui-cell-edit">{{rol.rolDescripcion}}</td>
+                </tr>
+                <tr class="empty-grid hidden">
+                  <td colspan="7">
+                    <div class="alert alert-warning empty-grid">
+                      There are no records to display
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot></tfoot>
+            </table>
+          </div>
+          <div class="page_navigator">
+            <div class="pgui-pagination">
+              <pagination-controls
+                  class="pagination"
+                  (pageChange)="p = $event"
+                  previousLabel="Anterior"
+                  nextLabel="Siguiente"
+                  screenReaderPaginationLabel="Paginacion"
+                  screenReaderPageLabel="Pagina"
+                  screenReaderCurrentLabel="Estas en la pagina">
+                </pagination-controls>
+            </div>
+        </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,159 @@
+<form class="form-horizontal"   [formGroup]="form" novalidate (ngSubmit)="onSaveEmpresa()">
+<div class="container-fluid">
+  <div class="row sidebar-owner">
+    <div class="sidebar-backdrop"></div>
+    <div class=" col-md-12">
+      <div class="sidebar-outer">
+        <div class="container-padding">
+          <div class="page-header form-header">
+            <ol class="breadcrumb pgui-breadcrumb">
+              <li>
+                <a href="#"><i class="icon-home"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#">Creación Empresas</a>
+              </li>
+              <li class="dropdown">Agregar nueva empresa</li>
+            </ol>
+            <h1>Agregar nueva Empresa</h1>
+          </div>
+          <div class="col-md-12 js-form-container">
+            <div class="row">
+              <div class="js-form-collection col-lg-12">
+                  <div class="clearfix"></div>
+                  <div class="row">
+                    <fieldset class="col-md-6 form-horizontal">
+                      <div class="row">
+                        <div class="form-group form-group-label col-sm-3">
+                          <label class="control-label" data-column="name" for="Form5ef0f00ceb5ac_name_edit">Nit <span class="required-mark">*</span></label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input" data-column="name" style="width:100%;max-width:100%">
+                            <input class="form-control" formControlName="nit"  maxlength="35" name="nit_edit" type="text" value="">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group form-group-label col-sm-3">
+                          <label class="control-label" data-column="countrycode" for="Form5ef0f00ceb5ac_countrycode_edit">Nombre <span class="required-mark">*</span></label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input" data-column="countrycode" style="width:100%;max-width:100%">
+                            <input class="form-control" formControlName="nombre"  maxlength="35" name="nombre_edit" type="text" value="">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group form-group-label col-sm-3">
+                          <label class="control-label" data-column="district" for="Form5ef0f00ceb5ac_district_edit">Dirección <span class="required-mark">*</span></label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input" data-column="district" style="width:100%;max-width:100%">
+                            <input class="form-control" formControlName="direccion"  maxlength="35" name="direccion_edit" type="text" value="">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group form-group-label col-sm-3">
+                          <label class="control-label" data-column="population" for="Form5ef0f00ceb5ac_population_edit">Email <span class="required-mark">*</span></label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input" data-column="population" style="width:100%;max-width:100%">
+                            <input class="form-control" formControlName="email"  maxlength="35" name="email_edit" type="text" value="">
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset class="col-md-6 form-horizontal">
+                      <div class="row">
+                        <div class="form-group form-group-label col-sm-3">
+                          <label class="control-label" data-column="name" for="Form5ef0f00ceb5ac_name_edit">Telefono <span class="required-mark">*</span></label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input" data-column="name" style="width:100%;max-width:100%">
+                            <input class="form-control" formControlName="telefono"  maxlength="35" name="telefono_edit" type="text" value="">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group form-group-label col-sm-3">
+                          <label class="control-label" data-column="countrycode" for="Form5ef0f00ceb5ac_countrycode_edit">Telefax <span class="required-mark">*</span></label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input" data-column="countrycode" style="width:100%;max-width:100%">
+                            <input class="form-control" formControlName="telefax" maxlength="35" name="telefax_edit" type="text" value="">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group form-group-label col-sm-3">
+                          <label class="control-label" data-column="district" for="Form5ef0f00ceb5ac_district_edit">Departamento <span class="required-mark">*</span></label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input" data-column="district" style="width:100%;max-width:100%">
+                            <ng-select
+                              [items]="listCreateDpto"
+                              [multiple]="false"
+                              [closeOnSelect]="true"
+                              bindLabel="depDescripcion"
+                              formControlName="dpto"
+                              placeholder="Asignar Departamento">
+                          </ng-select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group form-group-label col-sm-3">
+                          <label class="control-label" data-column="population" for="Form5ef0f00ceb5ac_population_edit">Ciudad <span class="required-mark">*</span></label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input" data-column="population" style="width:100%;max-width:100%">
+                            <ng-select
+                              [items]="listCreateCiud"
+                              [multiple]="false"
+                              [closeOnSelect]="true"
+                              bindLabel="cimuDescripcion"
+                              formControlName="ciudad"
+                              placeholder="Asignar Ciudad">
+                          </ng-select>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-9 col-sm-offset-3">
+                      <span class="required-mark">*</span> - Required field
+                    </div>
+                  </div><input name="flash_messages" type="hidden" value="1">
+                  <div class="row">
+                    <div class="col-md-12 form-error-container form-error-container-bottom"></div>
+                  </div>
+              </div>
+            </div>
+            <div class="form-actions row">
+              <div class="col-lg-8">
+                <div class="row">
+                  <div class="col-sm-9 col-sm-offset-3">
+                    <div class="btn-toolbar">
+                      <div class="btn-group">
+                        <button class="btn btn-primary js-save js-primary-save" data-action="open" data-url="#" type="submit">Guardar</button> <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                          <span class="icon-file"></span>
+                        </button>
+                      </div>
+                      <div class="btn-group">
+                        <a class="btn btn-default"routerLink="/empresas">Cancelar</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
