@@ -23,10 +23,18 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { AppInMemoryApi } from '../app.in-memory.api';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
+import { DepartamentoEffects } from '../departamentos/store/effects/departamentos.effects';
+import  * as departamentosReducers from '../departamentos/store/reducers/departamentos.reducers';
+import { DepartamentosService } from '../departamentos/store/services/departamentos.service';
 
+import { MunicipioEffects } from '../municipios/store/effects/municipios.effects';
+import  * as municipiosReducers from '../municipios/store/reducers/municipios.reducers';
+import { MunicipiosService } from '../municipios/store/services/municipios.service';
 
 export const reducers: ActionReducerMap<any> = {
-  empresas:empresasReducers.reducer
+  empresas:empresasReducers.reducer,
+  departamentos:departamentosReducers.reducer,
+  municipios:municipiosReducers.reducer,
 }
 
 @NgModule({
@@ -40,7 +48,11 @@ export const reducers: ActionReducerMap<any> = {
        strictActionImmutability: true
      }
     }),
-    EffectsModule.forRoot([EmpresaEffects]),
+    EffectsModule.forRoot([
+      EmpresaEffects,
+       DepartamentoEffects ,
+       MunicipioEffects
+     ]),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgSelectModule,
@@ -63,7 +75,9 @@ export const reducers: ActionReducerMap<any> = {
   ],
   providers:[
     TraceService,
-    EmpresasService
+    EmpresasService,
+    DepartamentosService,
+    MunicipiosService
   ]
 })
 export class EmpresasModule {

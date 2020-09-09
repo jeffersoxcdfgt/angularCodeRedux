@@ -95,6 +95,7 @@ export class ContratoCreateComponent implements OnInit {
     this.personas.subscribe( data =>{
          this.searchpersonas = data
          this.listPersonas = data.map((val:Persona)=>{
+           console.log(val)
               return {
                   id:val.persId,
                   value: `(${val.persNumDocumento}) -  ${val.persNombre} ${val.persApellido} `

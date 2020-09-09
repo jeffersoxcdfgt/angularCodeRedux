@@ -34,8 +34,7 @@ export class ContratoListComponent implements OnInit {
    * Delete the selected contrato
    * @param {number} id the contrato id
    */
-  delete(id: number) {
-
+  delete(id: string) {
     swal.fire({
         title: 'Esta seguro?',
         text: "No podra reversar esta Acción!",

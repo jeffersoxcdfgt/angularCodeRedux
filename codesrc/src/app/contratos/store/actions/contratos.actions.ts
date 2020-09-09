@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Contrato } from '../../shared/contrato';
+import { Contrato , ContratoUpdate} from '../../shared/contrato';
 
 export const GET_CONTRATOS = '[All] Contratos';
 export const GET_CONTRATOS_SUCESSS ='[All]  Contratos Success';
@@ -75,7 +75,7 @@ export class  GetContratoError implements Action {
 
 export class UpdateContrato implements Action {
     readonly type =  UPDATE_CONTRATO;
-    constructor(public payload:Contrato){}
+    constructor(public payload:ContratoUpdate){}
 }
 
 export class UpdateContratoSuccess implements Action {
@@ -91,7 +91,7 @@ export class UpdateContratoError implements Action {
 
 export class DeleteContrato implements Action {
   readonly  type = DELETE_CONTRATO;
-  constructor(public payload: number){}
+  constructor(public payload: string){}
 }
 
 export class DeleteContratoSuccess implements Action{

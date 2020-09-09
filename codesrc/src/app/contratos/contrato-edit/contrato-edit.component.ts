@@ -44,6 +44,16 @@ export class ContratoEditComponent implements OnInit {
 
   form: FormGroup;
 
+  contId:number;
+  escoId:number;
+  soseId:number;
+  persId:string;
+  contNumero:string;
+  direccion: string;
+  telefono: string;
+  serId: number;
+  contCuota:number;
+
   constructor(
     private route:ActivatedRoute,
     private store:Store<AppState>,
@@ -65,6 +75,16 @@ export class ContratoEditComponent implements OnInit {
     this.store.select(getContrato).subscribe((contrato:Contrato) => {
         if(contrato != null){
             contrato=contrato[FIRSTELEMENT]
+            this.contId = contrato['contId']
+            this.escoId = contrato['escoId']
+            this.soseId = contrato['soseId']
+            this.persId = contrato['persona']['persId']
+            this.contNumero = contrato['contNumero']
+            this.direccion =  contrato['persona']['persDireccion']
+            this.telefono =  contrato['persona']['persTelefono']
+            this.serId =  contrato['servicio']['serId']
+            this.contCuota =contrato['contCuota']
+
             this.sectores = this.store.select(getAllSectores);
             this.sectores.subscribe( data =>{
                 this.listTipoSector = data.map((val:Sector)=>{
@@ -126,22 +146,24 @@ export class ContratoEditComponent implements OnInit {
   selecServicios(value){  }
 
   onSaveContrato(){
+    let d = new Date();
     const payload:ContratoUpdate = {
-        contId: 93,
-        clclId: 1,
-        sectId: 2009967,
-        escoId: 1,
-        soseId: 121,
-        persId: "20202",
-        contNumero: "ON2040",
-        contCuota: 12.0,
-        contDireccion: "kr 90901",
-        contTelefono: "3457647",
-        contFechaInstalacion: "2020-08-01T00:00:00",
+        contId: +this.contId,
+        clclId: +this.form.get('clacliente').value.id,
+        sectId: +this.form.get('sectores').value.id,
+        escoId: +this.escoId,
+        soseId: +this.soseId,
+        persId: `${this.persId}`,
+        contNumero: `${this.contNumero}`,
+        contCuota: +this.contCuota,
+        contDireccion: `${this.direccion}`,
+        contTelefono: `${this.telefono}`,
+        contFechaInstalacion: `${d.toLocaleString()}`,
         servicio: {
-           serId: 74
+           serId: this.serId
         }
       }
+      this.store.dispatch(new UpdateContrato(payload))
    }
 
 }

@@ -93,7 +93,7 @@ export class ContratosComponent implements OnInit {
   actionSuccess(done: boolean, message: string) {
     if (done) {
       swal.fire({ icon: 'success', title: message})
-      //this.router.navigate(['/contratos']);
+      this.router.navigate(['/contratos']);
     }
   }
 

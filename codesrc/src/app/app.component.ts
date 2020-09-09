@@ -74,6 +74,9 @@ import { Component  } from '@angular/core';
               <li>
                 <a  routerLink="/servicios"  title="Servicios">Servicios</a>
               </li>
+              <li>
+                <a  routerLink="/facturas"  title="Servicios">Facturas</a>
+              </li>
             </ul>
           </li>
         </ul>

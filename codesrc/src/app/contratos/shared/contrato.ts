@@ -22,6 +22,7 @@ export class Contrato {
     persId: string;
     }]
   numeroContrato?:string;
+  contNumero?: string;
   CedulaNombre?:string;
   ZonaSector?:string;
   Servicios?:string;
@@ -36,19 +37,19 @@ export class ContratoRender {
    EstadoContrato:string
 }
 
-export class ContratoUpdate{
-  contId: number;
-  clclId: number;
-  sectId: number;
-  escoId: number;
-  soseId: number;
-  persId: string;
-  contNumero: string;
-  contCuota: number;
-  contDireccion: string;
-  contTelefono: string;
-  contFechaInstalacion: string;
-  servicio: {
-     serId: number;
-  }  
+export class ContratoUpdate {
+  contId?: number;
+  clclId?: number;
+  sectId?: number;
+  escoId?: number;
+  soseId?: number;
+  persId?: string;
+  contNumero?: string ;
+  contCuota?: number;
+  contDireccion?: string;
+  contTelefono?:string;
+  contFechaInstalacion?:string;
+  servicio?: {
+     serId?:number;
+  }
 }

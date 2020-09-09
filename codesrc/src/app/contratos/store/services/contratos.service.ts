@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient , HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap , catchError , retryWhen} from 'rxjs/operators';
-import { Contrato } from '../../shared/contrato';
+import { Contrato , ContratoUpdate } from '../../shared/contrato';
 import { TraceService } from '../../../shared/utils/traceService';
 import { genericRetryStrategy } from '../../../shared/rxjs-utils';
 import { environment } from '../../../../environments/environment';
@@ -56,10 +56,10 @@ export class ContratosService {
     * @param contrato the object to be updated
     * @returns gets the response
     */
-   public update(contrato: Contrato): Observable<Contrato> {
+   public update(contrato: ContratoUpdate): Observable<ContratoUpdate> {
      let headers = new HttpHeaders();
      headers = headers.set('Content-Type', 'application/json; charset=utf-8');
-     return this.http.put<Contrato>(this.URL , contrato, {headers: headers}).pipe(
+     return this.http.put<ContratoUpdate>(this.URL + '/' + contrato.contId, contrato, {headers: headers}).pipe(
        tap(_ => this.traceService.log(`updated contrato id=${contrato.clclId}`)),
       catchError(this.traceService.handleError<any>('update'))
      )
