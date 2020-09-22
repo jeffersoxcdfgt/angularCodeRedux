@@ -1,0 +1,171 @@
+<form class="form-horizontal"  [formGroup]="form"  novalidate (ngSubmit)="onSaveSector()">
+<div class="container-fluid">
+  <div class="row sidebar-owner">
+    <div class="sidebar-backdrop"></div>
+    <div class=" col-md-12">
+      <div class="sidebar-outer">
+        <div class="container-padding">
+          <div class="page-header form-header">
+            <ol class="breadcrumb pgui-breadcrumb">
+              <li>
+                <a href="#"><i class="icon-home"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#">Editar sectores</a>
+              </li>
+              <li class="dropdown">Editar nuevo sector</li>
+            </ol>
+            <h1>Editar nuevo Sector</h1>
+          </div>
+          <div class="col-md-12 js-form-container">
+            <div class="row">
+              <div class="js-form-collection col-lg-8">
+                  <div class="clearfix"></div>
+                  <div class="row">
+                    <fieldset class="col-md-12 form-horizontal">
+                      <div class="row">
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                          'has-error' : !(validationService.obsNombreZona | async)
+                          }">
+                          <label class="control-label" data-column="name" for="">Zona <span class="required-mark">*</span></label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input" data-column="name" style="width:100%;max-width:100%">
+                            <ng-select
+                              [items]="listZonas"
+                              [multiple]="false"
+                              [closeOnSelect]="true"
+                              bindLabel="value"
+                              formControlName="zona"
+                              (change)="selectSector($event)"
+                              placeholder="Asignar zona">
+                            </ng-select>
+                            <span *ngIf="!(validationService.obsNombreZona | async)" class="help-block" style="color:#E74C3C" >El nombre de la zona es obligatoria.</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                          'has-error' : !(validationService.obsSectorAbr | async)
+                          }">
+                          <label class="control-label">Abreviatura Sector <span class="required-mark">*</span></label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input" data-column="countrycode" style="width:100%;max-width:100%">
+                            <input
+                            class="form-control"
+                            (input)="validationService.inputAbrSector( $event.target.value )"
+                            formControlName="abrsector"
+                            id="abr_sector"
+                            maxlength="35"
+                            name="abr_sector"
+                            type="text"
+                            value="">
+                            <span *ngIf="!(validationService.obsSectorAbr | async)" class="help-block" style="color:#E74C3C" >La Abreviatura del sector es obligatoria.</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                          'has-error' : !(validationService.obsNombreSector | async)
+                          }">
+                          <label class="control-label" data-column="district" for="Form5ef0f00ceb5ac_district_edit">Nombre Sector <span class="required-mark">*</span></label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input" data-column="district" style="width:100%;max-width:100%">
+                            <input
+                            class="form-control"
+                            (input)="validationService.inputNombreSector( $event.target.value )"
+                            formControlName="sector_name"
+                            id="sector_name"
+                            maxlength="20"
+                            name="sector_name"
+                            type="text"
+                            value="">
+                            <span *ngIf="!(validationService.obsNombreSector | async)" class="help-block" style="color:#E74C3C" >El nombre del sector es obligatorio.</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                          'has-error' : !(validationService.obsRecargo | async)
+                          }">
+                          <label class="control-label" data-column="population" for="Form5ef0f00ceb5ac_population_edit">Recargo <span class="required-mark">*</span></label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input" data-column="population" style="width:100%;max-width:100%">
+                            <input
+                            class="form-control"
+                            (input)="validationService.inputRecargo( $event.target.value )"
+                            formControlName="recargo"
+                            id="recargo1"
+                            name="recargo1"
+                            type="text"
+                            value="">
+                            <span *ngIf="!(validationService.obsRecargo | async)" class="help-block" style="color:#E74C3C" >El recargo es obligatorio.</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                          'has-error' : !(validationService.obsDescripcionSector | async)
+                          }">
+                          <label class="control-label" data-column="descripcion" for="">Descripción <span class="required-mark">*</span></label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input" data-column="population" style="width:100%;max-width:100%">
+                            <input
+                            class="form-control"
+                            (input)="validationService.inputDescripcionSector( $event.target.value )"
+                            formControlName="descripcion"
+                            id="recargo"
+                            name="descripcion"
+                            type="text"
+                            value="">
+                            <span *ngIf="!(validationService.obsDescripcionSector | async)" class="help-block" style="color:#E74C3C" >La descripción del sector es obligatoria.</span>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-9 col-sm-offset-3">
+                      <span class="required-mark">*</span> - Required field
+                    </div>
+                  </div><input name="flash_messages" type="hidden" value="1">
+                  <div class="row">
+                    <div class="col-md-12 form-error-container form-error-container-bottom"></div>
+                  </div>
+              </div>
+            </div>
+            <div class="form-actions row">
+              <div class="col-lg-8">
+                <div class="row">
+                  <div class="col-sm-9 col-sm-offset-3">
+                    <div class="btn-toolbar">
+                      <div class="btn-group">
+                        <button class="btn btn-primary js-save js-primary-save" data-action="open" data-url="#" type="submit">Guardar</button> <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                          <span class="icon-file"></span>
+                        </button>
+                      </div>
+                      <div class="btn-group">
+                        <a class="btn btn-default"routerLink="/sectores" >Cancelar</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
