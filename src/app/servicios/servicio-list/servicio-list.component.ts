@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
 import { Servicio } from '../shared/servicio';
-import { Observable , from } from 'rxjs';
+import { Observable , from , BehaviorSubject , of } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+
 import  * as  serviciosActions from '../store/actions/servicios.actions';
 import { getAllServicios } from '../store/reducers/servicios.reducers';
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -15,16 +18,49 @@ import swal from 'sweetalert2';
 })
 export class ServicioListComponent implements OnInit {
   servicios : Observable<Servicio[]>;
+  serviciosRender :Servicio[] = [];
+  serviciosRenderAux :Servicio[] = [];
+
   p: number = 1;
   order:any;
 
-  constructor(private store: Store<AppState>) { }
+  subSearch:BehaviorSubject<string> =  new BehaviorSubject<string>('');
+  obSearch:Observable<string> =  of('');
+
+  returnAll= map((str:string) => {
+      if(!str){
+        return "All"
+      }
+
+      if(str){
+        return str
+      }
+  })
+
+  constructor(private store: Store<AppState>) {
+    this.obSearch =  this.subSearch.pipe(this.returnAll)
+    this.obSearch.subscribe((data)=>{
+        if(data == 'All'){
+          this.serviciosRender = this.serviciosRenderAux
+        }
+        else{
+          this.serviciosRender = this.serviciosRender.filter((val:Servicio) => {
+            return new RegExp(data,'i').test(val.serNombre) ||
+                    new RegExp(data,'i').test(val.serDescripcion)
+          })
+        }
+    })
+
+
+
+  }
 
   ngOnInit(): void {
 
     this.servicios = this.store.select(getAllServicios);
     this.servicios.subscribe( data =>{
-          console.log(data)
+      this.serviciosRender =  data
+      this.serviciosRenderAux = data
     });
   }
   /**

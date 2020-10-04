@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
 import { Sector } from '../shared/sector';
-import { Observable , from } from 'rxjs';
+import { Observable , from , BehaviorSubject , of } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import  * as  sectoresActions from '../store/actions/sectores.actions';
 import { getAllSectores } from '../store/reducers/sectores.reducers';
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -15,15 +17,44 @@ import swal from 'sweetalert2';
 })
 export class SectorListComponent implements OnInit {
   sectores : Observable<Sector[]>;
+  sectoresRender :Sector[] = [];
+  sectoresRenderAux :Sector[] = [];
   p: number = 1;
 
-  constructor(private store: Store<AppState>) { }
+  subSearch:BehaviorSubject<string> =  new BehaviorSubject<string>('');
+  obSearch:Observable<string> =  of('');
+
+  returnAll= map((str:string) => {
+      if(!str){
+        return "All"
+      }
+
+      if(str){
+        return str
+      }
+  })
+
+  constructor(private store: Store<AppState>) {
+    this.obSearch =  this.subSearch.pipe(this.returnAll)
+    this.obSearch.subscribe((data)=>{
+        if(data == 'All'){
+          this.sectoresRender = this.sectoresRenderAux
+        }
+        else{
+          this.sectoresRender = this.sectoresRender.filter((val:Sector) => {
+            return new RegExp(data,'i').test(val.sectNombre) ||
+                     new RegExp(data,'i').test(val.sectDescripcion)
+          })
+        }
+    })
+  }
 
   ngOnInit(): void {
       this.sectores = this.store.select(getAllSectores);
-      /*this.sectores.subscribe( data =>{
-              console.log(data)
-      });*/
+      this.sectores.subscribe( data =>{
+        this.sectoresRender =  data
+        this.sectoresRenderAux = data
+      });
   }
   /**
    * Delete the selected zona

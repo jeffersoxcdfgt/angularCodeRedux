@@ -13,7 +13,8 @@ export const environment = {
   urlservicios:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/Servicios",
   urlContratos:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/Contratos",
   urlDepartamentos:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/Departamentos",
-  urlMunicipios:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/CiudadMunicipios"
+  urlMunicipios:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/CiudadMunicipios",
+  urlFacturas:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/Facturas"
 };
 
 /*

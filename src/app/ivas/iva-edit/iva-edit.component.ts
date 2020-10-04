@@ -10,6 +10,7 @@ import * as  fromValidation from '../../shared/validation';
 import { DataList } from '../shared/list';
 import { Observable , of , from , Subject , BehaviorSubject , iif ,combineLatest , NEVER ,interval   } from 'rxjs';
 import { tap , map} from 'rxjs/operators';
+import { ValidationIvasService } from '../../shared/validations/validationIvas.service';
 const FIRSTELEMENT =0
 
 
@@ -26,8 +27,10 @@ export class IvaEditComponent implements OnInit {
   constructor(
     private route:ActivatedRoute,
     private store:Store<AppState>,
-    private formBuilder: FormBuilder)
-  { }
+    private formBuilder: FormBuilder,
+    public validationService:ValidationIvasService){
+      this.validationService.initValidation();
+  }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -45,24 +48,31 @@ export class IvaEditComponent implements OnInit {
          iva =iva[FIRSTELEMENT]
          this.id = iva.ivaId
          this.form.get('iva_name').setValue(iva.ivaNombre)
+         this.validationService.inputNombreIva(iva.ivaNombre);
+
          this.form.get('valor').setValue(iva.ivaValor)
+         this.validationService.inputValorIva(iva.ivaNombre);
+
          this.form.get('descripcion').setValue(iva.ivaDescripcion)
+         this.validationService.inputDescripcionIva(iva.ivaNombre);
 
       }
    });
   }
 
   onSaveIva(){
-    let d = new Date();
-    const payload:Iva={
-      ivaId: this.id,
-      ivaNombre: `${this.form.get('iva_name').value}`,
-      ivaDescripcion: `${this.form.get('descripcion').value}`,
-      ivaRegistradopor: "front",
-      ivaFechaCreacion:`${d.toLocaleString()}`,
-      ivaValor:+this.form.get('valor').value,
-      ivaActivo: true
+    if(this.validationService.ifGood()){
+        let d = new Date();
+        const payload:Iva={
+          ivaId: this.id,
+          ivaNombre: `${this.form.get('iva_name').value}`,
+          ivaDescripcion: `${this.form.get('descripcion').value}`,
+          ivaRegistradopor: "front",
+          ivaFechaCreacion:`${d.toLocaleString()}`,
+          ivaValor:+this.form.get('valor').value,
+          ivaActivo: true
+        }
+        this.store.dispatch(new UpdateIva(payload));
     }
-    this.store.dispatch(new UpdateIva(payload));
   }
 }

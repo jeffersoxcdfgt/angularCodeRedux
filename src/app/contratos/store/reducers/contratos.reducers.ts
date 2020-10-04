@@ -1,12 +1,12 @@
 import {  AppAction } from '../../../app.action';
 import { createFeatureSelector , createSelector } from '@ngrx/store';
-import { Contrato } from '../../shared/contrato';
+import { Contrato , ContratoUpdate } from '../../shared/contrato';
 import  * as contratoActions from '../actions/contratos.actions';
 import { RouterReducerState} from '@ngrx/router-store';
 
 export interface State {
-  data:Contrato[];
-  selected:Contrato;
+  data:Contrato[] | ContratoUpdate[];
+  selected:Contrato | ContratoUpdate;
   action:string;
   done:boolean;
   error?:Error;
@@ -129,7 +129,7 @@ export function reducer (state = initialState , action :AppAction){
         {
                 const index = state
                 .data
-                .findIndex(h => h.clclId === state.selected.clclId);
+                .findIndex(h => h.numeroContrato === state.selected.contNumero);
                 if (index >= 0) {
                   const data = [
                     ...state.data.slice(0, index),
@@ -157,10 +157,10 @@ export function reducer (state = initialState , action :AppAction){
           }
           case contratoActions.DELETE_CONTRATO:
           {
-              const selected = state.data.find(h => h.clclId === action.payload)
+              //const selected = state.data.find(h => h.numeroContrato === state.selected.contNumero)
               return  {
                 ...state,
-                selected,
+                //selected,
                 action: contratoActions.DELETE_CONTRATO,
                 done: false,
                 error:null
@@ -168,10 +168,10 @@ export function reducer (state = initialState , action :AppAction){
           }
           case contratoActions.DELETE_CONTRATO_SUCCESS:
           {
-              const data = state.data.filter( h => h.clclId !== state.selected.clclId)
+              //const data = state.data.filter( h => h.contNumero !== state.selected.contNumero)
               return {
                 ...state,
-                data,
+              //  data,
                 selected: null,
                 error: null,
                 done: true

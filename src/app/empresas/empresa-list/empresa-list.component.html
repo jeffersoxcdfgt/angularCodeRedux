@@ -26,7 +26,14 @@
               <div class="addition-block-right pull-right js-quick-filter">
                 <div class="quick-filter-toolbar btn-group">
                   <div class="input-group js-filter-control">
-                    <input class="js-input form-control" name="quick_filter" placeholder="Busqueda rápida" size="16" type="text" value="">
+                    <input
+                    class="js-input form-control"
+                    name="quick_filter"
+                    placeholder="Busqueda rápida"
+                    size="16"
+                    type="text"
+                    (input)="subSearch.next( $event.target.value )"
+                    value="">
                   </div>
                 </div><span class="hidden-xs">&thinsp;</span>
               </div>
@@ -57,7 +64,7 @@
                 </tr>
               </thead>
               <tbody class="pg-row-list">
-                <tr class="pg-row" *ngFor="let empresa of empresas | async | paginate: { itemsPerPage: 10, currentPage: p }">
+                <tr class="pg-row" *ngFor="let empresa of empresasRender | paginate: { itemsPerPage: 10, currentPage: p }">
                   <td style="">
                     <div class="row-selection">
                       <!--<input id="rec1" name="rec1" type="checkbox">-->

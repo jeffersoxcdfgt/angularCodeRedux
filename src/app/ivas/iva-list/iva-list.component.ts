@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
 import { Iva } from '../shared/iva';
-import { Observable , from } from 'rxjs';
+import { Observable , from , BehaviorSubject , of } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import  * as  ivasActions from '../store/actions/ivas.actions';
 import { getAllIvas } from '../store/reducers/ivas.reducers';
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -15,15 +17,44 @@ import swal from 'sweetalert2';
 })
 export class IvaListComponent implements OnInit {
   ivas : Observable<Iva[]>;
+  ivasRender :Iva[] = [];
+  ivasRenderAux :Iva[] = [];
   p: number = 1;
 
-  constructor(private store: Store<AppState>) { }
+  subSearch:BehaviorSubject<string> =  new BehaviorSubject<string>('');
+  obSearch:Observable<string> =  of('');
+
+  returnAll= map((str:string) => {
+      if(!str){
+        return "All"
+      }
+
+      if(str){
+        return str
+      }
+  })
+
+  constructor(private store: Store<AppState>) {
+    this.obSearch =  this.subSearch.pipe(this.returnAll)
+    this.obSearch.subscribe((data)=>{
+        if(data == 'All'){
+          this.ivasRender = this.ivasRenderAux
+        }
+        else{
+          this.ivasRender = this.ivasRender.filter((val:Iva) => {
+            return new RegExp(data,'i').test(val.ivaNombre) ||
+                    new RegExp(data,'i').test(val.ivaDescripcion)
+          })
+        }
+    })
+   }
 
   ngOnInit(): void {
 
     this.ivas = this.store.select(getAllIvas);
     this.ivas.subscribe( data =>{
-          console.log(data)
+      this.ivasRender =  data
+      this.ivasRenderAux = data
     });
   }
   /**

@@ -23,7 +23,7 @@ DeleteContratoError
 }
 from '../actions/contratos.actions';
 import { ContratosService } from '../services/contratos.service';
-import { Contrato  } from '../../shared/contrato';
+import { Contrato , ContratoUpdate  } from '../../shared/contrato';
 import { MapAllRegister  } from '../../shared/map';
 
 
@@ -70,7 +70,7 @@ export class ContratoEffects {
         ofType<UpdateContrato>(contratoActions.UPDATE_CONTRATO),
           mergeMap((action:UpdateContrato) =>
             this.svc.update(action.payload).pipe(
-              map((contrato:Contrato) => new UpdateContratoSuccess()),
+              map((contrato:ContratoUpdate) => new UpdateContratoSuccess()),
               catchError(err => of(new UpdateContratoError(err)))
           )
         )

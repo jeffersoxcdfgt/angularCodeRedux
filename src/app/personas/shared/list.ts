@@ -16,7 +16,8 @@ export const listTipoPersona: DataList[] = [
 
 export const listTipoSexo: DataList[] = [
 { id: 1, value: 'Hombre'},
-{ id: 2 , value:'Mujer'}
+{ id: 2 , value:'Mujer'},
+{ id: 3 , value:'Otros'}
 ];
 
 

@@ -73,6 +73,18 @@ export class PersonaCreateComponent implements OnInit {
         rol:[],
    })
 
+   this.form.get('tipo_documento').setValue({ id: 1, value: 'CC'})
+   this.validationService.inputTipoDocumento('1')
+
+   this.form.get('tipo_persona').setValue({ id: 2 , value:'Natural'})
+   this.validationService.inputTipoPersonas('2')
+
+   this.form.get('sexo').setValue({ id: 1, value: 'Hombre'})
+   this.validationService.inputSexo('1')
+
+   this.form.get('estado_civil').setValue({ id: 1, value: 'Soltero(a)'})
+   this.validationService.inputEstadoCivil('1')
+
    this.empresas = this.store.select(getAllEmpresas);
    this.empresas.subscribe( data =>{
        this.listTipoEmpresa = data.map((val:Empresa)=>{
@@ -109,8 +121,15 @@ export class PersonaCreateComponent implements OnInit {
         this.validationService.inputSexo(val)
     else if(validateType=='tipoestadocivil')
         this.validationService.inputEstadoCivil(val)
-    else if(validateType=='tipoempresa')
-        this.validationService.inputEmpresa(val)
+    else if(validateType=='tipoempresa'){
+        if(this.form.get('empresa').value.length ==0){
+            this.validationService.inputEmpresa(' ')
+        }
+        else{
+            let data = this.form.get('empresa').value[FIRST].value
+            this.validationService.inputEmpresa(data)
+        }
+    }
     else if(validateType=='tiporol'){
         if(this.form.get('rol').value.length ==0){
             this.validationService.inputRol(' ');
@@ -123,7 +142,6 @@ export class PersonaCreateComponent implements OnInit {
   }
 
   onSavePersona(){
-
     if(this.validationService.ifGood()){
       let d = new Date();
       const payload:Persona = {
@@ -156,7 +174,18 @@ export class PersonaCreateComponent implements OnInit {
                 peroRegistradopor:"string",
                 peroFechaCreacion:`${new Date().toLocaleString()}`
             }
-        }):[]
+        }):[],
+      empresaconpersona:
+            this.form.get('empresa').value != null ? this.form.get('empresa').value.map((val:Empresa)=>{
+              return {
+                emcpeActivo: true,
+                emprId: val['id'],
+                persId: `${this.form.get('usuario').value}`,
+                emprRegistradopor: "Agregado",
+                emprFechaRegistro: `${d.toLocaleString()}`,
+                emprActivo: true
+              }
+      }):[]
     }
       this.store.dispatch(new AddPersona(payload));
     }

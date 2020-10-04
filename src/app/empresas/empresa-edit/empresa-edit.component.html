@@ -97,8 +97,9 @@
                               [closeOnSelect]="true"
                               bindLabel="depDescripcion"
                               formControlName="dpto"
+                              (change)="selectDepartamentos($event)"
                               placeholder="Asignar Departamento">
-                          </ng-select>
+                            </ng-select>
                           </div>
                         </div>
                       </div>
@@ -114,8 +115,9 @@
                               [closeOnSelect]="true"
                               bindLabel="cimuDescripcion"
                               formControlName="ciudad"
-                              placeholder="Asignar Ciudad">
-                          </ng-select>
+                              (change)="selectMunicipios($event)"
+                              placeholder="Asignar Municipio">
+                            </ng-select>
                           </div>
                         </div>
                       </div>

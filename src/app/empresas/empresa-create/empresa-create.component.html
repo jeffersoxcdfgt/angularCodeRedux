@@ -91,13 +91,14 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" data-column="district" style="width:100%;max-width:100%">
-                            <ng-select
-                              [items]="listCreateDpto"
-                              [multiple]="false"
-                              [closeOnSelect]="true"
-                              bindLabel="depDescripcion"
-                              formControlName="dpto"
-                              placeholder="Asignar Departamento">
+                          <ng-select
+                            [items]="listCreateDpto"
+                            [multiple]="false"
+                            [closeOnSelect]="true"
+                            bindLabel="depDescripcion"
+                            formControlName="dpto"
+                            (change)="selectDepartamentos($event)"
+                            placeholder="Asignar Departamento">
                           </ng-select>
                           </div>
                         </div>
@@ -108,14 +109,15 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" data-column="population" style="width:100%;max-width:100%">
-                            <ng-select
-                              [items]="listCreateCiud"
-                              [multiple]="false"
-                              [closeOnSelect]="true"
-                              bindLabel="cimuDescripcion"
-                              formControlName="ciudad"
-                              placeholder="Asignar Ciudad">
-                          </ng-select>
+                           <ng-select
+                             [items]="listCreateCiud"
+                             [multiple]="false"
+                             [closeOnSelect]="true"
+                             bindLabel="cimuDescripcion"
+                             formControlName="ciudad"
+                             (change)="selectMunicipios($event)"
+                             placeholder="Asignar Municipio">
+                           </ng-select>
                           </div>
                         </div>
                       </div>

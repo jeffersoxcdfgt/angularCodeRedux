@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
 import { Zona } from '../shared/zona';
-import { Observable , from } from 'rxjs';
+import { Observable , from , BehaviorSubject , of } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import  * as  zonasActions from '../store/actions/zonas.actions';
 import { getAllZonas } from '../store/reducers/zonas.reducers';
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -16,20 +18,45 @@ import swal from 'sweetalert2';
 })
 export class ZonaListComponent implements OnInit {
   zonas : Observable<Zona[]>;
+  zonasRender :Zona[] = [];
+  zonasRenderAux :Zona[] = [];
   p: number = 1;
   order:any;
 
-  constructor(private store: Store<AppState>) { }
+  subSearch:BehaviorSubject<string> =  new BehaviorSubject<string>('');
+  obSearch:Observable<string> =  of('');
+
+  returnAll= map((str:string) => {
+      if(!str){
+        return "All"
+      }
+
+      if(str){
+        return str
+      }
+  })
+
+  constructor(private store: Store<AppState>) {
+    this.obSearch =  this.subSearch.pipe(this.returnAll)
+    this.obSearch.subscribe((data)=>{
+        if(data == 'All'){
+          this.zonasRender = this.zonasRenderAux
+        }
+        else{
+          this.zonasRender = this.zonasRender.filter((val:Zona) => {
+            return new RegExp(data,'i').test(val.zonaNombre) ||
+                     new RegExp(data,'i').test(val.zonaDescripcion)
+          })
+        }
+    })
+  }
 
   ngOnInit(){
-
     this.zonas = this.store.select(getAllZonas);
-    /**this.zonas.subscribe( data =>{
-          console.log(data)
-    });*/
-
-
-
+    this.zonas.subscribe( data =>{
+      this.zonasRender =  data
+      this.zonasRenderAux = data
+    });
   }
   /**
    * Delete the selected zona

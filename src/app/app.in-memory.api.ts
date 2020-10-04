@@ -221,6 +221,12 @@ export class AppInMemoryApi  implements InMemoryDbService{
               "cimuDescripcion": "No aplica",
               "depDepartamento": 0
             }
+          ],
+          'facturas':[
+            {
+              "id":1,
+              "factName":"Factura 1"
+            }
           ]
        }
      }

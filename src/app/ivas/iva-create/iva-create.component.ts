@@ -9,6 +9,7 @@ import { DataList } from '../shared/list';
 import * as  fromValidation from '../../shared/validation';
 import { Observable , of , from , Subject , BehaviorSubject , iif ,combineLatest , NEVER ,interval   } from 'rxjs';
 import { tap , map} from 'rxjs/operators';
+import { ValidationIvasService } from '../../shared/validations/validationIvas.service';
 
 @Component({
   selector: 'app-iva-create',
@@ -23,7 +24,10 @@ export class IvaCreateComponent implements OnInit {
   constructor(
     private router:Router ,
     private store: Store<AppState>,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    public validationService:ValidationIvasService) {
+      this.validationService.initValidation();
+    }
 
     ngOnInit(): void {
       this.form = this.formBuilder.group({
@@ -34,17 +38,18 @@ export class IvaCreateComponent implements OnInit {
     }
 
     onSaveIva(){
-      let d = new Date();
-      const payload:Iva = {
-        ivaNombre: `${this.form.get('iva_name').value}`,
-        ivaDescripcion:`${this.form.get('descripcion').value}`,
-        ivaRegistradopor: "front",
-        ivaFechaCreacion: `${d.toLocaleString()}`,
-        ivaValor:+this.form.get('valor').value,
-        ivaActivo: true
-       }
-       this.store.dispatch(new AddIva(payload));
-
+      if(this.validationService.ifGood()){
+          let d = new Date();
+          const payload:Iva = {
+            ivaNombre: `${this.form.get('iva_name').value}`,
+            ivaDescripcion:`${this.form.get('descripcion').value}`,
+            ivaRegistradopor: "front",
+            ivaFechaCreacion: `${d.toLocaleString()}`,
+            ivaValor:+this.form.get('valor').value,
+            ivaActivo: true
+           }
+           this.store.dispatch(new AddIva(payload));
+     }
     }
 
 }

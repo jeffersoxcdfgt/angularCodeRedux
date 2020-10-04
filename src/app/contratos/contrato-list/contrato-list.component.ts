@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
 import { Contrato , ContratoRender } from '../shared/contrato';
-import { Observable , from } from 'rxjs';
+import { Observable , from , BehaviorSubject , of } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import  * as  contratosActions from '../store/actions/contratos.actions';
 import { getAllContratos } from '../store/reducers/contratos.reducers';
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -16,17 +18,48 @@ import { GetAllContratos } from '../store/actions/contratos.actions';
 })
 export class ContratoListComponent implements OnInit {
   contratos : Observable<Contrato[]>;
+  contratosRender :Contrato[] = [];
+  contratosRenderAux :Contrato[] = [];
   listContratos : Contrato[];
   p: number = 1;
   order:any;
 
-  constructor(private store: Store<AppState>) { }
+  subSearch:BehaviorSubject<string> =  new BehaviorSubject<string>('');
+  obSearch:Observable<string> =  of('');
+
+  returnAll= map((str:string) => {
+      if(!str){
+        return "All"
+      }
+
+      if(str){
+        return str
+      }
+  })
+
+  constructor(private store: Store<AppState>) {
+    this.obSearch =  this.subSearch.pipe(this.returnAll)
+    this.obSearch.subscribe((data)=>{
+        if(data == 'All'){
+          this.contratosRender = this.contratosRenderAux
+        }
+        else{
+          this.contratosRender = this.contratosRender.filter((val:Contrato) => {
+            return new RegExp(data,'i').test(val.numeroContrato) ||
+                    new RegExp(data,'i').test(val.CedulaNombre)
+          })
+        }
+    })
+  }
 
   ngOnInit(): void {
     this.store.dispatch(new GetAllContratos())
     this.contratos = this.store.select(getAllContratos);
     this.contratos.subscribe( data =>{
        this.listContratos = data
+       this.contratosRender =  data
+       this.contratosRenderAux = data
+
     });
   }
 
@@ -34,8 +67,7 @@ export class ContratoListComponent implements OnInit {
    * Delete the selected contrato
    * @param {number} id the contrato id
    */
-  delete(id: number) {
-
+  delete(id: string) {
     swal.fire({
         title: 'Esta seguro?',
         text: "No podra reversar esta Acción!",
