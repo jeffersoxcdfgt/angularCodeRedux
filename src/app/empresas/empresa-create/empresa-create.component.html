@@ -24,70 +24,139 @@
                   <div class="row">
                     <fieldset class="col-md-6 form-horizontal">
                       <div class="row">
-                        <div class="form-group form-group-label col-sm-3">
-                          <label class="control-label" data-column="name" for="Form5ef0f00ceb5ac_name_edit">Nit <span class="required-mark">*</span></label>
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                          'has-error' : !(validationService.obsNit | async)
+                          }">
+                          <label class="control-label">Nit <span class="required-mark">*</span></label>
                         </div>
                         <div class="form-group col-sm-9">
-                          <div class="col-input" data-column="name" style="width:100%;max-width:100%">
-                            <input class="form-control" formControlName="nit"  maxlength="35" name="nit_edit" type="text" value="">
+                          <div class="col-input" style="width:100%;max-width:100%">
+                            <input
+                            class="form-control"
+                            formControlName="nit"
+                            (input)="validationService.inputNit( $event.target.value )"
+                            maxlength="35"
+                            name="nit_edit"
+                            type="text"
+                            value="">
+                            <span *ngIf="!(validationService.obsNit | async)" class="help-block" style="color:#E74C3C" >El Nit es obligatorio.</span>
                           </div>
                         </div>
                       </div>
                       <div class="row">
-                        <div class="form-group form-group-label col-sm-3">
-                          <label class="control-label" data-column="countrycode" for="Form5ef0f00ceb5ac_countrycode_edit">Nombre <span class="required-mark">*</span></label>
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                          'has-error' : !(validationService.obsNombre | async)
+                          }">
+                          <label class="control-label">Nombre <span class="required-mark">*</span></label>
                         </div>
                         <div class="form-group col-sm-9">
-                          <div class="col-input" data-column="countrycode" style="width:100%;max-width:100%">
-                            <input class="form-control" formControlName="nombre"  maxlength="35" name="nombre_edit" type="text" value="">
+                          <div class="col-input" style="width:100%;max-width:100%">
+                            <input
+                            class="form-control"
+                            formControlName="nombre"
+                            (input)="validationService.inputNombre( $event.target.value )"
+                            maxlength="35"
+                            name="nombre_edit"
+                            type="text"
+                            value="">
+                            <span *ngIf="!(validationService.obsNombre | async)" class="help-block" style="color:#E74C3C" >El Nombre es obligatorio.</span>
                           </div>
                         </div>
                       </div>
                       <div class="row">
-                        <div class="form-group form-group-label col-sm-3">
-                          <label class="control-label" data-column="district" for="Form5ef0f00ceb5ac_district_edit">Dirección <span class="required-mark">*</span></label>
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                          'has-error' : !(validationService.obsDireccion | async)
+                          }">
+                          <label class="control-label">Dirección <span class="required-mark">*</span></label>
                         </div>
                         <div class="form-group col-sm-9">
-                          <div class="col-input" data-column="district" style="width:100%;max-width:100%">
-                            <input class="form-control" formControlName="direccion"  maxlength="35" name="direccion_edit" type="text" value="">
+                          <div class="col-input" style="width:100%;max-width:100%">
+                            <input
+                            class="form-control"
+                            formControlName="direccion"
+                            (input)="validationService.inputDireccion( $event.target.value )"
+                            maxlength="35"
+                            name="direccion_edit"
+                            type="text"
+                            value="">
+                            <span *ngIf="!(validationService.obsDireccion | async)" class="help-block" style="color:#E74C3C" >La direcciòn es obligatoria.</span>
                           </div>
                         </div>
                       </div>
                       <div class="row">
-                        <div class="form-group form-group-label col-sm-3">
-                          <label class="control-label" data-column="population" for="Form5ef0f00ceb5ac_population_edit">Email <span class="required-mark">*</span></label>
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                          'has-error' : !(validationService.obsEmail | async)
+                          }">
+                          <label class="control-label">Email <span class="required-mark">*</span></label>
                         </div>
                         <div class="form-group col-sm-9">
-                          <div class="col-input" data-column="population" style="width:100%;max-width:100%">
-                            <input class="form-control" formControlName="email"  maxlength="35" name="email_edit" type="text" value="">
+                          <div class="col-input" style="width:100%;max-width:100%">
+                            <input
+                            class="form-control"
+                            formControlName="email"
+                            (input)="validationService.inputEmail( $event.target.value )"
+                            maxlength="35"
+                            name="email_edit"
+                            type="text"
+                            value="">
+                            <span *ngIf="!(validationService.obsEmail | async)" class="help-block" style="color:#E74C3C" >El Email es obligatorio.</span>
                           </div>
                         </div>
                       </div>
                     </fieldset>
                     <fieldset class="col-md-6 form-horizontal">
                       <div class="row">
-                        <div class="form-group form-group-label col-sm-3">
-                          <label class="control-label" data-column="name" for="Form5ef0f00ceb5ac_name_edit">Telefono <span class="required-mark">*</span></label>
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                          'has-error' : !(validationService.obsTelefono | async)
+                          }">
+                          <label class="control-label">Telefono <span class="required-mark">*</span></label>
                         </div>
                         <div class="form-group col-sm-9">
-                          <div class="col-input" data-column="name" style="width:100%;max-width:100%">
-                            <input class="form-control" formControlName="telefono"  maxlength="35" name="telefono_edit" type="text" value="">
+                          <div class="col-input" style="width:100%;max-width:100%">
+                            <input
+                            class="form-control"
+                            formControlName="telefono"
+                            (input)="validationService.inputTelefono( $event.target.value )"
+                            maxlength="35"
+                            name="telefono_edit"
+                            type="text"
+                            value="">
+                            <span *ngIf="!(validationService.obsTelefono | async)" class="help-block" style="color:#E74C3C" >El telefono es obligatorio.</span>
                           </div>
                         </div>
                       </div>
                       <div class="row">
-                        <div class="form-group form-group-label col-sm-3">
-                          <label class="control-label" data-column="countrycode" for="Form5ef0f00ceb5ac_countrycode_edit">Telefax <span class="required-mark">*</span></label>
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                          'has-error' : !(validationService.obsTelefax | async)
+                          }">
+                          <label class="control-label">Telefax <span class="required-mark">*</span></label>
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" data-column="countrycode" style="width:100%;max-width:100%">
-                            <input class="form-control" formControlName="telefax" maxlength="35" name="telefax_edit" type="text" value="">
+                            <input
+                            class="form-control"
+                            formControlName="telefax"
+                            (input)="validationService.inputTelefax( $event.target.value )"
+                            maxlength="35"
+                            name="telefax_edit"
+                            type="text"
+                            value="">
+                            <span *ngIf="!(validationService.obsTelefax | async)" class="help-block" style="color:#E74C3C" >El telefax es obligatorio.</span>
                           </div>
                         </div>
                       </div>
                       <div class="row">
-                        <div class="form-group form-group-label col-sm-3">
-                          <label class="control-label" data-column="district" for="Form5ef0f00ceb5ac_district_edit">Departamento <span class="required-mark">*</span></label>
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                          'has-error' : !(validationService.obsDepartamento | async)
+                          }">
+                          <label class="control-label">Departamento <span class="required-mark">*</span></label>
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" data-column="district" style="width:100%;max-width:100%">
@@ -100,12 +169,16 @@
                             (change)="selectDepartamentos($event)"
                             placeholder="Asignar Departamento">
                           </ng-select>
+                          <span *ngIf="!(validationService.obsDepartamento | async)" class="help-block" style="color:#E74C3C" >El Departamento es obligatorio.</span>
                           </div>
                         </div>
                       </div>
                       <div class="row">
-                        <div class="form-group form-group-label col-sm-3">
-                          <label class="control-label" data-column="population" for="Form5ef0f00ceb5ac_population_edit">Ciudad <span class="required-mark">*</span></label>
+                        <div [className]="'form-group form-group-label col-sm-3'"
+                           [ngClass]="{
+                          'has-error' : !(validationService.obsCiudad | async)
+                          }">
+                          <label class="control-label">Ciudad <span class="required-mark">*</span></label>
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" data-column="population" style="width:100%;max-width:100%">
@@ -118,6 +191,7 @@
                              (change)="selectMunicipios($event)"
                              placeholder="Asignar Municipio">
                            </ng-select>
+                           <span *ngIf="!(validationService.obsCiudad | async)" class="help-block" style="color:#E74C3C" >El Ciudad es obligatoria.</span>
                           </div>
                         </div>
                       </div>
@@ -125,7 +199,7 @@
                   </div>
                   <div class="row">
                     <div class="col-sm-9 col-sm-offset-3">
-                      <span class="required-mark">*</span> - Required field
+                      <span class="required-mark">*</span> - Campos requeridos
                     </div>
                   </div><input name="flash_messages" type="hidden" value="1">
                   <div class="row">

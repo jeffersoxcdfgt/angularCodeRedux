@@ -9,6 +9,7 @@ import * as fromServicios from './servicios/store/reducers/servicios.reducers';
 import * as fromDepartamentos from './departamentos/store/reducers/departamentos.reducers';
 import * as fromMunicipios from './municipios/store/reducers/municipios.reducers';
 import * as fromFacturas from './facturas/store/reducers/facturas.reducers';
+import * as fromOrdenesServicios from './orden-servicios/store/reducers/orden-servicios.reducers';
 
 
 export interface AppState {
@@ -23,4 +24,5 @@ export interface AppState {
   departamentos:fromDepartamentos.State;
   municipios:fromMunicipios.State;
   facturas:fromFacturas.State;
+  ordenesservicios:fromOrdenesServicios.State;
 }

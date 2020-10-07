@@ -50,6 +50,10 @@ const routes:Routes = [
     path:'facturas',
     loadChildren: () => import('./facturas/facturas.module').then(m => m.FacturasModule)
   },
+  {
+    path:'ordenesservicios',
+    loadChildren: () => import('./orden-servicios/orden-servicios.module').then(m => m.OrdenesServiciosModule)
+  },
   {path: '**', component: PageNotFoundComponent}
 ];
 

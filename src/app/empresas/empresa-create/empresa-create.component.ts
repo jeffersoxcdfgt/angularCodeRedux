@@ -18,6 +18,8 @@ import { Municipio } from '../../municipios/shared/municipio';
 import  * as  municipiosActions from '../../municipios/store/actions/municipios.actions';
 import { getAllMunicipios } from '../../municipios/store/reducers/municipios.reducers';
 
+import { ValidationEmpresasService } from '../../shared/validations/validationEmpresa.service';
+
 @Component({
   selector: 'app-empresa-create',
   templateUrl: './empresa-create.component.html',
@@ -40,7 +42,10 @@ export class EmpresaCreateComponent implements OnInit {
   constructor(
     private router:Router ,
     private store: Store<AppState>,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    public validationService:ValidationEmpresasService) {
+
+      this.validationService.initValidation();
       this.departamentos = this.store.select(getAllDepartamentos);
       this.departamentos.subscribe( data =>{
           this.searchdepartamento =  data
@@ -85,9 +90,11 @@ export class EmpresaCreateComponent implements OnInit {
     this.form.get('ciudad').setValue([])
     this.listCreateCiud = this.auxciudad
     if(value==undefined){
+      this.validationService.inputDepartamento(' ');
       return
     }
 
+    this.validationService.inputDepartamento(value.depDescripcion);
     let res = this.listCreateCiud.filter((val:DataListCiudad)=> val.depDepartamento == value.depDepartamento)
     this.listCreateCiud = res
   }
@@ -96,10 +103,12 @@ export class EmpresaCreateComponent implements OnInit {
     if(value==undefined){
       this.listCreateCiud =this.auxciudad
       this.form.get('dpto').setValue(null)
+      this.validationService.inputCiudad(' ');
       return
     }
 
     if(this.form.get('dpto').value){
+      this.validationService.inputCiudad(value.cimuDescripcion);
       return
     }
 
@@ -115,24 +124,26 @@ export class EmpresaCreateComponent implements OnInit {
   }
 
   onSaveEmpresa(){
-    let d = new Date();
-    const payload:Empresa = {
-      emprNit: `${this.form.get('nit').value}`,
-      emprNombre: `${this.form.get('nombre').value}`,
-      emprDireccion: `${this.form.get('direccion').value}`,
-      emprEmail:`${this.form.get('email').value}`,
-      emprTelefono: `${this.form.get('telefono').value}`,
-      emprTelefax: `${this.form.get('telefax').value}`,
-      emprFechaInicio:`${d.toLocaleString()}`,
-      emprRegistradopor: "front",
-      emprFechaCreacion: `${d.toLocaleString()}`,
-      emprCiudad:`${this.form.get('ciudad').value.cimuDescripcion}`,
-      emprEstado: true,
-      cimuId:+this.form.get('ciudad').value.cimuId
+
+    if(this.validationService.ifGood()){
+      let d = new Date();
+      const payload:Empresa = {
+        emprNit: `${this.form.get('nit').value}`,
+        emprNombre: `${this.form.get('nombre').value}`,
+        emprDireccion: `${this.form.get('direccion').value}`,
+        emprEmail:`${this.form.get('email').value}`,
+        emprTelefono: `${this.form.get('telefono').value}`,
+        emprTelefax: `${this.form.get('telefax').value}`,
+        emprFechaInicio:`${d.toLocaleString()}`,
+        emprRegistradopor: "front",
+        emprFechaCreacion: `${d.toLocaleString()}`,
+        emprCiudad:`${this.form.get('ciudad').value.cimuDescripcion}`,
+        emprEstado: true,
+        cimuId:+this.form.get('ciudad').value.cimuId
+      }
+
+      this.store.dispatch(new AddEmpresa(payload));
     }
-
-    this.store.dispatch(new AddEmpresa(payload));
-
   }
 
 }

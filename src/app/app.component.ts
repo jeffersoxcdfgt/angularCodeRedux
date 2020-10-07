@@ -77,6 +77,9 @@ import { Component  } from '@angular/core';
               <li>
                 <a  routerLink="/facturas"  title="Servicios">Factura Servicios</a>
               </li>
+              <li>
+                <a  routerLink="/ordenesservicios"  title="Orden Servicios">Orden Servicios</a>
+              </li>
             </ul>
           </li>
         </ul>

@@ -1,0 +1,130 @@
+<div class="container-fluid">
+  <div class="row sidebar-owner">
+    <div class="sidebar-backdrop"></div>
+    <div class=" col-md-12">
+      <div class="sidebar-outer">
+        <div class="container-padding">
+          <div class="page-header">
+            <ol class="breadcrumb pgui-breadcrumb">
+              <li>
+                <a><i class="icon-home"></i></a>
+              </li>
+              <li class="dropdown">
+                <a>Proceso de Ordenes de servicios</a>
+              </li>
+              <li class="dropdown">Orden de servicios</li>
+            </ol>
+            <h1>Listado de contratos</h1>
+          </div>
+          <div class="divTable">
+          	<div class="divTableBody">
+          		<div class="divTableRow">
+          			<div class="divTableCell">
+                <p id="rcorners2">
+                   <b style="font-size: 20px;">435</b>
+                   <br>
+                   <font size="2" color="#DC143C">Instalaciones Ejecutadas</font>
+                   <br>
+                   <i style="font-size: 50px; padding-left: 100px;" class="icon-settings"></i>
+                </p>
+                </div>
+                <div class="divTableCell">
+                <p id="rcorners2">
+                   <b style="font-size: 20px;">250</b>
+                   <br>
+                   <font size="2" color="#DC143C">Instalaciones Pendientes</font>
+                   <br>
+                   <i style="font-size: 50px; padding-left: 100px;" class="icon-time"></i>
+                </p>
+                </div>
+                <div class="divTableCell">
+                <p id="rcorners2">
+                   <b style="font-size: 20px;">29</b>
+                   <br>
+                   <font size="2" color="#DC143C">Ordenes Pendientes</font>
+                   <br>
+                   <i style="font-size: 50px; padding-left: 100px;" class="icon-home"></i>
+                </p>
+                </div>
+                <div class="divTableCell">
+                <p id="rcorners2">
+                   <b style="font-size: 20px;">54</b>
+                   <br>
+                   <font size="2" color="#DC143C">Ordenes Ejecutadas</font>
+                   <br>
+                   <i style="font-size: 50px; padding-left: 100px;" class="icon-question"></i>
+                </p>
+                </div>
+          		</div>
+          	</div>
+          </div>
+          <div class="grid grid-table js-grid">
+            <div class="addition-block js-actions">
+              <div class="addition-block-right pull-right js-quick-filter">
+                <div class="quick-filter-toolbar btn-group">
+                  <div class="input-group js-filter-control">
+                    <input class="js-input form-control" name="quick_filter" placeholder="Busqueda rápida" size="16" type="text" value="">
+                  </div>
+                </div><span class="hidden-xs">&thinsp;</span>
+              </div>
+            </div>
+            <div class="filter-status js-filter-status"></div>
+            <div class="js-grid-message-container"></div>
+            <table class="table text-center table-striped">
+              <thead class="js-column-filter-container">
+                <tr>
+                  <th class="row-selection" rowspan="1" style="width:1%;">
+                    <!--<input type="checkbox">-->
+                  </th>
+                  <th rowspan="1" style="width:1%;">Acciones</th>
+                  <th class="" colspan="1" rowspan="1">
+                    <span>Contrato</span>
+                  </th>
+                  <th class="" colspan="1" rowspan="1">
+                      <span>Cliente</span>
+                  </th>
+                  <th class="" colspan="1" rowspan="1">
+                      <span>Servicio</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="pg-row-list">
+                <tr class="pg-row" style="">
+                  <td style="" >
+                    <div class="row-selection">
+                    </div>
+                  </td>
+                  <td class="operation-column">
+                    <span class="operation-item">
+                      <a class="link-icon"  title="Ver facturas">
+                        <i class="icon-view"></i>
+                      </a>
+                    </span>
+                  </td>
+                  <td class=" pgui-cell-edit">MN-00345</td>
+                  <td class=" pgui-cell-edit">Jefferson Jose Medina - 94541178</td>
+                  <td class=" pgui-cell-edit">Solo internet</td>
+                </tr>
+              </tbody>
+              <tfoot></tfoot>
+            </table>
+          </div>
+          <div class="page_navigator">
+            <div class="pgui-pagination">
+              <!--<pagination-controls
+                  class="pagination"
+                  (pageChange)="p = $event"
+                  previousLabel="Anterior"
+                  nextLabel="Siguiente"
+                  screenReaderPaginationLabel="Paginacion"
+                  screenReaderPageLabel="Pagina"
+                  screenReaderCurrentLabel="Estas en la pagina">
+                </pagination-controls>-->
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

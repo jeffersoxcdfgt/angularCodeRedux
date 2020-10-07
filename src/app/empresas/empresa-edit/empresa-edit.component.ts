@@ -18,6 +18,9 @@ import { getAllDepartamentos } from '../../departamentos/store/reducers/departam
 import { Municipio } from '../../municipios/shared/municipio';
 import  * as  municipiosActions from '../../municipios/store/actions/municipios.actions';
 import { getAllMunicipios } from '../../municipios/store/reducers/municipios.reducers';
+import { ValidationEmpresasService } from '../../shared/validations/validationEmpresa.service';
+
+
 const FIRSTELEMENT =0
 
 @Component({
@@ -41,7 +44,10 @@ export class EmpresaEditComponent implements OnInit {
   constructor(
     private route:ActivatedRoute,
     private store:Store<AppState>,
-    private formBuilder: FormBuilder){
+    private formBuilder: FormBuilder,
+    public validationService:ValidationEmpresasService){
+
+      this.validationService.initValidation();
       this.departamentos = this.store.select(getAllDepartamentos);
       this.departamentos.subscribe( data =>{
           this.searchdepartamento =  data
@@ -89,16 +95,30 @@ export class EmpresaEditComponent implements OnInit {
          empresa =empresa[FIRSTELEMENT]
          this.id=empresa.emprId
          this.form.get('nit').setValue(empresa.emprNit)
+         this.validationService.inputNit(empresa.emprNit);
+
          this.form.get('nombre').setValue(empresa.emprNombre)
+         this.validationService.inputNombre(empresa.emprNombre);
+
          this.form.get('direccion').setValue(empresa.emprDireccion)
+         this.validationService.inputDireccion(empresa.emprDireccion);
+
          this.form.get('email').setValue(empresa.emprEmail)
+         this.validationService.inputEmail(empresa.emprEmail);
 
          this.form.get('telefono').setValue(empresa.emprTelefono)
+         this.validationService.inputTelefono(empresa.emprTelefono);
+
+
          this.form.get('telefax').setValue(empresa.emprTelefax)
+         this.validationService.inputTelefax(empresa.emprTelefax);
+
 
          this.form.get('dpto').setValue({ depDepartamento: empresa.idDepartamento, depDescripcion : empresa.departamento , paPais:1 , ciudadMunicipios:null })
+         this.validationService.inputDepartamento(empresa.departamento);
+
          this.form.get('ciudad').setValue({ cimuId: empresa.idEmprCiudad, cimuDescripcion: empresa.emprCiudad , depDepartamento:empresa.idDepartamento })
-         console.log(empresa)
+         this.validationService.inputCiudad(empresa.emprCiudad);
       }
    });
 
@@ -109,9 +129,11 @@ export class EmpresaEditComponent implements OnInit {
     this.form.get('ciudad').setValue([])
     this.listCreateCiud = this.auxciudad
     if(value==undefined){
+      this.validationService.inputDepartamento(' ');
       return
     }
 
+    this.validationService.inputDepartamento(value.depDescripcion);
     let res = this.listCreateCiud.filter((val:DataListCiudad)=> val.depDepartamento == value.depDepartamento)
     this.listCreateCiud = res
   }
@@ -120,12 +142,16 @@ export class EmpresaEditComponent implements OnInit {
     if(value==undefined){
       this.listCreateCiud =this.auxciudad
       this.form.get('dpto').setValue(null)
+      this.validationService.inputCiudad(' ');
       return
     }
 
     if(this.form.get('dpto').value){
+      this.validationService.inputCiudad(value.cimuDescripcion);
       return
     }
+
+
 
     let res =  this.searchdepartamento.find((val:Departamento) => val.depDepartamento == value.depDepartamento)
     this.form.get('dpto').setValue(
@@ -139,23 +165,26 @@ export class EmpresaEditComponent implements OnInit {
   }
 
   onSaveEmpresa(){
-    let d = new Date();
-    const payload:Empresa = {
-      emprId: this.id,
-      emprNit: `${this.form.get('nit').value}`,
-      emprNombre: `${this.form.get('nombre').value}`,
-      emprDireccion:`${this.form.get('direccion').value}`,
-      emprEmail: `${this.form.get('email').value}`,
-      emprTelefono: `${this.form.get('telefono').value}`,
-      emprTelefax: `${this.form.get('telefax').value}`,
-      emprFechaInicio:`${d.toLocaleString()}`,
-      emprRegistradopor: "front",
-      emprFechaCreacion:`${d.toLocaleString()}`,
-      emprCiudad:`${this.form.get('ciudad').value.cimuDescripcion}`,
-      emprEstado: true,
-      cimuId:+this.form.get('ciudad').value.cimuId
+
+    if(this.validationService.ifGood()){
+      let d = new Date();
+      const payload:Empresa = {
+        emprId: this.id,
+        emprNit: `${this.form.get('nit').value}`,
+        emprNombre: `${this.form.get('nombre').value}`,
+        emprDireccion:`${this.form.get('direccion').value}`,
+        emprEmail: `${this.form.get('email').value}`,
+        emprTelefono: `${this.form.get('telefono').value}`,
+        emprTelefax: `${this.form.get('telefax').value}`,
+        emprFechaInicio:`${d.toLocaleString()}`,
+        emprRegistradopor: "front",
+        emprFechaCreacion:`${d.toLocaleString()}`,
+        emprCiudad:`${this.form.get('ciudad').value.cimuDescripcion}`,
+        emprEstado: true,
+        cimuId:+this.form.get('ciudad').value.cimuId
+      }
+      this.store.dispatch(new UpdateEmpresa(payload));
     }
-    this.store.dispatch(new UpdateEmpresa(payload));
   }
 
 }
