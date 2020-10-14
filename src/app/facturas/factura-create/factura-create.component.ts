@@ -88,7 +88,7 @@ export class FacturaCreateComponent implements OnInit {
       serId:+this.servicioId,
       mesId:new Date().getMonth() + 1,
       persId: `${this.persId}`,
-      esfaId: 1,
+      esfaId: 2,
       factDescuento: 0,
       factCodigoPago: "",
       factConcepto: this.servicio
