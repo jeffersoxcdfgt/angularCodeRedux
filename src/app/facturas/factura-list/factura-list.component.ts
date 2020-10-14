@@ -39,19 +39,20 @@ export class FacturaListComponent implements OnInit {
   ngOnInit(): void {
 
     this.store.select(getAllHeadersFactura).subscribe((data) => {
-          this.valueMesActual = data['pagadasMesActual']
-          this.MensualidadesMesactual = `Mensualidades Pagadas ${data['mesActual']}`
+          if(data != null){
+            this.valueMesActual = data['pagadasMesActual']
+            this.MensualidadesMesactual = `Mensualidades Pagadas ${data['mesActual']}`
 
-          this.valueMesActualPendiente = data['pendientesMesActual']
-          this.MensualidadesPendientesMesactual = `Mensualidades Pendientes ${data['mesActual']}`
+            this.valueMesActualPendiente = data['pendientesMesActual']
+            this.MensualidadesPendientesMesactual = `Mensualidades Pendientes ${data['mesActual']}`
 
 
-          this.valueMesAnteriorPendiente = data['pendientesMesAnterior']
-          this.MensualidadesMesanterior = `Mensualidades Pendientes ${data['mesAnterior']}`
+            this.valueMesAnteriorPendiente = data['pendientesMesAnterior']
+            this.MensualidadesMesanterior = `Mensualidades Pendientes ${data['mesAnterior']}`
 
-          this.ValueMensualidadesAdelantadas =  `${data['adelantadas']}`
+            this.ValueMensualidadesAdelantadas =  `${data['adelantadas']}`
+        }
     });
-
 
     this.store.dispatch(new GetAllContratos())
     this.store.select(getAllContratos).subscribe((data)=>{
@@ -59,6 +60,6 @@ export class FacturaListComponent implements OnInit {
           this.contratos = data
         }
     })
-  }
 
+  }
 }

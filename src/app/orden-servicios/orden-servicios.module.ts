@@ -17,38 +17,44 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule , ReactiveFormsModule } from '@angular/forms';
 
-
 import { ContratoEffects } from '../contratos/store/effects/contratos.effects';
 import  * as contratosReducers from '../contratos/store/reducers/contratos.reducers';
 import { ContratosService } from '../contratos/store/services/contratos.service';
 
+import {NgxPaginationModule} from 'ngx-pagination';
+
 export const reducers: ActionReducerMap<any> = {
   ordenesservicios:ordenesServicioReducers.reducer,
   router: routerReducer,
-  contratos:contratosReducers.reducer,
+  contratos:contratosReducers.reducer
 }
 
 @NgModule({
   imports:[
     SharedModule,
     OrdenesServiciosRoutingModule,
-    StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([OrdenServicioEffects]),
+    StoreModule.forRoot(reducers,{
+      runtimeChecks: {
+       strictStateImmutability: true,
+       strictActionImmutability: true
+     }
+    }),
+    EffectsModule.forRoot([
+      OrdenServicioEffects,
+      ContratoEffects
+    ]),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgSelectModule,
     FormsModule,
-    ReactiveFormsModule,
-    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
-    StoreRouterConnectingModule.forRoot({
-      stateKey: 'router' // name of reducer key
-    }),
-    StoreDevtoolsModule.instrument({
-      maxAge:25
-    })
+    NgxPaginationModule
   ],
   declarations:[ordenesServiciosRoutedComponents],
-  providers:[ OrdenesServicioService , TraceService ]
+  providers:[
+    OrdenesServicioService ,
+    TraceService,
+    ContratosService
+   ]
 })
 export class OrdenesServiciosModule {
 

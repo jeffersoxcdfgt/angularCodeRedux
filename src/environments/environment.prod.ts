@@ -10,5 +10,6 @@ export const environment = {
   urlContratos:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/Contratos",
   urlDepartamentos:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/Departamentos",
   urlMunicipios:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/CiudadMunicipios",
-  urlFacturas:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/Facturas"
+  urlFacturas:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/Facturas",
+  urlHeadersFacturas:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/HeaderMensualidad"
 };

@@ -89,7 +89,7 @@
                 </tr>
               </thead>
               <tbody class="pg-row-list">
-                <tr class="pg-row" style="">
+                <tr class="pg-row" style="" *ngFor="let contrato of contratos | paginate: { itemsPerPage: 10, currentPage: p } " >
                   <td style="" >
                     <div class="row-selection">
                     </div>
@@ -101,9 +101,9 @@
                       </a>
                     </span>
                   </td>
-                  <td class=" pgui-cell-edit">MN-00345</td>
-                  <td class=" pgui-cell-edit">Jefferson Jose Medina - 94541178</td>
-                  <td class=" pgui-cell-edit">Solo internet</td>
+                  <td class=" pgui-cell-edit">{{contrato.numeroContrato}}</td>
+                  <td class=" pgui-cell-edit">{{contrato.CedulaNombre}}</td>
+                  <td class=" pgui-cell-edit">{{contrato.Servicios}}</td>
                 </tr>
               </tbody>
               <tfoot></tfoot>
@@ -111,7 +111,7 @@
           </div>
           <div class="page_navigator">
             <div class="pgui-pagination">
-              <!--<pagination-controls
+              <pagination-controls
                   class="pagination"
                   (pageChange)="p = $event"
                   previousLabel="Anterior"
@@ -119,7 +119,7 @@
                   screenReaderPaginationLabel="Paginacion"
                   screenReaderPageLabel="Pagina"
                   screenReaderCurrentLabel="Estas en la pagina">
-                </pagination-controls>-->
+                </pagination-controls>
             </div>
           </div>
           <hr>
