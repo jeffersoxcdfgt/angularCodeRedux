@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AppState } from '../app.state';
 import { isCreated , isUpdated , isDeleted ,getDeleteError ,getUpdateError , getCreateError } from './store/reducers/facturas.reducers';
 import { GetAllPersonas } from '../personas/store/actions/personas.actions';
+import { GetAllFacturasHeaders } from './store/actions/facturas.actions';
 import { getAllPersonasError } from '../personas/store/reducers/personas.reducers';
 
 import swal from 'sweetalert2';
@@ -21,6 +22,9 @@ export class FacturasComponent implements OnInit {
   }
 
   ngOnInit(){
+
+    this.store.dispatch(new GetAllFacturasHeaders());
+
     this.store.dispatch(new GetAllPersonas());
     this.store.select(getAllPersonasError).subscribe((error) => this.loadingError(error));
 

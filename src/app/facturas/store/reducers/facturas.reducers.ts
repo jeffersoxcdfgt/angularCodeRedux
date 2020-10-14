@@ -22,6 +22,32 @@ const initialState: State  = {
 
 export function reducer (state = initialState , action :AppAction){
     switch(action.type){
+      case facturaActions.GET_HEADERS_FACTURAS:{
+        return {
+          ...state,
+          action: facturaActions.GET_HEADERS_FACTURAS,
+          done:false,
+          selected:null,
+          error:null
+        }
+      }
+      case facturaActions.GET_HEADERS_FACTURAS_SUCESSS:{
+        return {
+          ...state,
+          data:action.payload,
+          done:true,
+          selected:null,
+          error:null
+        }
+      }
+      case facturaActions.GET_HEADERS_FACTURAS_ERROR:{
+        return {
+          ...state,
+          done:true,
+          selected:null,
+          error:action.payload
+        }
+      }
       case facturaActions.GET_FACTURA:{
           return {
           ...state,
@@ -143,6 +169,7 @@ export function reducer (state = initialState , action :AppAction){
 
 export const getFacturasState = createFeatureSelector < State > ('facturas');
 
+export const getAllHeadersFactura = createSelector( getFacturasState , (state: State ) => state.data);
 export const getFactura = createSelector( getFacturasState , ( state : State ) => {
   if(state.action === facturaActions.GET_FACTURA && state.done){
     return state.selected;

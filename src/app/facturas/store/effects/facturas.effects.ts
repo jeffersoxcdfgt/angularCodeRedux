@@ -16,7 +16,10 @@ GetFacturaSuccess,
 GetFacturaError,
 DeleteFactura,
 DeleteFacturaSuccess,
-DeleteFacturaError
+DeleteFacturaError,
+GetAllFacturasHeaders,
+GetAllFacturasHeadersSuccess,
+GetAllFacturasHeadersError
 }
 from '../actions/facturas.actions';
 import { FacturasService } from '../services/facturas.service';
@@ -25,6 +28,18 @@ import { Factura , CreateFactura , PagarAnularFactura} from '../../shared/factur
 @Injectable()
 export class FacturaEffects {
   constructor(private actions$:Actions , private svc:FacturasService){}
+
+
+  @Effect()
+  public getAllheadersFactura$ : Observable<Action> = this.actions$.pipe(
+      ofType<GetAllFacturasHeaders>(facturaActions.GET_HEADERS_FACTURAS),
+        mergeMap((action:GetAllFacturasHeaders) =>
+          this.svc.getHeadersFactura().pipe(
+            map((headersFactura: Factura[]) => new GetAllFacturasHeadersSuccess(headersFactura)),
+            catchError(err => of(new GetAllFacturasHeadersError(err)))
+          )
+      )
+  );
 
 
   @Effect()

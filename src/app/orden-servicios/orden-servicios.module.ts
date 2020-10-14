@@ -17,9 +17,15 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule , ReactiveFormsModule } from '@angular/forms';
 
+
+import { ContratoEffects } from '../contratos/store/effects/contratos.effects';
+import  * as contratosReducers from '../contratos/store/reducers/contratos.reducers';
+import { ContratosService } from '../contratos/store/services/contratos.service';
+
 export const reducers: ActionReducerMap<any> = {
   ordenesservicios:ordenesServicioReducers.reducer,
-  router: routerReducer
+  router: routerReducer,
+  contratos:contratosReducers.reducer,
 }
 
 @NgModule({

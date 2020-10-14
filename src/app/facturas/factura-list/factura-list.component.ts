@@ -10,6 +10,7 @@ import { getAllContratos } from '../../contratos/store/reducers/contratos.reduce
 import {NgxPaginationModule} from 'ngx-pagination';
 import swal from 'sweetalert2';
 import { GetAllContratos } from '../../contratos/store/actions/contratos.actions';
+import { getAllHeadersFactura } from '../store/reducers/facturas.reducers';
 
 @Component({
   selector: 'app-factura-list',
@@ -21,9 +22,37 @@ export class FacturaListComponent implements OnInit {
   contratos : Contrato[];
   p: number = 1;
 
+  MensualidadesMesactual:string = ''
+  valueMesActual:string = ''
+
+  MensualidadesPendientesMesactual:string = ''
+  valueMesActualPendiente:string = ''
+
+  MensualidadesMesanterior:string = ''
+  valueMesAnteriorPendiente:string = ''
+
+  ValueMensualidadesAdelantadas:string= ''
+
+
   constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
+
+    this.store.select(getAllHeadersFactura).subscribe((data) => {
+          this.valueMesActual = data['pagadasMesActual']
+          this.MensualidadesMesactual = `Mensualidades Pagadas ${data['mesActual']}`
+
+          this.valueMesActualPendiente = data['pendientesMesActual']
+          this.MensualidadesPendientesMesactual = `Mensualidades Pendientes ${data['mesActual']}`
+
+
+          this.valueMesAnteriorPendiente = data['pendientesMesAnterior']
+          this.MensualidadesMesanterior = `Mensualidades Pendientes ${data['mesAnterior']}`
+
+          this.ValueMensualidadesAdelantadas =  `${data['adelantadas']}`
+    });
+
+
     this.store.dispatch(new GetAllContratos())
     this.store.select(getAllContratos).subscribe((data)=>{
         if(data != null){

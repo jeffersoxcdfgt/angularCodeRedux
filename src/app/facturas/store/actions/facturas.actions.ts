@@ -1,6 +1,10 @@
 import { Action } from '@ngrx/store';
 import { Factura , CreateFactura , PagarAnularFactura} from '../../shared/factura';
 
+export const GET_HEADERS_FACTURAS = '[All] Facturas';
+export const GET_HEADERS_FACTURAS_SUCESSS ='[All]  Facturas Success';
+export const GET_HEADERS_FACTURAS_ERROR ='[All] Facturas Error';
+
 export const GET_FACTURA = '[GET] Factura';
 export const GET_FACTURA_SUCCESS = '[GET] Factura Succes';
 export const GET_FACTURA_ERROR = '[GET] Factura Error';
@@ -16,6 +20,25 @@ export const UPDATE_FACTURA_ERROR = '[Update] Factura Error';
 export const DELETE_FACTURA = '[Delete] Factura';
 export const DELETE_FACTURA_SUCCESS = '[Delete] Factura Success';
 export const DELETE_FACTURA_ERROR = '[Delete] Factura Error';
+
+
+
+//List Facturas
+
+export class GetAllFacturasHeaders implements Action {
+    readonly type = GET_HEADERS_FACTURAS;
+}
+
+export class GetAllFacturasHeadersSuccess implements Action {
+    readonly type  = GET_HEADERS_FACTURAS_SUCESSS;
+    constructor(public payload: Factura[]){}
+}
+
+export class GetAllFacturasHeadersError implements Action {
+    readonly type = GET_HEADERS_FACTURAS_ERROR;
+    constructor(public payload: Error){}
+}
+
 
 //Get Factura by Id
 

@@ -77,5 +77,11 @@ export class Factura {
             serValor: number;
         }
     ];
-    persId: string;
+    persId?:string;
+    mesActual?: string;
+    mesAnterior?: string;
+    pagadasMesActual?: number;
+    pendientesMesActual?: number;
+    pendientesMesAnterior?: number;
+    adelantadas?:number;
 }

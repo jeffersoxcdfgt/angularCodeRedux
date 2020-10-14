@@ -13,12 +13,13 @@ export class FacturasService {
 
   constructor(private http: HttpClient ,private traceService: TraceService){ }
 
+
   /**
    * Find all the elements
    * @returns gets the list of objects found
    */
-  public findAll(params?): Observable<Factura[]>{
-      return this.http.get<Factura[]>(this.URL , { params: params }).pipe(
+  public getHeadersFactura(params?): Observable<Factura[]>{
+      return this.http.get<Factura[]>(environment.urlHeadersFacturas, { params: params }).pipe(
         tap(_ => this.traceService.log('fetched facturas')),
           catchError(this.traceService.handleError<Factura[]>('findAll', []))
       )
