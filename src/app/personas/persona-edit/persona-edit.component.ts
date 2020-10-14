@@ -168,6 +168,21 @@ export class PersonaEditComponent implements OnInit {
               }
             })
          )
+
+
+         let emp = persona.empresa
+         let infoemp= Object.keys(emp).map((k)=>emp[k])
+         this.validationService.subEmpresa.next(infoemp[0].emprNombre);
+
+         this.form.get('empresa').setValue(
+            infoemp.map((val:Empresa)=>{
+              return {
+                  id:val.emprId,
+                  value: `${val.emprNombre}`
+              }
+            })
+         )
+
       }
    });
   }
@@ -187,8 +202,15 @@ export class PersonaEditComponent implements OnInit {
         this.validationService.inputSexo(val)
     else if(validateType=='tipoestadocivil')
         this.validationService.inputEstadoCivil(val)
-    else if(validateType=='tipoempresa')
-        this.validationService.inputEmpresa(val)
+    else if(validateType=='tipoempresa'){
+        if(this.form.get('empresa').value.length ==0){
+            this.validationService.inputEmpresa(' ');
+        }
+        else{
+            let data = this.form.get('empresa').value[FIRSTELEMENT].value
+            this.validationService.inputEmpresa(data);
+        }
+    }
     else if(validateType=='tiporol'){
         if(this.form.get('rol').value.length ==0){
             this.validationService.inputRol(' ');
@@ -218,7 +240,7 @@ export class PersonaEditComponent implements OnInit {
       persLogin: `${this.form.get('email').value}`,
       persPassword: "123",
       persRegistradopor: "front ax",
-      persFechaCreacion: `${d.toLocaleString()}`,
+      //persFechaCreacion: `${d.toLocaleString()}`,
       persActivo: true,
       clclId: 1,
       tidoId:+this.form.get('tipo_documento').value.id,
@@ -232,8 +254,19 @@ export class PersonaEditComponent implements OnInit {
                 rolId:val['id'],
                 peroEstado:true,
                 peroRegistradopor:"string",
-                peroFechaCreacion:`${new Date().toLocaleString()}`
+                //peroFechaCreacion:`${new Date().toLocaleString()}`
             }
+        }):[],
+        empresaconpersona:
+              this.form.get('empresa').value != null ? this.form.get('empresa').value.map((val:Empresa)=>{
+                return {
+                  emcpeActivo: true,
+                  emprId: val['id'],
+                  persId: `${this.form.get('usuario').value}`,
+                  emprRegistradopor: "Agregado",
+                  //emprFechaRegistro: `${d.toLocaleString()}`,
+                  emprActivo: true
+                }
         }):[]
     }
     this.store.dispatch(new UpdatePersona(payload));

@@ -158,7 +158,7 @@ export class PersonaCreateComponent implements OnInit {
       persLogin: `${this.form.get('usuario').value}`,
       persPassword: "1234567",
       persRegistradopor: "front",
-      persFechaCreacion: `${d.toLocaleString()}`,
+      //persFechaCreacion: `${d.toLocaleString()}`,
       persActivo: true,
       clclId: 2,
       tidoId:+this.form.get('tipo_documento').value.id,
@@ -171,8 +171,8 @@ export class PersonaCreateComponent implements OnInit {
                 persId:`${this.form.get('usuario').value}`,
                 rolId:val['id'],
                 peroEstado:true,
-                peroRegistradopor:"string",
-                peroFechaCreacion:`${new Date().toLocaleString()}`
+                peroRegistradopor:"string"
+                //peroFechaCreacion:`${new Date().toLocaleString()}`
             }
         }):[],
       empresaconpersona:
@@ -182,7 +182,7 @@ export class PersonaCreateComponent implements OnInit {
                 emprId: val['id'],
                 persId: `${this.form.get('usuario').value}`,
                 emprRegistradopor: "Agregado",
-                emprFechaRegistro: `${d.toLocaleString()}`,
+                //emprFechaRegistro: `${d.toLocaleString()}`,
                 emprActivo: true
               }
       }):[]
