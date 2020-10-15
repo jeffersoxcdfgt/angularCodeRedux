@@ -29,6 +29,27 @@ export class Contrato {
   SerId?:string;
   SerValor?:string;
   EstadoContrato?:string
+  //Valor por contratos
+  prodId?:number;
+  caprId?:number;
+  unmeId?:number;
+  ivaId?:number;
+  prodCodigo?: string;
+  prodNombre?: string;
+  prodDescripcion?: string;
+  prodPrecioVenta?: number;
+  prodCminimo?: number
+  prodMarca?: string;
+  capr?: string;
+  iva?: string;
+  unme?: string;
+  auditoriaContrato?: string;
+  detalleFactura?: string;
+  movimientoInventario?: string;
+  solicitudServicio?: string;
+  ivaNombre?: string;
+  ivaDescripcion?: string;
+  ivaValor?: number;
 }
 
 export class ContratoRender {

@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators ,FormControl ,FormArray , AbstractControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
 
 import  * as  personasActions from '../../personas/store/actions/personas.actions';
-import { getAllPersonas } from '../../personas/store/reducers/personas.reducers';
+import { getAllPersonas , getPersonaRol } from '../../personas/store/reducers/personas.reducers';
 import { Persona } from '../../personas/shared/persona';
 
 import  * as  zonasActions from '../../zonas/store/actions/zonas.actions';
@@ -21,10 +21,12 @@ import { Servicio } from '../../servicios/shared/servicio';
 
 import { Contrato } from '../shared/contrato';
 import  * as  contratoActions from '../store/actions/contratos.actions';
-import { isCreated } from '../store/reducers/contratos.reducers';
+import { isCreated , getContratoValue} from '../store/reducers/contratos.reducers';
 
 import { DataList , listPersonas , listTipoCliente , listTipoZonas , listTipoSectores , listTipoServicios } from '../shared/list'
 import { Observable , of , from , Subject , BehaviorSubject , iif ,combineLatest , NEVER ,interval   } from 'rxjs';
+
+import {  GetPersonaRol } from '../../personas/store/actions/personas.actions';
 
 
 @Component({
@@ -32,8 +34,10 @@ import { Observable , of , from , Subject , BehaviorSubject , iif ,combineLatest
   templateUrl: './contrato-create.component.html',
   styleUrls: ['./contrato-create.component.css']
 })
-export class ContratoCreateComponent implements OnInit {
+export class ContratoCreateComponent implements OnInit , AfterViewInit {
   personas : Observable<Persona[]>;
+  personasRespSolidario : Observable<Persona[]>;
+
   zonas : Observable<Zona[]>;
   sectores : Observable<Sector[]>;
   servicios : Observable<Servicio[]>;
@@ -43,6 +47,8 @@ export class ContratoCreateComponent implements OnInit {
   searchservicios : Servicio[];
 
   listPersonas:DataList[];
+  listPersonasRespSolidario:DataList[];
+
   listTipoCliente:DataList[];
   listTipoZona:DataList[];
   listTipoSector:DataList[];
@@ -87,21 +93,40 @@ export class ContratoCreateComponent implements OnInit {
         preciocontrato:[''],
         ressolidario:['']
    })
-
   }
+
+
+ngAfterViewInit(): void{
+
+
+}
 
   ngOnInit(): void {
     this.personas = this.store.select(getAllPersonas);
     this.personas.subscribe( data =>{
          this.searchpersonas = data
+
          this.listPersonas = data.map((val:Persona)=>{
-           console.log(val)
               return {
                   id:val.persId,
                   value: `(${val.persNumDocumento}) -  ${val.persNombre} ${val.persApellido} `
               }
           })
+
     });
+
+
+  /*  this.store.dispatch(new GetPersonaRol(56));
+    this.personasRespSolidario = this.store.select(getPersonaRol)
+     this.personasRespSolidario.subscribe((dataResp)=>{
+          if(dataResp!=null){
+            console.log(33333)
+            console.log(dataResp)
+          }
+    })*/
+
+
+
 
 
     this.zonas = this.store.select(getAllZonas);
@@ -142,6 +167,7 @@ export class ContratoCreateComponent implements OnInit {
            }
        })
     });
+
   }
 
   onSaveContrato(){
@@ -270,6 +296,11 @@ export class ContratoCreateComponent implements OnInit {
     let res = this.searchservicios.find((val:Servicio) => val.serId == value.id)
     this.form.get('valorservicio').setValue(res.serValor)
 
+    this.store.dispatch(new contratoActions.GetContratoValue("4"))
+    this.store.select(getContratoValue).subscribe((data)=>{
+          if(data!=null){
+            this.form.get('preciocontrato').setValue(data[0]['prodPrecioVenta'])
+        }
+    })
   }
-
 }

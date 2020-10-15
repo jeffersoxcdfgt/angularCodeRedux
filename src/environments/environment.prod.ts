@@ -11,5 +11,7 @@ export const environment = {
   urlDepartamentos:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/Departamentos",
   urlMunicipios:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/CiudadMunicipios",
   urlFacturas:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/Facturas",
-  urlHeadersFacturas:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/HeaderMensualidad"
+  urlHeadersFacturas:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/HeaderMensualidad",
+  urlValueContrato:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/Productos",
+  urlPersonaRol:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/PersonasPorRol"
 };

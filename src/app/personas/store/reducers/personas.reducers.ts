@@ -186,12 +186,39 @@ export function reducer (state = initialState , action :AppAction){
                 error:action.payload
               }
           }
+          case personaActions.GET_PERSONA_ROL:
+          {
+            return {
+              ...state,
+              action: personaActions.GET_PERSONA_ROL,
+              done: false,
+              error:null
+            }
+          }
+          case personaActions.GET_PERSONA_ROL_SUCCESS:
+          {
+            return {
+              ...state,
+              data:action.payload,
+              selected: null,
+              error: null,
+              done: true
+            }
+          }
+          case personaActions.GET_PERSONA_ROL_ERROR:
+          {
+              return {
+                ...state,
+                done:true,
+                selected:null,
+                error:action.payload
+              }
+           }
     }
     return state;
 }
 
 export const getPersonasState = createFeatureSelector < State > ('personas');
-
 export const getAllPersonas = createSelector( getPersonasState , (state: State ) => state.data);
 
 export const getAllPersonasError = createSelector(getPersonasState, (state: State) => {
@@ -230,4 +257,13 @@ export const getDeleteError = createSelector(getPersonasState, (state: State) =>
     return state.action === personaActions.DELETE_PERSONA
       ? state.error
      : null;
+});
+
+
+export const getPersonaRol = createSelector( getPersonasState , ( state : State ) => {
+  if(state.action === personaActions.GET_PERSONA_ROL && state.done){
+    return state.data;
+  } else{
+    return null;
+  }
 });

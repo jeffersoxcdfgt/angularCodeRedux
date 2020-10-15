@@ -186,6 +186,34 @@ export function reducer (state = initialState , action :AppAction){
                 error:action.payload
               }
           }
+          case contratoActions.GET_VALUE_CONTRATO:
+          {
+              return {
+              ...state,
+                action: contratoActions.GET_VALUE_CONTRATO,
+                done: false,
+                selected: null,
+                error:  null
+              }
+          }
+          case contratoActions.GET_VALUE_CONTRATO_SUCCESS:
+          {
+            return {
+                ...state,
+                selected: action.payload,
+                done: true,
+                error:  null
+            }
+          }
+          case contratoActions.GET_VALUE_CONTRATO_ERROR:
+          {
+            return {
+              ...state,
+              selected: null,
+              done: true,
+              error:  action.payload
+            }
+          }
     }
     return state;
 }
@@ -232,4 +260,14 @@ export const getDeleteError = createSelector(getContratosState, (state: State) =
     return state.action === contratoActions.DELETE_CONTRATO
       ? state.error
      : null;
+});
+
+
+
+export const getContratoValue = createSelector( getContratosState , ( state : State ) => {
+  if(state.action === contratoActions.GET_VALUE_CONTRATO && state.done){
+    return state.selected;
+  } else{
+    return null;
+  }
 });

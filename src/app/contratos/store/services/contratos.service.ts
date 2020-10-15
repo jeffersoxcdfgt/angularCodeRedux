@@ -77,4 +77,16 @@ export class ContratosService {
      )
    }
 
+   /**
+    * Find an object by its identifier
+    * @param id the object identifier
+    * @returns gets the object found
+    */
+   public findByValueContrato(id: any): Observable<Contrato> {
+     return this.http.get<Contrato>(environment.urlValueContrato + '/' + id).pipe(
+       tap(_ => this.traceService.log(`fetched contrato id=${id}`)),
+       catchError(this.traceService.handleError<Contrato>(`findById id=${id}`))
+     )
+   }
+
 }

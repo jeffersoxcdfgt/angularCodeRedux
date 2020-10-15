@@ -5,7 +5,7 @@ import { AppState } from '../app.state';
 import { GetAllContratos } from './store/actions/contratos.actions';
 import  * as reducersContratos from './store/reducers/contratos.reducers';
 import { getAllContratosError , isCreated , getCreateError , isUpdated , getUpdateError , getDeleteError} from './store/reducers/contratos.reducers';
-import { GetAllPersonas } from '../personas/store/actions/personas.actions';
+import { GetAllPersonas , GetPersonaRol } from '../personas/store/actions/personas.actions';
 import  * as reducersPersonas from '../personas/store/reducers/personas.reducers';
 import { GetAllZonas } from '../zonas/store/actions/zonas.actions';
 import  * as reducersZonas from '../zonas/store/reducers/zonas.reducers';
@@ -30,6 +30,8 @@ export class ContratosComponent implements OnInit {
     //contratos
     //this.store.dispatch(new GetAllContratos())
     //this.store.select(reducersContratos.getAllContratosError).subscribe((error) => this.loadingError(error));
+
+
 
     //Personas
     this.store.dispatch(new GetAllPersonas());

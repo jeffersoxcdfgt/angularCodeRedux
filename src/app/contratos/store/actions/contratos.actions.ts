@@ -21,6 +21,11 @@ export const DELETE_CONTRATO = '[Delete] Contrato';
 export const DELETE_CONTRATO_SUCCESS = '[Delete] Contrato Success';
 export const DELETE_CONTRATO_ERROR = '[Delete] Contrato Error';
 
+
+export const GET_VALUE_CONTRATO = '[GET] Contrato Value';
+export const GET_VALUE_CONTRATO_SUCCESS = '[GET] Contrato Value Succes';
+export const GET_VALUE_CONTRATO_ERROR = '[GET] Contrato Value Error';
+
 //List Contratos
 
 export class GetAllContratos implements Action {
@@ -102,4 +107,23 @@ export class DeleteContratoSuccess implements Action{
 export class DeleteContratoError implements Action {
   readonly type = DELETE_CONTRATO_ERROR;
   constructor(public payload:Error){}
+}
+
+
+
+//Get Value contrato
+
+export class GetContratoValue implements Action {
+    readonly type = GET_VALUE_CONTRATO;
+    constructor(public payload: string){}
+}
+
+export class GetContratoValueSuccess implements Action {
+  readonly  type = GET_VALUE_CONTRATO_SUCCESS;
+  constructor(public payload: Contrato){}
+}
+
+export class  GetContratoValueError implements Action {
+  readonly type =  GET_VALUE_CONTRATO_ERROR;
+  constructor(public payload: Error){}
 }

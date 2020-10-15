@@ -19,7 +19,10 @@ UpdateContratoSuccess,
 UpdateContratoError,
 DeleteContrato,
 DeleteContratoSuccess,
-DeleteContratoError
+DeleteContratoError,
+GetContratoValue,
+GetContratoValueSuccess,
+GetContratoValueError
 }
 from '../actions/contratos.actions';
 import { ContratosService } from '../services/contratos.service';
@@ -86,4 +89,17 @@ export class ContratoEffects {
             )
         )
     );
+
+
+    @Effect()
+    public getContratoValue$ : Observable<Action> =  this.actions$.pipe(
+          ofType<GetContratoValue>(contratoActions.GET_VALUE_CONTRATO),
+            mergeMap((action: GetContratoValue) =>
+              this.svc.findByValueContrato(action.payload).pipe(
+                map((contrato: Contrato) => new GetContratoValueSuccess(contrato)),
+                  catchError(err => of(new GetContratoValueError(err)))
+            )
+        )
+    );
+
 }

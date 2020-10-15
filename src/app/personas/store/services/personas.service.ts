@@ -77,4 +77,16 @@ export class PersonasService {
      )
    }
 
+   /**
+    * Find an object by its identifier
+    * @param id the object identifier
+    * @returns gets the object found
+    */
+   public PersonaRol(id: any): Observable<Persona[]> {
+     return this.http.get<Persona[]>(environment.urlPersonaRol + '/' + id).pipe(
+       tap(_ => this.traceService.log(`fetched persona id=${id}`)),
+          catchError(this.traceService.handleError<Persona[]>(`findById id=${id}`))
+     )
+   }
+
 }

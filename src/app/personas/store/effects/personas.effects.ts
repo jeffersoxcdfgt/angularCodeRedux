@@ -19,7 +19,10 @@ UpdatePersonaSuccess,
 UpdatePersonaError,
 DeletePersona,
 DeletePersonaSuccess,
-DeletePersonaError
+DeletePersonaError,
+GetPersonaRol,
+GetPersonaRolSuccess,
+GetPersonaRolError
 }
 from '../actions/personas.actions';
 import { PersonasService } from '../services/personas.service';
@@ -82,6 +85,18 @@ export class PersonaEffects {
             this.svc.delete(action.payload).pipe(
               map((persona: Persona) => new DeletePersonaSuccess(persona)),
               catchError(err => of(new DeletePersonaError(err)))
+            )
+        )
+    );
+
+
+    @Effect()
+    public getPersonaRol$ : Observable<Action> =  this.actions$.pipe(
+          ofType<GetPersonaRol>(personaActions.GET_PERSONA_ROL),
+            mergeMap((action: GetPersonaRol) =>
+              this.svc.PersonaRol(action.payload).pipe(
+                map((persona: Persona[]) => new GetPersonaRolSuccess(persona)),
+                  catchError(err => of(new GetPersonaRolError(err)))
             )
         )
     );
