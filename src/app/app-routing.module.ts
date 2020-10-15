@@ -54,6 +54,11 @@ const routes:Routes = [
     path:'ordenesservicios',
     loadChildren: () => import('./orden-servicios/orden-servicios.module').then(m => m.OrdenesServiciosModule)
   },
+  {
+    path:'personassolidarias',
+    loadChildren: () => import('./persona-solidarias/personasSolidarias.module').then(m => m.PersonasSolidariasModule)
+  },
+
   {path: '**', component: PageNotFoundComponent}
 ];
 

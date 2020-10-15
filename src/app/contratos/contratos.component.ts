@@ -5,8 +5,12 @@ import { AppState } from '../app.state';
 import { GetAllContratos } from './store/actions/contratos.actions';
 import  * as reducersContratos from './store/reducers/contratos.reducers';
 import { getAllContratosError , isCreated , getCreateError , isUpdated , getUpdateError , getDeleteError} from './store/reducers/contratos.reducers';
-import { GetAllPersonas , GetPersonaRol } from '../personas/store/actions/personas.actions';
+import { GetAllPersonas } from '../personas/store/actions/personas.actions';
 import  * as reducersPersonas from '../personas/store/reducers/personas.reducers';
+
+import { GetAllPersonasSolidarias } from '../persona-solidarias/store/actions/personasSolidarias.actions';
+import  * as reducersPersonasSolidarias from '../persona-solidarias/store/reducers/personasSolidarias.reducers';
+
 import { GetAllZonas } from '../zonas/store/actions/zonas.actions';
 import  * as reducersZonas from '../zonas/store/reducers/zonas.reducers';
 import { GetAllSectores } from '../sectores/store/actions/sectores.actions';
@@ -27,11 +31,10 @@ export class ContratosComponent implements OnInit {
 
   ngOnInit() {
 
-    //contratos
-    //this.store.dispatch(new GetAllContratos())
-    //this.store.select(reducersContratos.getAllContratosError).subscribe((error) => this.loadingError(error));
 
-
+    //Responsables Solidarios
+    this.store.dispatch(new GetAllPersonasSolidarias());
+    this.store.select(reducersPersonasSolidarias.getPersonasSolidariasError).subscribe((error) => this.loadingError(error));
 
     //Personas
     this.store.dispatch(new GetAllPersonas());

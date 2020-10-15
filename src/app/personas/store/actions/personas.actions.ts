@@ -21,9 +21,6 @@ export const DELETE_PERSONA = '[Delete] Persona';
 export const DELETE_PERSONA_SUCCESS = '[Delete] Persona Success';
 export const DELETE_PERSONA_ERROR = '[Delete] Persona Error';
 
-export const GET_PERSONA_ROL = '[GET] Persona Rol';
-export const GET_PERSONA_ROL_SUCCESS = '[GET] Persona Rol Succes';
-export const GET_PERSONA_ROL_ERROR = '[GET] Persona Rol Error';
 
 //List personas
 
@@ -106,22 +103,4 @@ export class DeletePersonaSuccess implements Action{
 export class DeletePersonaError implements Action {
   readonly type = DELETE_PERSONA_ERROR;
   constructor(public payload:Error){}
-}
-
-
-//Get Persona Rol
-
-export class GetPersonaRol implements Action {
-    readonly type = GET_PERSONA_ROL;
-    constructor(public payload: number){}
-}
-
-export class GetPersonaRolSuccess implements Action {
-  readonly  type = GET_PERSONA_ROL_SUCCESS;
-  constructor(public payload: Persona[]){}
-}
-
-export class  GetPersonaRolError implements Action {
-  readonly type =  GET_PERSONA_ROL_ERROR;
-  constructor(public payload: Error){}
 }

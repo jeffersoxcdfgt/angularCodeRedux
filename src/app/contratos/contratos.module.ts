@@ -41,13 +41,18 @@ import { ServicioEffects } from '../servicios/store/effects/servicios.effects';
 import  * as serviciosReducers from '../servicios/store/reducers/servicios.reducers';
 import { ServiciosService } from '../servicios/store/services/servicios.service';
 
+import { PersonaSolidariaEffects } from '../persona-solidarias/store/effects/personasSolidarias.effects';
+import  * as personasSolidariasReducers from '../persona-solidarias/store/reducers/personasSolidarias.reducers';
+import { PersonasSolidariasService } from '../persona-solidarias/store/services/personasSolidarias.service';
+
 
 export const reducers: ActionReducerMap<any> = {
   contratos:contratosReducers.reducer,
   personas:personasReducers.reducer,
   zonas:zonasReducers.reducer,
   sectores:sectoresReducers.reducer,
-  servicios:serviciosReducers.reducer
+  servicios:serviciosReducers.reducer,
+  personassolidarias:personasSolidariasReducers.reducer,
 }
 
 @NgModule({
@@ -66,7 +71,8 @@ export const reducers: ActionReducerMap<any> = {
       PersonaEffects,
       ZonaEffects,
       SectorEffects,
-      ServicioEffects
+      ServicioEffects,
+      PersonaSolidariaEffects
     ]),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
@@ -94,7 +100,8 @@ export const reducers: ActionReducerMap<any> = {
     PersonasService,
     ZonasService,
     SectoresService,
-    ServiciosService
+    ServiciosService,
+    PersonasSolidariasService
   ]
 })
 export class ContratosModule {

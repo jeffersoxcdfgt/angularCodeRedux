@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
 
 import  * as  personasActions from '../../personas/store/actions/personas.actions';
-import { getAllPersonas , getPersonaRol } from '../../personas/store/reducers/personas.reducers';
+import { getAllPersonas  } from '../../personas/store/reducers/personas.reducers';
 import { Persona } from '../../personas/shared/persona';
 
 import  * as  zonasActions from '../../zonas/store/actions/zonas.actions';
@@ -23,10 +23,12 @@ import { Contrato } from '../shared/contrato';
 import  * as  contratoActions from '../store/actions/contratos.actions';
 import { isCreated , getContratoValue} from '../store/reducers/contratos.reducers';
 
+import { PersonaSolidaria } from '../../persona-solidarias/shared/PersonaSolidaria';
+import  * as  personasSolidariasActions from '../../persona-solidarias/store/actions/personasSolidarias.actions';
+import { getAllPersonasSolidarias } from '../../persona-solidarias/store/reducers/personasSolidarias.reducers';
+
 import { DataList , listPersonas , listTipoCliente , listTipoZonas , listTipoSectores , listTipoServicios } from '../shared/list'
 import { Observable , of , from , Subject , BehaviorSubject , iif ,combineLatest , NEVER ,interval   } from 'rxjs';
-
-import {  GetPersonaRol } from '../../personas/store/actions/personas.actions';
 
 
 @Component({
@@ -36,23 +38,25 @@ import {  GetPersonaRol } from '../../personas/store/actions/personas.actions';
 })
 export class ContratoCreateComponent implements OnInit , AfterViewInit {
   personas : Observable<Persona[]>;
-  personasRespSolidario : Observable<Persona[]>;
+  personasSolidarias: Observable<PersonaSolidaria[]>;
 
   zonas : Observable<Zona[]>;
   sectores : Observable<Sector[]>;
   servicios : Observable<Servicio[]>;
+
 
   searchpersonas : Persona[];
   searchzonas : Zona[];
   searchservicios : Servicio[];
 
   listPersonas:DataList[];
-  listPersonasRespSolidario:DataList[];
+  listPersonasSolidarias:DataList[];
 
   listTipoCliente:DataList[];
   listTipoZona:DataList[];
   listTipoSector:DataList[];
   listTipoServicio:DataList[];
+
 
   auxzona : DataList[];
   auxsector : DataList[];
@@ -105,7 +109,6 @@ ngAfterViewInit(): void{
     this.personas = this.store.select(getAllPersonas);
     this.personas.subscribe( data =>{
          this.searchpersonas = data
-
          this.listPersonas = data.map((val:Persona)=>{
               return {
                   id:val.persId,
@@ -115,18 +118,15 @@ ngAfterViewInit(): void{
 
     });
 
-
-  /*  this.store.dispatch(new GetPersonaRol(56));
-    this.personasRespSolidario = this.store.select(getPersonaRol)
-     this.personasRespSolidario.subscribe((dataResp)=>{
-          if(dataResp!=null){
-            console.log(33333)
-            console.log(dataResp)
-          }
-    })*/
-
-
-
+    this.personasSolidarias = this.store.select(getAllPersonasSolidarias);
+    this.personasSolidarias.subscribe( data =>{
+      this.listPersonasSolidarias = data.map((val:PersonaSolidaria)=>{
+           return {
+               id:val.persId,
+               value: `(${val.persNumDocumento}) -  ${val.persNombre} ${val.persApellido} `
+           }
+       })
+    });
 
 
     this.zonas = this.store.select(getAllZonas);

@@ -10,6 +10,7 @@ import * as fromDepartamentos from './departamentos/store/reducers/departamentos
 import * as fromMunicipios from './municipios/store/reducers/municipios.reducers';
 import * as fromFacturas from './facturas/store/reducers/facturas.reducers';
 import * as fromOrdenesServicios from './orden-servicios/store/reducers/orden-servicios.reducers';
+import * as fromPersonasSolidarias from './persona-solidarias/store/reducers/personasSolidarias.reducers';
 
 
 export interface AppState {
@@ -25,4 +26,5 @@ export interface AppState {
   municipios:fromMunicipios.State;
   facturas:fromFacturas.State;
   ordenesservicios:fromOrdenesServicios.State;
+  personassolidarias:fromPersonasSolidarias.State;
 }
