@@ -20,6 +20,8 @@ import { getAllHeadersFactura } from '../store/reducers/facturas.reducers';
 export class FacturaListComponent implements OnInit {
 
   contratos : Contrato[];
+  contratosRender :Contrato[] = [];
+  contratosRenderAux :Contrato[] = [];
   p: number = 1;
 
   MensualidadesMesactual:string = ''
@@ -30,11 +32,36 @@ export class FacturaListComponent implements OnInit {
 
   MensualidadesMesanterior:string = ''
   valueMesAnteriorPendiente:string = ''
-
   ValueMensualidadesAdelantadas:string= ''
 
+  subSearch:BehaviorSubject<string> =  new BehaviorSubject<string>('');
+  obSearch:Observable<string> =  of('');
 
-  constructor(private store: Store<AppState>) { }
+  returnAll= map((str:string) => {
+      if(!str){
+        return "All"
+      }
+
+      if(str){
+        return str
+      }
+  })
+
+
+  constructor(private store: Store<AppState>) {
+    this.obSearch =  this.subSearch.pipe(this.returnAll)
+    this.obSearch.subscribe((data)=>{
+        if(data == 'All'){
+          this.contratosRender = this.contratosRenderAux
+        }
+        else{
+          this.contratosRender = this.contratosRender.filter((val:Contrato) => {
+            return new RegExp(data,'i').test(val.numeroContrato) ||
+                    new RegExp(data,'i').test(val.CedulaNombre)
+          })
+        }
+    })
+  }
 
   ngOnInit(): void {
 
@@ -58,6 +85,8 @@ export class FacturaListComponent implements OnInit {
     this.store.select(getAllContratos).subscribe((data)=>{
         if(data != null){
           this.contratos = data
+          this.contratosRender =  data
+          this.contratosRenderAux = data
         }
     })
 
