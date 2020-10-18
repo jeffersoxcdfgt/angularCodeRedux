@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { formatDate , DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
 import { Factura } from '../shared/factura';
@@ -32,6 +33,7 @@ export class FacturaDetailComponent implements OnInit {
   idContrato:string;
   nameComplete:string;
   contratos : Contrato[];
+  mes:string = 'Octubre';
 
   constructor(
     private route:ActivatedRoute,
@@ -39,6 +41,13 @@ export class FacturaDetailComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+
+    /*let pipe = new DatePipe('es-CO'); // Use your own locale
+    const now = Date.now();
+    const myFormattedDate = pipe.transform(now, 'LLLL');
+    const upper = myFormattedDate.charAt(0).toUpperCase() + myFormattedDate.substring(1);
+    this.mes = upper*/
+
     this.route.params.subscribe( params =>{
         this.idContrato = params['id']
         this.store.dispatch(new GetFactura(params['id']))
