@@ -6,7 +6,6 @@ import { isCreated , isUpdated , isDeleted ,getDeleteError ,getUpdateError , get
 import { GetAllPersonas } from '../personas/store/actions/personas.actions';
 import { GetAllFacturasHeaders } from './store/actions/facturas.actions';
 import { getAllPersonasError } from '../personas/store/reducers/personas.reducers';
-
 import swal from 'sweetalert2';
 
 @Component({
@@ -42,9 +41,9 @@ export class FacturasComponent implements OnInit {
       this.actionError(error, 'Error actualizando factura');
     });
 
-    this.store.select(isCreated).subscribe((done) => {
+    /*this.store.select(isCreated).subscribe((done) => {
         this.actionSuccess(done,'Factura creada satisfactoriamente.');
-    });
+    });*/
     this.store.select(getCreateError).subscribe((error) => {
       this.actionError(error, 'Error creando factura');
     });

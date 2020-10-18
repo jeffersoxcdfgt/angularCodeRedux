@@ -5,9 +5,10 @@ import { Router } from '@angular/router';
 import { formatDate , DatePipe } from '@angular/common';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
-
 import { AddFactura } from '../../facturas/store/actions/facturas.actions';
 import { CreateFactura } from '../shared/factura';
+import swal from 'sweetalert2';
+import { isCreated  } from '../store/reducers/facturas.reducers';
 
 @Component({
   selector: 'app-factura-create',
@@ -94,5 +95,10 @@ export class FacturaCreateComponent implements OnInit {
       factConcepto: this.servicio
     }
     this.store.dispatch(new AddFactura(payload))
+    this.store.select(isCreated).subscribe((done) => {
+        swal.fire({ icon: 'success', title: 'Factura creada satisfactoriamente.'})
+        this.router.navigate([`/facturas/detail/${this.idContrato}`]);
+    });
+
   }
 }

@@ -38,6 +38,8 @@ export class FacturaEditComponent implements OnInit {
   idFactura:string;
   servicioId:string;
   persId:string;
+  claCliente:string;
+  factIva:string;
 
   constructor(
     private store: Store<AppState>,
@@ -45,6 +47,9 @@ export class FacturaEditComponent implements OnInit {
     private formBuilder: FormBuilder)
   {
     if(this.router.getCurrentNavigation().extras.state != undefined){
+
+        this.claCliente= this.router.getCurrentNavigation().extras.state.contrato.ClaCliente == 1 ?  'Residencial' : 'Comercial'
+
         this.idContrato = this.router.getCurrentNavigation().extras.state.factura.contrato.contNumero
         this.direccion =  this.router.getCurrentNavigation().extras.state.persona.persDireccion
         this.persId = this.router.getCurrentNavigation().extras.state.persona.persId
@@ -97,7 +102,11 @@ export class FacturaEditComponent implements OnInit {
     else{
       let res = this.form.get('valorbase').value / this.form.get('valordcto').value
       this.calcSubDescuento = `${res}`
+
+      this.factBase  = this.form.get('valorbase').value
       this.subtotal = `${Number(this.factBase) -  Number(this.calcSubDescuento)}`
+      this.valorIva = `${ (Number(this.subtotal) / 100) * Number(this.iva)}`
+
       this.total = `${Number(this.subtotal) + Number(this.valorIva)}`
     }
   }
@@ -116,7 +125,11 @@ export class FacturaEditComponent implements OnInit {
        else{
           this.calcSubDescuento = `0`
        }
+
+       this.factBase  = this.form.get('valorbase').value
        this.subtotal = `${Number(this.factBase) -  Number(this.calcSubDescuento)}`
+       this.valorIva = `${ (Number(this.subtotal) / 100) * Number(this.iva)}`
+
        this.total = `${Number(this.subtotal) + Number(this.valorIva)}`
     }
   }
