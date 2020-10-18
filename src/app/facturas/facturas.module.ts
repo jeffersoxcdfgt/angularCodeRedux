@@ -31,11 +31,16 @@ import  * as contratosReducers from '../contratos/store/reducers/contratos.reduc
 import { ContratosService } from '../contratos/store/services/contratos.service';
 import {NgxPaginationModule} from 'ngx-pagination';
 
+import { FormaPagosEffects } from '../forma-pagos/store/effects/formaPagos.effects';
+import  * as formaPagosReducers from '../forma-pagos/store/reducers/formaPagos.reducers';
+import { FormaPagosService } from '../forma-pagos/store/services/formaPagos.service';
+
 export const reducers: ActionReducerMap<any> = {
   facturas:facturasReducers.reducer,
   contratos:contratosReducers.reducer,
   personas:personasReducers.reducer,
-  router: routerReducer
+  router: routerReducer,
+  formaspagos:formaPagosReducers.reducer,
 }
 
 @NgModule({
@@ -52,7 +57,8 @@ export const reducers: ActionReducerMap<any> = {
     EffectsModule.forRoot([
       FacturaEffects,
       ContratoEffects,
-      PersonaEffects
+      PersonaEffects,
+      FormaPagosEffects
     ]),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
@@ -65,7 +71,8 @@ export const reducers: ActionReducerMap<any> = {
     FacturasService ,
     TraceService,
     ContratosService,
-    PersonasService
+    PersonasService,
+    FormaPagosService
  ]
 })
 export class FacturasModule {

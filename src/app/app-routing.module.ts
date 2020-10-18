@@ -58,7 +58,10 @@ const routes:Routes = [
     path:'personassolidarias',
     loadChildren: () => import('./persona-solidarias/personasSolidarias.module').then(m => m.PersonasSolidariasModule)
   },
-
+  {
+    path:'formaPagos',
+    loadChildren: () => import('./forma-pagos/formaPagos.module').then(m => m.FormaPagosModule)
+  },
   {path: '**', component: PageNotFoundComponent}
 ];
 

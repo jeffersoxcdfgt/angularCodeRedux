@@ -6,6 +6,12 @@ import { FormGroup, FormBuilder, Validators ,FormControl ,FormArray , AbstractCo
 import { Router } from '@angular/router';
 import { PagarAnularFactura } from '../shared/factura';
 import { UpdateFactura } from '../../facturas/store/actions/facturas.actions';
+import { Observable , from } from 'rxjs';
+import { FormaPago } from '../../forma-pagos/shared/formaPago';
+import  * as  formaPagosActions from '../../forma-pagos/store/actions/formaPagos.actions';
+import { getAllFormaPagos } from '../../forma-pagos/store/reducers/formaPagos.reducers';
+import { DataList } from '../shared/assignee';
+
 
 @Component({
   selector: 'app-factura-edit',
@@ -40,6 +46,9 @@ export class FacturaEditComponent implements OnInit {
   persId:string;
   claCliente:string;
   factIva:string;
+  booCodigo:boolean =  true;
+  formaPagos : Observable<FormaPago[]>;
+  listFrom:DataList[];
 
   constructor(
     private store: Store<AppState>,
@@ -91,6 +100,17 @@ export class FacturaEditComponent implements OnInit {
         valorbase:[Number(this.factBase)],
         valordcto:[0]
    })
+
+   this.formaPagos = this.store.select(getAllFormaPagos);
+   this.formaPagos.subscribe( data =>{
+         this.listFrom = data.map((val:FormaPago)=>{
+              return {
+                  id:val.fopaId,
+                  value: `${val.fopaDescripcion}`
+              }
+          })
+     }
+   );
   }
 
   calDescuento(value){
@@ -132,6 +152,13 @@ export class FacturaEditComponent implements OnInit {
 
        this.total = `${Number(this.subtotal) + Number(this.valorIva)}`
     }
+  }
+
+  selectMedioPago(value){
+    if(value==undefined) return;
+
+    this.booCodigo = value['id']!=12 ? false:true;
+
   }
 
   onPagarFactura(){

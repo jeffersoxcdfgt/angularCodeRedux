@@ -11,6 +11,7 @@ import * as fromMunicipios from './municipios/store/reducers/municipios.reducers
 import * as fromFacturas from './facturas/store/reducers/facturas.reducers';
 import * as fromOrdenesServicios from './orden-servicios/store/reducers/orden-servicios.reducers';
 import * as fromPersonasSolidarias from './persona-solidarias/store/reducers/personasSolidarias.reducers';
+import * as fromFormaPagos from './forma-pagos/store/reducers/formaPagos.reducers';
 
 
 export interface AppState {
@@ -27,4 +28,5 @@ export interface AppState {
   facturas:fromFacturas.State;
   ordenesservicios:fromOrdenesServicios.State;
   personassolidarias:fromPersonasSolidarias.State;
+  formaspagos:fromFormaPagos.State;
 }

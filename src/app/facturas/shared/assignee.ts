@@ -2,6 +2,12 @@ export class Assignee {
   id: string;
   value: string;
 };
+
+export class DataList {
+  id: number;
+  value: string;
+}
+
 export const listAssigne: Assignee[] = [
 { id: 'Jefferson Medina', value: 'Jefferson Medina' },
 { id: 'Manuela Cedeño', value: 'Manuela Cedeño' },

@@ -6,6 +6,10 @@ import { isCreated , isUpdated , isDeleted ,getDeleteError ,getUpdateError , get
 import { GetAllPersonas } from '../personas/store/actions/personas.actions';
 import { GetAllFacturasHeaders } from './store/actions/facturas.actions';
 import { getAllPersonasError } from '../personas/store/reducers/personas.reducers';
+import { GetAllFormaPagos } from '../forma-pagos/store/actions/formaPagos.actions';
+import *  as reducersFormaPagos from '../forma-pagos/store/reducers/formaPagos.reducers';
+
+
 import swal from 'sweetalert2';
 
 @Component({
@@ -21,6 +25,12 @@ export class FacturasComponent implements OnInit {
   }
 
   ngOnInit(){
+
+
+    //Responsables Solidarios
+    this.store.dispatch(new GetAllFormaPagos());
+    this.store.select(reducersFormaPagos.getAllFormaPagosError).subscribe((error) => this.loadingError(error));
+
 
     this.store.dispatch(new GetAllFacturasHeaders());
 
