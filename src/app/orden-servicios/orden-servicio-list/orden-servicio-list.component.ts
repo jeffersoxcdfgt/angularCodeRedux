@@ -56,7 +56,6 @@ export class OrdenServicioListComponent implements OnInit {
     this.store.dispatch(new GetAllContratos())
     this.store.select(getAllContratos).subscribe((data)=>{
         if(data != null){
-          console.log(data)
           this.contratos = data
           this.contratosRender =  data
           this.contratosRenderAux = data

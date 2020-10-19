@@ -1,1 +1,174 @@
-<p>orden-servicio-create works!</p>
+<form class="form-horizontal">
+<div class="container-fluid">
+  <div class="row sidebar-owner">
+    <div class="sidebar-backdrop"></div>
+    <div class=" col-md-12">
+      <div class="sidebar-outer">
+        <div class="container-padding">
+          <div class="page-header form-header">
+            <ol class="breadcrumb pgui-breadcrumb">
+              <li>
+                <a><i class="icon-home"></i></a>
+              </li>
+              <li class="dropdown">
+                <a>Creacion ordenes de Servicios</a>
+              </li>
+            </ol>
+          </div>
+          <div class="col-md-12 js-form-container">
+            <div class="row">
+              <div class="js-form-collection col-lg-12">
+                  <div class="clearfix"></div>
+                  <div class="row">
+                    <fieldset class="col-md-6 form-horizontal">
+                      <div class="row">
+                        <div class="form-group form-group-label col-sm-3">
+                          <label class="control-label">Número contrato</label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input" style="width:100%;max-width:100%">
+                            <input class="form-control"  name="numero_contrato" type="text" readonly  value="M1000315">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group form-group-label col-sm-3">
+                          <label class="control-label">Nùmero documento </label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input" style="width:100%;max-width:100%">
+                            <input class="form-control" name="numero_documento" type="text" readonly  value="2928272625">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group form-group-label col-sm-3">
+                          <label class="control-label">Direcciòn</label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input" style="width:100%;max-width:100%">
+                            <input class="form-control" name="direccion" type="text" readonly  value="Cra 83c # 17-31">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group form-group-label col-sm-3">
+                          <label class="control-label">Estado</label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input" style="width:100%;max-width:100%">
+                            <input class="form-control" name="estado" type="text" readonly  value="Pendiente">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group form-group-label col-sm-3">
+                          <label class="control-label">Tecnico</label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input" style="width:100%;max-width:100%">
+                            <input class="form-control"  name="Tecnico" type="text" readonly  value="Ronal Garzòn Perez">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group form-group-label col-sm-3">
+                          <label class="control-label">Costo </label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input" style="width:100%;max-width:100%">
+                            <input class="form-control"  name="Tecnico" type="text"   value="$ 30.000">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group form-group-label col-sm-3">
+                          <label class="control-label">&nbsp;</label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input" style="width:100%;max-width:100%">
+                            <div class="btn-toolbar">
+                              <div class="btn-group">
+                                <a class="btn btn-default" routerLink="/ordenesservicios/detail/1">Regresar</a>
+                              </div>
+                              <div class="btn-group">
+                                <button class="btn btn-default"  type="submit" >Crear Orden Servicio </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset class="col-md-6 form-horizontal">
+                      <div class="row">
+                        <div class="form-group form-group-label col-sm-3">
+                          <label class="control-label">Nombre cliente </label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input" style="width:100%;max-width:100%">
+                            <input class="form-control" name="nombre_cliente" type="text" readonly value="Roberto Carlos Martinez">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group form-group-label col-sm-3">
+                          <label class="control-label">Telefono <span class="required-mark">*</span></label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input" style="width:100%;max-width:100%">
+                            <input class="form-control" name="telefono" type="text" readonly value="3320808-33267763">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group form-group-label col-sm-3">
+                          <label class="control-label">Zona -Sector </label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input" style="width:100%;max-width:100%">
+                            <input class="form-control"  name="zona_sector" type="text" readonly value="Gaitan">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group form-group-label col-sm-3">
+                          <label class="control-label">Tipo Orden </label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input"  style="width:100%;max-width:100%">
+                            <input class="form-control" name="tipo_orden" type="text" readonly value="Orden de mantenimiento">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group form-group-label col-sm-3">
+                          <label class="control-label">Fecha Atenciòn </label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input"  style="width:100%;max-width:100%">
+                            <input class="form-control"  name="fecha_atencion" readonly type="text" value="2020-05-16">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group form-group-label col-sm-3">
+                          <label class="control-label">Observaciones</label>
+                        </div>
+                        <div class="form-group col-sm-9">
+                          <div class="col-input" style="width:100%;max-width:100%">
+                            <input class="form-control"  name="observaciones" type="text"  type="text" value="Se rompio el cable y se cambio, se gastaron 12m y dos conectores">
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
