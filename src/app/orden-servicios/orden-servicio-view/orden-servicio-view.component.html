@@ -11,7 +11,7 @@
                 <a><i class="icon-home"></i></a>
               </li>
               <li class="dropdown">
-                <a>Editar Ordenes de Servicios</a>
+                <a>Consultar Ordenes de Servicios</a>
               </li>
             </ol>
           </div>
@@ -57,7 +57,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control" name="estado" type="text"  value="Pendiente">
+                            <input class="form-control" name="estado" type="text" readonly value="Pendiente">
                           </div>
                         </div>
                       </div>
@@ -67,7 +67,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control"  name="Tecnico" type="text"  value="Ronal Garzòn Perez">
+                            <input class="form-control"  name="Tecnico" type="text" readonly value="Ronal Garzòn Perez">
                           </div>
                         </div>
                       </div>
@@ -77,7 +77,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control"  name="Tecnico" type="text"   value="$ 30.000">
+                            <input class="form-control"  name="Tecnico" type="text" readonly  value="$ 30.000">
                           </div>
                         </div>
                       </div>
@@ -90,9 +90,6 @@
                             <div class="btn-toolbar">
                               <div class="btn-group">
                                 <a class="btn btn-default" routerLink="/ordenesservicios/detail/1">Regresar</a>
-                              </div>
-                              <div class="btn-group">
-                                <button class="btn btn-default"  type="submit" >Guardar Cambios </button>
                               </div>
                             </div>
                           </div>
@@ -136,7 +133,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input"  style="width:100%;max-width:100%">
-                            <input class="form-control" name="tipo_orden" type="text" value="Orden de mantenimiento">
+                            <input class="form-control" name="tipo_orden" type="text" readonly value="Orden de mantenimiento">
                           </div>
                         </div>
                       </div>
@@ -146,7 +143,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input"  style="width:100%;max-width:100%">
-                            <input class="form-control"  name="fecha_atencion" type="text" value="2020-05-16">
+                            <input class="form-control"  name="fecha_atencion" type="text" readonly value="2020-05-16">
                           </div>
                         </div>
                       </div>
@@ -156,7 +153,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control"  name="observaciones" type="text"  type="text" value="Se rompio el cable y se cambio, se gastaron 12m y dos conectores">
+                            <input class="form-control"  name="observaciones" type="text" readonly type="text" value="Se rompio el cable y se cambio, se gastaron 12m y dos conectores">
                           </div>
                         </div>
                       </div>

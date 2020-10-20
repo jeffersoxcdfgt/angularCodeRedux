@@ -20,7 +20,6 @@ import { FormsModule , ReactiveFormsModule } from '@angular/forms';
 import { ContratoEffects } from '../contratos/store/effects/contratos.effects';
 import  * as contratosReducers from '../contratos/store/reducers/contratos.reducers';
 import { ContratosService } from '../contratos/store/services/contratos.service';
-
 import {NgxPaginationModule} from 'ngx-pagination';
 
 export const reducers: ActionReducerMap<any> = {
