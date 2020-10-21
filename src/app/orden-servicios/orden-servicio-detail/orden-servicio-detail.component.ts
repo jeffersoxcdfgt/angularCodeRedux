@@ -44,7 +44,7 @@ export class OrdenServicioDetailComponent implements OnInit {
       this.store.select(getAllContratos).subscribe((data)=>{
           if(data != null){
             let myres = Object.keys(data).map((k) => data[k])
-            let res = myres.find((val)=> val.numeroContrato == this.numeroContrato)
+            let res = myres.find((val)=> val.numeroContrato == this.numeroContrato)            
             this.ZonaSector = res['ZonaSector']
             this.NumeroDocumento = res['NumeroDocumento']
             this.NombrePersona = res['NombreCliente']
