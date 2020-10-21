@@ -59,7 +59,6 @@ export class ContratoListComponent implements OnInit {
        this.listContratos = data
        this.contratosRender =  data
        this.contratosRenderAux = data
-
     });
   }
 

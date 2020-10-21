@@ -1,4 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../app.state';
+import { OrdenServicio } from '../shared/orden-servicio';
+import { getAllOrdenesServicios } from '../store/reducers/orden-servicios.reducers';
+import {  Observable  } from 'rxjs';
+import {  GetAllOrdenesServicios } from '../store/actions/orden-servicios.actions';
+
+import  * as  contratosActions from '../../contratos/store/actions/contratos.actions';
+import { getAllContratos } from '../../contratos/store/reducers/contratos.reducers';
 
 @Component({
   selector: 'app-orden-servicio-detail',
@@ -7,9 +17,41 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrdenServicioDetailComponent implements OnInit {
 
-  constructor() { }
+  p: number = 1;
+  ordenesServicios:OrdenServicio[];
+  numeroContrato:string;
+  ZonaSector:string;
+  NumeroDocumento:string;
+  NombrePersona:string;
+  Telefono:string;
+  Direccion:string;
 
-  ngOnInit(): void {
+  constructor(private route: ActivatedRoute ,
+              private store: Store<AppState>){
   }
+
+
+  ngOnInit() {
+      this.route.params.subscribe( params => {
+          this.numeroContrato = params['id']
+          this.store.dispatch(new GetAllOrdenesServicios(params['id']))
+      });
+
+      this.store.select(getAllOrdenesServicios).subscribe((data)=>{
+        this.ordenesServicios = data
+      })
+
+      this.store.select(getAllContratos).subscribe((data)=>{
+          if(data != null){
+            let myres = Object.keys(data).map((k) => data[k])
+            let res = myres.find((val)=> val.numeroContrato == this.numeroContrato)
+            this.ZonaSector = res['ZonaSector']
+            this.NumeroDocumento = res['NumeroDocumento']
+            this.NombrePersona = res['NombreCliente']
+            this.Telefono = res['Telefono']
+            this.Direccion = res['Direccion']
+          }
+      })
+   }
 
 }

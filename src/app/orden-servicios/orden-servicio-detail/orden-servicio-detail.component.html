@@ -70,16 +70,16 @@
                             <div class="divTableCell">&nbsp;</div>
                           </div>
                       		<div class="divTableRow">
-                      			<div class="divTableCell"><b>Numero Contrato:</b> (M1000315)</div>
-                      			<div class="divTableCell"><b>Nombre Cliente :</b>Jefferson Josè Medina Cedeño</div>
+                      			<div class="divTableCell"><b>Numero Contrato:</b> ({{numeroContrato}})</div>
+                      			<div class="divTableCell"><b>Nombre Cliente :</b> {{NombrePersona}}</div>
                       		</div>
                       		<div class="divTableRow">
-                      			<div class="divTableCell"><b>Nùmero documento:</b> 94541178 </div>
-                      			<div class="divTableCell"><b>Telefono:</b> 4943233 - 311-888-77-55 </div>
+                      			<div class="divTableCell"><b>Nùmero documento:</b> {{NumeroDocumento}} </div>
+                      			<div class="divTableCell"><b>Telefono:</b> {{Telefono}} </div>
                       		</div>
                       		<div class="divTableRow">
-                      			<div class="divTableCell"><b>Zona:</b> Gaitan </div>
-                      			<div class="divTableCell"><b>Direcciòn</b> Cra 83c # 17 -31 </div>
+                      			<div class="divTableCell"><b>Zona:</b> {{ZonaSector}} </div>
+                      			<div class="divTableCell"><b>Direcciòn</b> {{Direccion}} </div>
                       		</div>
                           <div class="divTableRow">
                             <div class="divTableCell">&nbsp;</div>
@@ -98,7 +98,7 @@
                   </a>
                 </div>
                 <div class="btn-group">
-                  <a class="btn btn-default pgui-add"  routerLink="/ordenesservicios/create" title="Crear Orden de Servicio">
+                  <a class="btn btn-default pgui-add"  routerLink="/ordenesservicios/create" [state]="numeroContrato"  title="Crear Orden de Servicio">
                     <i class="icon-plus"></i>
                     <span class="visible-lg-inline">Crear Orden</span>
                   </a>
@@ -135,7 +135,8 @@
                 </tr>
               </thead>
               <tbody class="pg-row-list">
-                <tr class="pg-row" style="">
+                <tr class="pg-row" style="" *ngFor="let orden of ordenesServicios | paginate: { itemsPerPage: 10, currentPage: p } " >
+
                   <td style="" >
                     <div class="row-selection">
                       <!--<input id="rec1" name="rec1" type="checkbox">-->
@@ -143,27 +144,27 @@
                   </td>
                   <td class="operation-column">
                     <span class="operation-item">
-                      <a class="link-icon"  routerLink='/ordenesservicios/view' title="Consultar Orden de Servicio">
+                      <a class="link-icon"  [routerLink]="['/ordenesservicios/view']" [state]="orden" title="Consultar Orden de Servicio">
                         <i class="icon-view"></i>
                       </a>
                     </span>
                     <span class="operation-item">
-                      <a class="link-icon" routerLink='/ordenesservicios/edit'  title="Editar Orden de Servicio">
+                      <a class="link-icon" [routerLink]="['/ordenesservicios/edit']" [state]="orden" title="Editar Orden de Servicio">
                         <i class="icon-edit"></i>
                       </a>
                     </span>
                     <span class="operation-item">
-                      <a class="link-icon"  routerLink='/ordenesservicios/delete'  title="Anular Orden de Servicio">
+                      <a class="link-icon"  [routerLink]="['/ordenesservicios/delete']" [state]="orden" title="Anular Orden de Servicio">
                         <i class="icon-remove"></i>
                       </a>
                     </span>
                   </td>
-                  <td class=" pgui-cell-edit">01-0000001</td>
-                  <td class=" pgui-cell-edit">Orden de Instalaciòn</td>
-                  <td class=" pgui-cell-edit">Ejecutada</td>
-                  <td class=" pgui-cell-edit">07/05/2020</td>
-                  <td class=" pgui-cell-edit">09/05/2020</td>
-                  <td class=" pgui-cell-edit">$ 80.000</td>
+                  <td class=" pgui-cell-edit">{{orden.soseNumero}}</td>
+                  <td class=" pgui-cell-edit">{{orden.tiso.tisoDescripcion}}</td>
+                  <td class=" pgui-cell-edit">{{orden.esso.essoDescripcion}}</td>
+                  <td class=" pgui-cell-edit">{{orden.soseFechaCreacion |  date:'yyyy-MM-dd' }}</td>
+                  <td class=" pgui-cell-edit">{{orden.soseFechaEjecucion | date:'yyyy-MM-dd' }}</td>
+                  <td class=" pgui-cell-edit">{{orden.sosePrecio | number:'1.0-0' }}</td>
                 </tr>
               </tbody>
               <tfoot></tfoot>
@@ -171,7 +172,7 @@
           </div>
           <div class="page_navigator">
             <div class="pgui-pagination">
-              <!--<pagination-controls
+              <pagination-controls
                   class="pagination"
                   (pageChange)="p = $event"
                   previousLabel="Anterior"
@@ -179,7 +180,7 @@
                   screenReaderPaginationLabel="Paginacion"
                   screenReaderPageLabel="Pagina"
                   screenReaderCurrentLabel="Estas en la pagina">
-                </pagination-controls>-->
+                </pagination-controls>
             </div>
           </div>
           <hr>

@@ -10,7 +10,12 @@ export function MapAllRegister(contratos:Contrato[]):Contrato[] {
        SerId:`${ val['servicio'] != null ? val['servicio']['serId']: 'No tiene Id servicio'}`,
        EstadoContrato:'Por instalar',
        SerValor:`${ val['servicio'] != null ? val['servicio']['serValor']: '0'}`,
-       ClaCliente:val['clclId']
+       ClaCliente:val['clclId'],
+       persId:val['persona']['persId'],
+       NombreCliente:`${val['persona']['persNombre']} ${val['persona']['persApellido']}`,
+       NumeroDocumento:`${val['persona']['persNumDocumento']}`,
+       Telefono:`${val['persona']['persCelular']+' - '+val['persona']['persTelefono']}`,
+       Direccion:`${val['persona']['persDireccion']}`
      }
   })
 }

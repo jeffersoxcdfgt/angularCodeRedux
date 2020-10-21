@@ -7,19 +7,7 @@ import { catchError , map , mergeMap } from 'rxjs/operators';
 import {
 GetAllOrdenesServicios ,
 GetAllOrdenesServiciosSuccess ,
-GetAllOrdenesServiciosError ,
-AddOrdenServicio ,
-AddOrdenServicioSuccess ,
-AddOrdenServicioError,
-UpdateOrdenServicio,
-UpdateOrdenServicioSuccess,
-UpdateOrdenServicioError,
-GetOrdenServicio,
-GetOrdenServicioSuccess,
-GetOrdenServicioError,
-DeleteOrdenServicio,
-DeleteOrdenServicioSuccess,
-DeleteOrdenServicioError
+GetAllOrdenesServiciosError
 }
 from '../actions/orden-servicios.actions';
 import { OrdenesServicioService } from '../services/orden-servicios.service';
@@ -33,55 +21,10 @@ export class OrdenServicioEffects {
   public getAllordenesServicios$ : Observable<Action> = this.actions$.pipe(
       ofType<GetAllOrdenesServicios>(ordenservicioActions.GET_ORDENES_SERVICIO),
         mergeMap((action:GetAllOrdenesServicios) =>
-          this.svc.findAll().pipe(
+          this.svc.findAll(action.payload).pipe(
             map((ordenesServicios: OrdenServicio[]) => new GetAllOrdenesServiciosSuccess(ordenesServicios)),
             catchError(err => of(new GetAllOrdenesServiciosError(err)))
           )
       )
   );
-
-  @Effect()
-  public getOrdenServicio$ : Observable<Action> =  this.actions$.pipe(
-      ofType<GetOrdenServicio>(ordenservicioActions.GET_ORDEN_SERVICIO),
-        mergeMap((action: GetOrdenServicio) =>
-          this.svc.findById(action.payload).pipe(
-            map((ordenServicio: OrdenServicio) => new GetOrdenServicioSuccess(ordenServicio)),
-              catchError(err => of(new GetOrdenServicioError(err)))
-        )
-    )
-  );
-
-  @Effect()
-  public createOrdenServicio$ :  Observable<Action> = this.actions$.pipe(
-      ofType<AddOrdenServicio>(ordenservicioActions.CREATE_ORDEN_SERVICIO),
-        mergeMap((action:AddOrdenServicio) =>
-          this.svc.insert(action.payload).pipe(
-              map((ordenServicio:OrdenServicio) => new AddOrdenServicioSuccess(ordenServicio.id)),
-              catchError(err => of(new AddOrdenServicioError(err)))
-            )
-        )
-  );
-
-  @Effect()
-  public UpdateOrdenServicio : Observable<Action> = this.actions$.pipe(
-      ofType<UpdateOrdenServicio>(ordenservicioActions.UPDATE_ORDEN_SERVICIO),
-        mergeMap((action:UpdateOrdenServicio) =>
-          this.svc.update(action.payload).pipe(
-            map((ordenServicio:OrdenServicio) => new UpdateOrdenServicioSuccess()),
-            catchError(err => of(new UpdateOrdenServicioError(err)))
-        )
-      )
-  );
-
-  @Effect()
-  public DeleteOrdenServicio: Observable<Action> =  this.actions$.pipe(
-      ofType<DeleteOrdenServicio>(ordenservicioActions.DELETE_ORDEN_SERVICIO),
-        mergeMap((action:DeleteOrdenServicio)  =>
-          this.svc.delete(action.payload).pipe(
-            map((ordenServicio: OrdenServicio) => new DeleteOrdenServicioSuccess(ordenServicio)),
-            catchError(err => of(new DeleteOrdenServicioError(err)))
-          )
-      )
-  );
-
 }

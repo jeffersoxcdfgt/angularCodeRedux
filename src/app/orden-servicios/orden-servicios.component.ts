@@ -2,8 +2,7 @@ import { Component , OnInit} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { AppState } from '../app.state';
-import { GetAllOrdenesServicios } from './store/actions/orden-servicios.actions';
-import { isCreated , isUpdated , isDeleted ,getDeleteError ,getUpdateError , getOrdenesServicioError } from './store/reducers/orden-servicios.reducers';
+
 
 @Component({
   selector:'app-ordenes-servicios',
@@ -18,30 +17,6 @@ export class OrdenesServiciosComponent implements OnInit {
 
   ngOnInit(){
 
-    // subscriptions when success or error action
-    this.store.select(getOrdenesServicioError).subscribe((error) => this.loadingError(error));
-
-    this.store.dispatch(new GetAllOrdenesServicios());
-    this.store.select(isCreated).subscribe((done) => {
-        this.actionSuccess(done,'Insert Orden Servicio Succesfull');
-    });
-
-    this.store.select(isUpdated).subscribe((done) => {
-      this.actionSuccess(done,'Update Orden Servicio Succesfull');
-    });
-
-    this.store.select(isDeleted).subscribe((done) => {
-        this.actionSuccess(done,'Delete Orden Servicio Succesfull');
-    });
-
-    this.store.select(getDeleteError).subscribe((error) => {
-      this.actionError(error, 'Error while deleting the Orden Servicio');
-    });
-
-    this.store.select(getUpdateError).subscribe((error) => {
-      this.actionError(error, 'Error while updating the Orden SerVICIOS');
-    });
-    //this.store.select(state => state).subscribe(route => console.log('router obj', route));
   }
 
   /**

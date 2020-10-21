@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-orden-servicio-create',
@@ -6,8 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./orden-servicio-create.component.css']
 })
 export class OrdenServicioCreateComponent implements OnInit {
+  numeroContrato:any;
 
-  constructor() { }
+  constructor(private router:Router)  {
+    if(this.router.getCurrentNavigation().extras.state != undefined){
+      this.numeroContrato = this.router.getCurrentNavigation().extras.state
+      console.log(this.numeroContrato)
+    }
+ }
 
   ngOnInit(): void {
   }

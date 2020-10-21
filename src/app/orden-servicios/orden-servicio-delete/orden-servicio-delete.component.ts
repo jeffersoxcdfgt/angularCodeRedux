@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-orden-servicio-delete',
@@ -6,8 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./orden-servicio-delete.component.css']
 })
 export class OrdenServicioDeleteComponent implements OnInit {
+  numeroContrato:string;
 
-  constructor() { }
+  constructor(private router:Router) {
+    if(this.router.getCurrentNavigation().extras.state != undefined){
+      this.numeroContrato = this.router.getCurrentNavigation().extras.state.contrato.contNumero
+    }
+  }
 
   ngOnInit(): void {
   }

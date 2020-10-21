@@ -50,6 +50,8 @@ export class Contrato {
   ivaNombre?: string;
   ivaDescripcion?: string;
   ivaValor?: number;
+  NombreCliente?:string;
+  NumeroDocumento?:string;
 }
 
 export class ContratoRender {
