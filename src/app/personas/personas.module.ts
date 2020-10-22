@@ -49,26 +49,19 @@ export const reducers: ActionReducerMap<any> = {
        strictActionImmutability: true
      }
     }),
-    EffectsModule.forRoot([PersonaEffects,RolEffects,EmpresaEffects]),
+    EffectsModule.forRoot([
+      PersonaEffects,
+      RolEffects,
+      EmpresaEffects
+    ]),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgSelectModule,
     NgxPaginationModule,
-    //OrderModule,
     FormsModule,
-    /*StoreRouterConnectingModule.forRoot({
-      stateKey: 'router' // name of reducer key
-    }),*/
-    /*StoreDevtoolsModule.instrument({
-      maxAge:25
-    })*/
   ],
   declarations:[
     personasRoutedComponents,
-    /*crossCountryValuePipe,
-    crossCollegeValuePipe,
-    crossPositionValuePipe,
-    crossTeamValuePipe*/
   ],
   providers:[
     TraceService,

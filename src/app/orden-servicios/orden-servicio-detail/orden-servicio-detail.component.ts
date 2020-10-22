@@ -6,9 +6,9 @@ import { OrdenServicio } from '../shared/orden-servicio';
 import { getAllOrdenesServicios } from '../store/reducers/orden-servicios.reducers';
 import {  Observable  } from 'rxjs';
 import {  GetAllOrdenesServicios } from '../store/actions/orden-servicios.actions';
-
 import  * as  contratosActions from '../../contratos/store/actions/contratos.actions';
 import { getAllContratos } from '../../contratos/store/reducers/contratos.reducers';
+import { OrdenRenderServicio } from '../shared/orden-servicio';
 
 @Component({
   selector: 'app-orden-servicio-detail',
@@ -25,6 +25,7 @@ export class OrdenServicioDetailComponent implements OnInit {
   NombrePersona:string;
   Telefono:string;
   Direccion:string;
+  ordenRenderServicio:OrdenRenderServicio;
 
   constructor(private route: ActivatedRoute ,
               private store: Store<AppState>){
@@ -44,12 +45,20 @@ export class OrdenServicioDetailComponent implements OnInit {
       this.store.select(getAllContratos).subscribe((data)=>{
           if(data != null){
             let myres = Object.keys(data).map((k) => data[k])
-            let res = myres.find((val)=> val.numeroContrato == this.numeroContrato)            
+            let res = myres.find((val)=> val.numeroContrato == this.numeroContrato)
             this.ZonaSector = res['ZonaSector']
             this.NumeroDocumento = res['NumeroDocumento']
             this.NombrePersona = res['NombreCliente']
             this.Telefono = res['Telefono']
             this.Direccion = res['Direccion']
+            this.ordenRenderServicio = new OrdenRenderServicio;
+
+            this.ordenRenderServicio.nombreCliente = res['NombreCliente']
+            this.ordenRenderServicio.numeroDocumento = res['NumeroDocumento']
+            this.ordenRenderServicio.telefono = res['Telefono']
+            this.ordenRenderServicio.direccion = res['Direccion']
+            this.ordenRenderServicio.ZonaSector = res['ZonaSector']
+            this.ordenRenderServicio.numeroContrato =this.numeroContrato
           }
       })
    }

@@ -25,7 +25,7 @@ export class OrdenServicio {
 
 
 export class OrdenRenderServicio {
-  numeroContraro:string;
+  numeroContrato:string;
   nombreCliente:string;
   numeroDocumento:string;
   telefono:string;
@@ -34,7 +34,7 @@ export class OrdenRenderServicio {
   estado:string;
   tipoOrden:string;
   tecnico:string;
-  fechaAtencion:string;  
+  fechaAtencion:string;
   costo:string;
   observaciones:string;
 }

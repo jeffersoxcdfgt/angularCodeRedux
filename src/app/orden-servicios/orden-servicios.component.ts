@@ -2,6 +2,8 @@ import { Component , OnInit} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { AppState } from '../app.state';
+import { GetAllPersonas } from '../personas/store/actions/personas.actions';
+import  * as reducersPersonas from '../personas/store/reducers/personas.reducers';
 
 
 @Component({
@@ -12,10 +14,15 @@ import { AppState } from '../app.state';
 })
 export class OrdenesServiciosComponent implements OnInit {
 
-  constructor(private router: Router , private store :Store<AppState>){
+  constructor(private router: Router ,
+             private store :Store<AppState>){
   }
 
   ngOnInit(){
+
+    //Personas
+    this.store.dispatch(new GetAllPersonas());
+    this.store.select(reducersPersonas.getAllPersonasError).subscribe((error) => this.loadingError(error));
 
   }
 

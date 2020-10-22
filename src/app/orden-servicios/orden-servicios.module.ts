@@ -20,12 +20,18 @@ import { FormsModule , ReactiveFormsModule } from '@angular/forms';
 import { ContratoEffects } from '../contratos/store/effects/contratos.effects';
 import  * as contratosReducers from '../contratos/store/reducers/contratos.reducers';
 import { ContratosService } from '../contratos/store/services/contratos.service';
+
+import { PersonaEffects } from '../personas/store/effects/personas.effects';
+import  * as personasReducers from '../personas/store/reducers/personas.reducers';
+import { PersonasService } from '../personas/store/services/personas.service';
+
 import {NgxPaginationModule} from 'ngx-pagination';
 
 export const reducers: ActionReducerMap<any> = {
   ordenesservicios:ordenesServicioReducers.reducer,
   router: routerReducer,
-  contratos:contratosReducers.reducer
+  contratos:contratosReducers.reducer,
+  personas:personasReducers.reducer,
 }
 
 @NgModule({
@@ -40,7 +46,8 @@ export const reducers: ActionReducerMap<any> = {
     }),
     EffectsModule.forRoot([
       OrdenServicioEffects,
-      ContratoEffects
+      ContratoEffects,
+      PersonaEffects
     ]),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
@@ -52,7 +59,8 @@ export const reducers: ActionReducerMap<any> = {
   providers:[
     OrdenesServicioService ,
     TraceService,
-    ContratosService
+    ContratosService,
+    PersonasService
    ]
 })
 export class OrdenesServiciosModule {

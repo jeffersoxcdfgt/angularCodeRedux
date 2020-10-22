@@ -27,7 +27,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control"  name="numero_contrato" type="text" readonly  value="M1000315">
+                            <input class="form-control"  name="numero_contrato" type="text" readonly  value="numeroContrato">
                           </div>
                         </div>
                       </div>
@@ -37,7 +37,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control" name="numero_documento" type="text" readonly  value="2928272625">
+                            <input class="form-control" name="numero_documento" type="text" readonly  value="{{ordenRenderServicio.numeroDocumento}}">
                           </div>
                         </div>
                       </div>
@@ -47,7 +47,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control" name="direccion" type="text" readonly  value="Cra 83c # 17-31">
+                            <input class="form-control" name="direccion" type="text" readonly  value="{{ordenRenderServicio.direccion }}">
                           </div>
                         </div>
                       </div>
@@ -57,7 +57,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control" name="estado" type="text" readonly value="Pendiente">
+                            <input class="form-control" name="estado" type="text" readonly value="{{ordenRenderServicio.estado }}">
                           </div>
                         </div>
                       </div>
@@ -67,7 +67,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control"  name="Tecnico" type="text" readonly value="Ronal Garzòn Perez">
+                            <input class="form-control"  name="Tecnico" type="text" readonly value="No esta definido">
                           </div>
                         </div>
                       </div>
@@ -77,7 +77,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control"  name="Tecnico" type="text" readonly  value="$ 30.000">
+                            <input class="form-control"  name="Tecnico" type="text" readonly  value="$ {{ordenRenderServicio.costo}}">
                           </div>
                         </div>
                       </div>
@@ -91,6 +91,9 @@
                               <div class="btn-group">
                                 <a class="btn btn-default" routerLink="/ordenesservicios/detail/{{numeroContrato}}">Regresar</a>
                               </div>
+                              <div class="btn-group">
+                                <button class="btn btn-default"  type="submit">Anular Orden Servicio </button>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -103,7 +106,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control" name="nombre_cliente" type="text" readonly value="Roberto Carlos Martinez">
+                            <input class="form-control" name="nombre_cliente" type="text" readonly value="{{ordenRenderServicio.nombreCliente}}">
                           </div>
                         </div>
                       </div>
@@ -113,7 +116,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control" name="telefono" type="text" readonly value="3320808-33267763">
+                            <input class="form-control" name="telefono" type="text" readonly value="{{ordenRenderServicio.telefono}}">
                           </div>
                         </div>
                       </div>
@@ -123,7 +126,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control"  name="zona_sector" type="text" readonly value="Gaitan">
+                            <input class="form-control"  name="zona_sector" type="text" readonly value="{{ordenRenderServicio.ZonaSector}}">
                           </div>
                         </div>
                       </div>
@@ -133,7 +136,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input"  style="width:100%;max-width:100%">
-                            <input class="form-control" name="tipo_orden" type="text" readonly value="Orden de mantenimiento">
+                            <input class="form-control" name="tipo_orden" type="text" readonly value="{{ordenRenderServicio.tipoOrden}}">
                           </div>
                         </div>
                       </div>
@@ -143,7 +146,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input"  style="width:100%;max-width:100%">
-                            <input class="form-control"  name="fecha_atencion" type="text" readonly value="2020-05-16">
+                            <input class="form-control"  name="fecha_atencion" type="text" readonly value="{{ordenRenderServicio.fechaAtencion | date:'dd/MM/yyyy'}}">
                           </div>
                         </div>
                       </div>
@@ -153,7 +156,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control"  name="observaciones" type="text" readonly type="text" value="Se rompio el cable y se cambio, se gastaron 12m y dos conectores">
+                            <input class="form-control"  name="observaciones" type="text" readonly type="text" value="">
                           </div>
                         </div>
                       </div>
