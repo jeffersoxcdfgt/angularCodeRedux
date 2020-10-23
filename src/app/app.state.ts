@@ -12,7 +12,7 @@ import * as fromFacturas from './facturas/store/reducers/facturas.reducers';
 import * as fromOrdenesServicios from './orden-servicios/store/reducers/orden-servicios.reducers';
 import * as fromPersonasSolidarias from './persona-solidarias/store/reducers/personasSolidarias.reducers';
 import * as fromFormaPagos from './forma-pagos/store/reducers/formaPagos.reducers';
-import * as fromUsuarios from './usuarios/store/reducers/usuarios.reducers';
+import * as auth from './usuarios/store/reducers/auth.reducers';
 
 
 export interface AppState {
@@ -30,5 +30,5 @@ export interface AppState {
   ordenesservicios:fromOrdenesServicios.State;
   personassolidarias:fromPersonasSolidarias.State;
   formaspagos:fromFormaPagos.State;
-  usuarios:fromUsuarios.State;
+  auth: auth.State;
 }

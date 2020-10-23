@@ -1,29 +1,31 @@
-import { NgModule   } from '@angular/core';
-import { Routes , RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 
-//components
+// components
 import { UsuariosComponent } from './usuarios.component';
 import { UsuarioLoginComponent } from './usuario-login/usuario-login.component';
 
+import { AuthService } from './store/services/auth.service';
+import { AuthGuardService as AuthGuard } from './store/services/auth-guard.service';
 
-const usuariosRoutes : Routes  =  <Routes>[{
-  path:'',
-  component :UsuariosComponent,
-  children:[
-    { path:'' , component:  UsuarioLoginComponent }
+export const loginRoutes: Routes = <Routes>[{
+  path: '',
+  component: UsuariosComponent,
+  children: [
+    {path: '', component: UsuarioLoginComponent},    
   ]
 }];
 
-
 @NgModule({
-  imports:[
-    RouterModule.forChild(usuariosRoutes)
+  imports: [
+    RouterModule.forChild(loginRoutes)
   ],
-  exports:[RouterModule]
+  exports: [RouterModule]
 })
-export class UsuariosRoutingModule {
+export class LoginRoutingModule {
 }
 
-export const usuariosRoutedComponents = [
-  UsuariosComponent
-]
+export const loginRoutedComponents = [
+  UsuariosComponent,
+  UsuarioLoginComponent
+];

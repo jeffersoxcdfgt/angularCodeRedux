@@ -9,7 +9,7 @@ const routes:Routes = [
   { path:'' , redirectTo:'/usuarios' , pathMatch:'full'},
   {
     path:'usuarios',
-    loadChildren: () => import('./usuarios/usuarios.module').then(m => m.UsuariosModule)
+    loadChildren: () => import('./usuarios/usuarios.module').then(m => m.LoginModule)
   },
   {
     path:'roles',

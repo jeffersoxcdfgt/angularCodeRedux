@@ -12,9 +12,14 @@ import { RolEffects } from './roles/store/effects/roles.effects';
 import  * as rolesReducers from './roles/store/reducers/roles.reducers';
 import { RolesService } from './roles/store/services/roles.service';
 
-import { UsuarioEffects } from './usuarios/store/effects/usuarios.effects';
-import  * as usuariosReducers from './usuarios/store/reducers/usuarios.reducers';
-import { UsuarioService } from './usuarios/store/services/usuarios.service';
+//Login
+import {AuthService} from './usuarios/store/services/auth.service';
+import {AuthGuardService} from './usuarios/store/services/auth-guard.service';
+import {TokenInterceptor, ErrorInterceptor } from './usuarios/store/services/token.interceptor';
+import {AuthEffects} from './usuarios/store/effects/auth.effects';
+import * as auth from './usuarios/store/reducers/auth.reducers';
+//Login
+
 
 import { IvaEffects } from './ivas/store/effects/ivas.effects';
 import  * as ivasReducers from './ivas/store/reducers/ivas.reducers';
@@ -66,7 +71,7 @@ import  * as ordenesServicioReducers from './orden-servicios/store/reducers/orde
 
 
 export const reducers: ActionReducerMap<any> = {
-  usuarios:usuariosReducers.reducer,
+  usuarios:auth.reducer,
   roles:rolesReducers.reducer,
   ivas:ivasReducers.reducer,
   departamentos:departamentosReducers.reducer,
@@ -99,7 +104,7 @@ export const reducers: ActionReducerMap<any> = {
     }),
     EffectsModule.forRoot([
       RolEffects,
-      UsuarioEffects,
+      AuthEffects,
       IvaEffects,
       DepartamentoEffects,
       MunicipioEffects,
@@ -116,7 +121,10 @@ export const reducers: ActionReducerMap<any> = {
   ],
   providers: [
     RolesService,
-    UsuarioService,
+    AuthService,
+    AuthGuardService,
+    TokenInterceptor,
+    ErrorInterceptor,
     TraceService,
     IvasService,
     DepartamentosService,

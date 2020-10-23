@@ -57,36 +57,15 @@ export const reducers: ActionReducerMap<any> = {
 @NgModule({
   imports:[
     SharedModule,
-    //HttpClientInMemoryWebApiModule.forRoot(AppInMemoryApi),
     ContratosRoutingModule,
-    /*StoreModule.forRoot(reducers,{
-      runtimeChecks: {
-       strictStateImmutability: true,
-       strictActionImmutability: true
-     }
-    }),
-    EffectsModule.forRoot([
-      ContratoEffects,
-      PersonaEffects,
-      ZonaEffects,
-      SectorEffects,
-      ServicioEffects,
-      PersonaSolidariaEffects
-    ]),*/
     StoreModule.forFeature('contratos', contratosReducers.reducer),
     EffectsModule.forFeature([ContratoEffects]),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgSelectModule,
     NgxPaginationModule,
-    //OrderModule,
     FormsModule,
-    /*StoreRouterConnectingModule.forRoot({
-      stateKey: 'router' // name of reducer key
-    }),*/
-    /*StoreDevtoolsModule.instrument({
-      maxAge:25
-    })*/
+
   ],
   declarations:[
     contratosRoutedComponents,
