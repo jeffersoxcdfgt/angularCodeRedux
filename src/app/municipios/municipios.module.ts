@@ -22,7 +22,6 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 export const reducers: ActionReducerMap<any> = {
   municipios:municipiosReducers.reducer,
-  router: routerReducer
 }
 
 @NgModule({
@@ -30,8 +29,10 @@ export const reducers: ActionReducerMap<any> = {
     SharedModule,
     //HttpClientInMemoryWebApiModule.forRoot(AppInMemoryApi),
     MunicipiosRoutingModule,
-    StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([MunicipioEffects]),
+    //StoreModule.forRoot(reducers),
+    //EffectsModule.forRoot([MunicipioEffects]),
+    StoreModule.forFeature('municipios', municipios.reducer),
+    EffectsModule.forFeature([MunicipioEffects]),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgSelectModule,

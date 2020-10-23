@@ -39,13 +39,18 @@ export const reducers: ActionReducerMap<any> = {
     SharedModule,
     //HttpClientInMemoryWebApiModule.forRoot(AppInMemoryApi),
     SectoresRoutingModule,
-    StoreModule.forRoot(reducers,{
+    /*StoreModule.forRoot(reducers,{
       runtimeChecks: {
        strictStateImmutability: true,
        strictActionImmutability: true
      }
     }),
-    EffectsModule.forRoot([SectorEffects,ZonaEffects]),
+    EffectsModule.forRoot([
+      SectorEffects,
+      ZonaEffects
+    ]),*/
+    StoreModule.forFeature('sectores', sectoresReducers.reducer),
+    EffectsModule.forFeature([SectorEffects]),    
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgSelectModule,

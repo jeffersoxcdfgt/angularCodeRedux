@@ -8,6 +8,7 @@ import  * as  rolesActions from '../store/actions/roles.actions';
 import { getAllRoles } from '../store/reducers/roles.reducers';
 import {NgxPaginationModule} from 'ngx-pagination';
 import swal from 'sweetalert2';
+import { getAllIvas } from '../../ivas/store/reducers/ivas.reducers';
 
 @Component({
   selector: 'app-rol-list',

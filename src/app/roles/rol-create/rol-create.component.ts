@@ -11,7 +11,6 @@ import { Observable , of , from , Subject , BehaviorSubject , iif ,combineLatest
 import { tap , map} from 'rxjs/operators';
 import { ValidationRolService } from '../../shared/validations/validationRol.service';
 
-
 @Component({
   selector: 'app-rol-create',
   templateUrl: './rol-create.component.html',

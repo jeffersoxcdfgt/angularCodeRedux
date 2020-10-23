@@ -24,23 +24,23 @@ import { AppInMemoryApi } from '../app.in-memory.api';
 //import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 
-
-export const reducers: ActionReducerMap<any> = {
-  ivas:ivasReducers.reducer
-}
-
 @NgModule({
   imports:[
     SharedModule,
     //HttpClientInMemoryWebApiModule.forRoot(AppInMemoryApi),
     IvasRoutingModule,
-    StoreModule.forRoot(reducers,{
+
+    /*StoreModule.forRoot(reducers,{
       runtimeChecks: {
        strictStateImmutability: true,
        strictActionImmutability: true
      }
     }),
-    EffectsModule.forRoot([IvaEffects]),
+    EffectsModule.forRoot([
+      IvaEffects
+    ]),*/
+    StoreModule.forFeature('ivas', ivasReducers.reducer),
+    EffectsModule.forFeature([IvaEffects]),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgSelectModule,

@@ -21,8 +21,7 @@ import { AppInMemoryApi } from '../app.in-memory.api';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 export const reducers: ActionReducerMap<any> = {
-  departamentos:departamentosReducers.reducer,
-  router: routerReducer
+  departamentos:departamentosReducers.reducer
 }
 
 @NgModule({
@@ -30,18 +29,20 @@ export const reducers: ActionReducerMap<any> = {
     SharedModule,
     //HttpClientInMemoryWebApiModule.forRoot(AppInMemoryApi),
     DepartamentosRoutingModule,
-    StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([DepartamentoEffects]),
+    //StoreModule.forRoot(reducers),
+    //EffectsModule.forRoot([DepartamentoEffects]),
+    StoreModule.forFeature('departamentos', departamentosReducers.reducer),
+    EffectsModule.forFeature([DepartamentoEffects]),    
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgSelectModule,
     FormsModule,
-    StoreRouterConnectingModule.forRoot({
+    /*StoreRouterConnectingModule.forRoot({
       stateKey: 'router' // name of reducer key
     }),
     StoreDevtoolsModule.instrument({
       maxAge:25
-    })
+    })*/
   ],
   declarations:[departamentosRoutedComponents],
   providers:[ DepartamentosService , TraceService ]

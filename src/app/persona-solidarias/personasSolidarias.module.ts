@@ -26,13 +26,15 @@ export const reducers: ActionReducerMap<any> = {
   imports:[
     SharedModule,
     PersonasSolidariasRoutingModule,
-    StoreModule.forRoot(reducers,{
+    /*StoreModule.forRoot(reducers,{
       runtimeChecks: {
        strictStateImmutability: true,
        strictActionImmutability: true
      }
     }),
-    EffectsModule.forRoot([PersonaSolidariaEffects]),
+    EffectsModule.forRoot([PersonaSolidariaEffects]),*/
+    StoreModule.forFeature('personassolidarias', personasSolidariasReducers.reducer),
+    EffectsModule.forFeature([PersonaSolidariaEffects]),    
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgSelectModule,

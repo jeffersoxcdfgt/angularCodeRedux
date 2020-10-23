@@ -7,13 +7,14 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 //components
 import { PageNotFoundComponent }  from './not-found/not-found.component';
 
+
 //services
 import { HTTP_INTERCEPTORS , HttpClientModule} from '@angular/common/http';
-import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { ExtractNamesPipe } from './extract-names.pipe';
 import { AppInMemoryApi } from '../app.in-memory.api';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { StoreModule } from '@ngrx/store';
 
 
 @NgModule({
@@ -24,10 +25,11 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    StoreModule,
-    EffectsModule,
+    //StoreModule,
+    //EffectsModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+
   ],
   declarations:[
     PageNotFoundComponent,
@@ -40,8 +42,8 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    StoreModule,
-    EffectsModule,
+    //StoreModule,
+    //EffectsModule,
     PageNotFoundComponent,
     ExtractNamesPipe
   ],

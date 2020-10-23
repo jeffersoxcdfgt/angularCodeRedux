@@ -227,6 +227,20 @@ export class AppInMemoryApi  implements InMemoryDbService{
               "id":1,
               "factName":"Factura 1"
             }
+          ],
+          'usuarios':[
+            {
+              "id": "1",
+              "email": "jeffersonmedina88@hotmail.com",
+              "password": "12458",
+              "token":"1qwsdsd"
+            },
+            {
+              "id": "2",
+              "email": "manuela@hotmail.com",
+              "password": "874541",
+              "token":"8unhnj"
+            }
           ]
        }
      }

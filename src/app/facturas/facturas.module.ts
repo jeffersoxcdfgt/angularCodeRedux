@@ -48,7 +48,7 @@ export const reducers: ActionReducerMap<any> = {
     //HttpClientInMemoryWebApiModule.forRoot(AppInMemoryApi),
     SharedModule,
     FacturasRoutingModule,
-    StoreModule.forRoot(reducers,{
+    /*StoreModule.forRoot(reducers,{
       runtimeChecks: {
        strictStateImmutability: true,
        strictActionImmutability: true
@@ -59,7 +59,9 @@ export const reducers: ActionReducerMap<any> = {
       ContratoEffects,
       PersonaEffects,
       FormaPagosEffects
-    ]),
+    ]),*/
+    StoreModule.forFeature('facturas', facturasReducers.reducer),
+    EffectsModule.forFeature([FacturaEffects]),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgSelectModule,
@@ -72,7 +74,8 @@ export const reducers: ActionReducerMap<any> = {
     TraceService,
     ContratosService,
     PersonasService,
-    FormaPagosService
+    FormaPagosService,
+    FacturasService
  ]
 })
 export class FacturasModule {

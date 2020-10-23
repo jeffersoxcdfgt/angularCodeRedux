@@ -26,13 +26,15 @@ export const reducers: ActionReducerMap<any> = {
   imports:[
     SharedModule,
     FormaPagosRoutingModule,
-    StoreModule.forRoot(reducers,{
+    /*StoreModule.forRoot(reducers,{
       runtimeChecks: {
        strictStateImmutability: true,
        strictActionImmutability: true
      }
     }),
-    EffectsModule.forRoot([FormaPagosEffects]),
+    EffectsModule.forRoot([FormaPagosEffects]),*/
+    StoreModule.forFeature('formaspagos', formaPagosReducers.reducer),
+    EffectsModule.forFeature([FormaPagosEffects]),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgSelectModule,

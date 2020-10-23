@@ -23,7 +23,6 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { AppInMemoryApi } from '../app.in-memory.api';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
-
 export const reducers: ActionReducerMap<any> = {
   servicios:serviciosReducers.reducer
 }
@@ -33,13 +32,15 @@ export const reducers: ActionReducerMap<any> = {
     SharedModule,
     //HttpClientInMemoryWebApiModule.forRoot(AppInMemoryApi),
     ServiciosRoutingModule,
-    StoreModule.forRoot(reducers,{
+    /*StoreModule.forRoot(reducers,{
       runtimeChecks: {
        strictStateImmutability: true,
        strictActionImmutability: true
      }
     }),
-    EffectsModule.forRoot([ServicioEffects]),
+    EffectsModule.forRoot([ServicioEffects]),*/
+    StoreModule.forFeature('servicios', serviciosReducers.reducer),
+    EffectsModule.forFeature([ServicioEffects]),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgSelectModule,

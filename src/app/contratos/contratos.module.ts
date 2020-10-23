@@ -36,7 +36,6 @@ import { SectorEffects } from '../sectores/store/effects/sectores.effects';
 import  * as sectoresReducers from '../sectores/store/reducers/sectores.reducers';
 import { SectoresService } from '../sectores/store/services/sectores.service';
 
-
 import { ServicioEffects } from '../servicios/store/effects/servicios.effects';
 import  * as serviciosReducers from '../servicios/store/reducers/servicios.reducers';
 import { ServiciosService } from '../servicios/store/services/servicios.service';
@@ -60,7 +59,7 @@ export const reducers: ActionReducerMap<any> = {
     SharedModule,
     //HttpClientInMemoryWebApiModule.forRoot(AppInMemoryApi),
     ContratosRoutingModule,
-    StoreModule.forRoot(reducers,{
+    /*StoreModule.forRoot(reducers,{
       runtimeChecks: {
        strictStateImmutability: true,
        strictActionImmutability: true
@@ -73,7 +72,9 @@ export const reducers: ActionReducerMap<any> = {
       SectorEffects,
       ServicioEffects,
       PersonaSolidariaEffects
-    ]),
+    ]),*/
+    StoreModule.forFeature('contratos', contratosReducers.reducer),
+    EffectsModule.forFeature([ContratoEffects]),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgSelectModule,

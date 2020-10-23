@@ -23,6 +23,10 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { AppInMemoryApi } from '../app.in-memory.api';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
+import { UsuarioEffects } from '../usuarios/store/effects/usuarios.effects';
+import  * as usuariosReducers from '../usuarios//store/reducers/usuarios.reducers';
+import { UsuarioService } from '../usuarios//store/services/usuarios.service';
+
 export const reducers: ActionReducerMap<any> = {
   roles:rolesReducers.reducer
 }
@@ -32,13 +36,19 @@ export const reducers: ActionReducerMap<any> = {
     SharedModule,
     //HttpClientInMemoryWebApiModule.forRoot(AppInMemoryApi),
     RolesRoutingModule,
-    StoreModule.forRoot(reducers,{
+    /*StoreModule.forRoot(reducers,{
       runtimeChecks: {
        strictStateImmutability: true,
        strictActionImmutability: true
      }
     }),
-    EffectsModule.forRoot([RolEffects]),
+    EffectsModule.forRoot([
+      RolEffects,
+      UsuarioEffects
+    ]),*/
+
+    StoreModule.forFeature('roles', rolesReducers.reducer),
+    EffectsModule.forFeature([RolEffects]),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgSelectModule,

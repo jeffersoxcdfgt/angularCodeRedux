@@ -42,7 +42,7 @@ export const reducers: ActionReducerMap<any> = {
     SharedModule,
     //HttpClientInMemoryWebApiModule.forRoot(AppInMemoryApi),
     EmpresasRoutingModule,
-    StoreModule.forRoot(reducers,{
+    /*StoreModule.forRoot(reducers,{
       runtimeChecks: {
        strictStateImmutability: true,
        strictActionImmutability: true
@@ -52,7 +52,9 @@ export const reducers: ActionReducerMap<any> = {
       EmpresaEffects,
        DepartamentoEffects ,
        MunicipioEffects
-     ]),
+     ]),*/
+    StoreModule.forFeature('empresas', empresasReducers.reducer),
+    EffectsModule.forFeature([EmpresaEffects]),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgSelectModule,

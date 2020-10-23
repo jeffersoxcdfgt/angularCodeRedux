@@ -38,7 +38,7 @@ export const reducers: ActionReducerMap<any> = {
   imports:[
     SharedModule,
     OrdenesServiciosRoutingModule,
-    StoreModule.forRoot(reducers,{
+    /*StoreModule.forRoot(reducers,{
       runtimeChecks: {
        strictStateImmutability: true,
        strictActionImmutability: true
@@ -48,7 +48,9 @@ export const reducers: ActionReducerMap<any> = {
       OrdenServicioEffects,
       ContratoEffects,
       PersonaEffects
-    ]),
+    ]),*/
+    StoreModule.forFeature('ordenesservicios', ordenesServicioReducers.reducer),
+    EffectsModule.forFeature([OrdenServicioEffects]),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgSelectModule,
@@ -60,7 +62,8 @@ export const reducers: ActionReducerMap<any> = {
     OrdenesServicioService ,
     TraceService,
     ContratosService,
-    PersonasService
+    PersonasService,
+    OrdenesServicioService
    ]
 })
 export class OrdenesServiciosModule {
