@@ -17,5 +17,6 @@ export const environment = {
   urlPersonaSolidaria:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/PersonasPorRol/56",
   urlFormasPagos:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/FormaPago",
   ulrOdenServicio:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/SolicitudServicioFiltros/null/null",
+  urlOrdenServicioAdd:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/SolicitudServicios",
   urlLogin:"http://localhost:1337"
 };

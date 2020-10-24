@@ -48,6 +48,34 @@ export function reducer (state = initialState , action :AppAction){
           error:action.payload
         }
       }
+
+      case ordenServicioActions.CREATE_ORDEN_SERVICIO:{
+        debugger;
+        return {
+          ...state,
+          selected: action.payload,
+          action: ordenServicioActions.CREATE_ORDEN_SERVICIO,
+          done: false,
+          error:  null
+        }
+      }
+      case ordenServicioActions.CREATE_ORDEN_SERVICIO_SUCCESS:{
+        debugger;
+        return {
+            ...state,
+            selected: action.payload,
+            done: true,
+            error:  null
+        }
+      }
+      case ordenServicioActions.CREATE_ORDEN_SERVICIO_ERROR:{
+        return {
+          ...state,
+          selected: null,
+          done: true,
+          error:  action.payload
+        }
+      }
     }
     return state;
 }
@@ -61,5 +89,18 @@ export const getOrdenesServicioError = createSelector(getOrdenesServiciosState, 
      : null;
   });
 
-export const selectRouterState = createFeatureSelector<RouterReducerState>('router');
-export const isRouterLog = createSelector( selectRouterState, router => router.state);
+
+export const isCreated = createSelector( getOrdenesServiciosState , ( state : State ) => {
+  if(state.action === ordenServicioActions.CREATE_ORDEN_SERVICIO && state.done && !state.error){
+    return state.selected;
+  } else{
+    return null;
+  }
+});
+
+
+export const getCreateError = createSelector( getOrdenesServiciosState , (state: State) => {
+        return state.action === ordenServicioActions.CREATE_ORDEN_SERVICIO
+         ? state.error
+         : null;
+});

@@ -38,3 +38,47 @@ export class OrdenRenderServicio {
   costo:string;
   observaciones:string;
 }
+
+
+export class OrdenServicioAdd
+{
+   essoId:number;
+   soseDescripcion:string;
+   soseFechaEjecucion:string;
+   soseRegistradopor:string;
+   sosePrecio:number;
+   soseResponsable:string;
+   tisoId:number;
+   Factura: {
+       FopaId:number;
+       FactIva:number;
+       FactBase:number;
+       SerId:number;
+       FactCodigoPago:string;
+       FactConcepto:string;
+       persId:string;
+       MesId:number;
+   }
+}
+
+export class OrderServicioAddResp {
+    soseId:number;
+    essoId:number;
+    factId:number;
+    soseEmpleado:number;
+    soseNumero:string;
+    soseDescripcion:string;
+    soseFechaEjecucion:string;
+    soseRegistradopor:string;
+    soseFechaCreacion:string;
+    soseActivo:boolean;
+    sosePrecio:number;
+    soseTipo:string;
+    soseResponsable:string;
+    tisoId:number;
+    esso:string;
+    tiso:string;
+    contrato:any[];
+    productosolicitud:any[];
+    solicitudconservicio:any[];
+}

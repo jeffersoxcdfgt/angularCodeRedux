@@ -6,14 +6,14 @@ import { PageNotFoundComponent } from './shared/not-found/not-found.component';
 import { UsuarioLoginComponent } from './usuarios/usuario-login/usuario-login.component';
 
 const routes:Routes = [
-  { path:'' , redirectTo:'/usuarios' , pathMatch:'full'},
-  {
-    path:'usuarios',
-    loadChildren: () => import('./usuarios/usuarios.module').then(m => m.LoginModule)
-  },
+  { path:'' , redirectTo:'/roles' , pathMatch:'full'},
   {
     path:'roles',
     loadChildren: () => import('./roles/roles.module').then(m => m.RolesModule)
+  },
+  {
+    path:'usuarios',
+    loadChildren: () => import('./usuarios/usuarios.module').then(m => m.LoginModule)
   },
   {
     path:'ivas',

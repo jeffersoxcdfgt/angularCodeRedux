@@ -7,11 +7,14 @@ import { catchError , map , mergeMap } from 'rxjs/operators';
 import {
 GetAllOrdenesServicios ,
 GetAllOrdenesServiciosSuccess ,
-GetAllOrdenesServiciosError
+GetAllOrdenesServiciosError,
+AddOrdenServicio,
+AddOrdenServicioSuccess,
+AddOrdenServicioError
 }
 from '../actions/orden-servicios.actions';
 import { OrdenesServicioService } from '../services/orden-servicios.service';
-import { OrdenServicio } from '../../shared/orden-servicio';
+import { OrdenServicio , OrderServicioAddResp } from '../../shared/orden-servicio';
 
 @Injectable()
 export class OrdenServicioEffects {
@@ -26,5 +29,16 @@ export class OrdenServicioEffects {
             catchError(err => of(new GetAllOrdenesServiciosError(err)))
           )
       )
+  );
+
+  @Effect()
+  public createOrdenServicio$ :  Observable<Action> = this.actions$.pipe(
+      ofType<AddOrdenServicio>(ordenservicioActions.CREATE_ORDEN_SERVICIO),
+        mergeMap((action:AddOrdenServicio) =>
+          this.svc.insert(action.payload).pipe(
+              map((ordenservicio:OrderServicioAddResp) => new AddOrdenServicioSuccess(ordenservicio)),
+              catchError(err => of(new AddOrdenServicioError(err)))
+            )
+        )
   );
 }

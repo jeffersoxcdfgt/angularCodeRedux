@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrdenRenderServicio } from '../shared/orden-servicio';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../app.state';
+import { AddOrdenServicio } from '../store/actions/orden-servicios.actions';
+import { OrdenServicioAdd } from  '../shared/orden-servicio';
+
 
 @Component({
   selector: 'app-orden-servicio-create',
@@ -11,9 +16,11 @@ export class OrdenServicioCreateComponent implements OnInit {
   numeroContrato:string;
   ordenRenderServicio:OrdenRenderServicio;
 
-  constructor(private router:Router)  {
+  constructor(private router:Router,
+              private store: Store<AppState>)  {
+
     if(this.router.getCurrentNavigation().extras.state != undefined){
-        this.ordenRenderServicio = new OrdenRenderServicio 
+        this.ordenRenderServicio = new OrdenRenderServicio
         this.numeroContrato = this.router.getCurrentNavigation().extras.state.numeroContrato
         this.ordenRenderServicio.nombreCliente = this.router.getCurrentNavigation().extras.state.nombreCliente
         this.ordenRenderServicio.numeroDocumento = this.router.getCurrentNavigation().extras.state.numeroDocumento
@@ -26,4 +33,27 @@ export class OrdenServicioCreateComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  OnAddOrdenServicio() {
+      const payload:OrdenServicioAdd =  {
+      essoId: 3,
+      soseDescripcion: "orden de instalacion",
+      soseFechaEjecucion: "2020-09-26",
+      soseRegistradopor: "cajero123",
+      sosePrecio: 0,
+      soseResponsable: "string",
+      tisoId: 14,
+      Factura : {
+          FopaId : 12,
+          FactIva : 19,
+          FactBase : 45000,
+          SerId : 84,
+          FactCodigoPago : null,
+          FactConcepto : "pago de solicitud",
+          persId: "ddavila200",
+          MesId : 10
+      }
+    }
+
+    this.store.dispatch(new AddOrdenServicio(payload))
+  }
 }
