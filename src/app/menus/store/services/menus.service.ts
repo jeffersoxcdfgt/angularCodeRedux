@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient , HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { tap , catchError} from 'rxjs/operators';
+import { Observable , from , of } from 'rxjs';
+import { tap , catchError , toArray } from 'rxjs/operators';
 import { Menu } from '../../shared/menu';
 import { TraceService } from '../../../shared/utils/traceService';
 
@@ -14,10 +14,11 @@ export class MenusService {
    * Find all the elements
    * @returns gets the list of objects found
    */
-  public findAll(params?): Observable<Menu[]>{
-      return this.http.get<Menu[]>(this.URL , { params: params }).pipe(
-          tap(_ => this.traceService.log('fetched menus')),
-          catchError(this.traceService.handleError<Menu[]>('findAll', []))
-      )
+ public findAll(params?): Observable<Menu[]>{
+  return  from<Menu[]>(
+      [
+        { id: 4, menuName: 'Foo'}
+      ]
+    ).pipe(toArray())
   }
 }

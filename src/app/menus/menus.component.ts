@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AppState } from '../app.state';
 import { GetAllMenus } from './store/actions/menus.actions';
 import { getMenusError } from './store/reducers/menus.reducers';
+import { selectAuthState } from '../usuarios/store/reducers/auth.reducers';
 
 @Component({
   selector:'app-menus',
@@ -17,7 +18,7 @@ import { getMenusError } from './store/reducers/menus.reducers';
       <div class="navbar-collapse collapse" id="navnav">
         <ul class="nav navbar-nav navbar-right" id="nav-menu">
           <li class="dropdown">
-            <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"><i class="icon-user"></i> admin <span class="caret"></span></a>
+            <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"><i class="icon-user"></i> {{userString}} <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li class="divider" role="separator"></li>
               <li>
@@ -94,14 +95,24 @@ import { getMenusError } from './store/reducers/menus.reducers';
 })
 export class MenusComponent implements OnInit {
 
+  userString:string = 'jeffersonmedina88@hotmail.com'
+
   constructor(private router: Router , private store :Store<AppState>){
   }
 
   ngOnInit(){
 
+    /*this.store.select(selectAuthState).subscribe((data)=>{
+        if(data!=null && data.isAuthenticated==true){
+          this.userString =data.user.email
+        }
+    })*/
+
     // subscriptions when success or error action
     this.store.select(getMenusError).subscribe((error) => this.loadingError(error));
     this.store.dispatch(new GetAllMenus());
+
+
 
   }
 
