@@ -10,11 +10,14 @@ GetAllOrdenesServiciosSuccess ,
 GetAllOrdenesServiciosError,
 AddOrdenServicio,
 AddOrdenServicioSuccess,
-AddOrdenServicioError
+AddOrdenServicioError,
+UpdateOrdenServicio,
+UpdateOrdenServicioSuccess,
+UpdateOrdenServicioError
 }
 from '../actions/orden-servicios.actions';
 import { OrdenesServicioService } from '../services/orden-servicios.service';
-import { OrdenServicio , OrderServicioAddResp } from '../../shared/orden-servicio';
+import { OrdenServicio , OrderServicioAddResp , OrdenServicioUpdate , OrdenServicioUpdateResp} from '../../shared/orden-servicio';
 
 @Injectable()
 export class OrdenServicioEffects {
@@ -41,4 +44,16 @@ export class OrdenServicioEffects {
             )
         )
   );
+
+  @Effect()
+  public updateOrdenServicio : Observable<Action> = this.actions$.pipe(
+      ofType<UpdateOrdenServicio>(ordenservicioActions.UPDATE_ORDEN_SERVICIO),
+        mergeMap((action:UpdateOrdenServicio) =>
+          this.svc.update(action.payload).pipe(
+            map((ordenservicio:OrdenServicioUpdateResp) => new UpdateOrdenServicioSuccess(ordenservicio)),
+            catchError(err => of(new UpdateOrdenServicioError(err)))
+        )
+      )
+  );
+
 }

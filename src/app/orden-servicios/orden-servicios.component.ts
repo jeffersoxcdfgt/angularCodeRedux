@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AppState } from '../app.state';
 import { GetAllPersonas } from '../personas/store/actions/personas.actions';
 import  * as reducersPersonas from '../personas/store/reducers/personas.reducers';
+import { isUpdated , isCreated } from './store/reducers/orden-servicios.reducers';
 
 
 @Component({
@@ -23,6 +24,16 @@ export class OrdenesServiciosComponent implements OnInit {
     //Personas
     this.store.dispatch(new GetAllPersonas());
     this.store.select(reducersPersonas.getAllPersonasError).subscribe((error) => this.loadingError(error));
+
+    /*this.store.select(isUpdated).subscribe((data) => {
+        console.log("Update Orden Servicio")
+        console.log(data)
+    });
+
+    this.store.select(isCreated).subscribe((data) => {
+      console.log("Crear Orden Servicio")
+      console.log(data)
+    });*/
 
   }
 

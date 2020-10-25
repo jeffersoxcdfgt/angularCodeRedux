@@ -69,6 +69,18 @@ import { OrdenesServicioService } from './orden-servicios/store/services/orden-s
 import { OrdenServicioEffects } from './orden-servicios/store/effects/orden-servicios.effects';
 import  * as ordenesServicioReducers from './orden-servicios/store/reducers/orden-servicios.reducers';
 
+import { TiposSolicitudService } from './tipo-solicitudes/store/services/tipossolicitud.service';
+import { TipoSolicitudEffects } from './tipo-solicitudes/store/effects/tipossolicitud.effects';
+import  * as tipossolicitudesReducers from './tipo-solicitudes/store/reducers/tipossolicitud.reducers';
+
+import { EstadosSolicitudService } from './estado-solicitudes/store/services/estadosolicitud.service';
+import { EstadoSolicitudEffects } from './estado-solicitudes/store/effects/estadosolicitud.effects';
+import  * as estadossolicitudesReducers from './estado-solicitudes/store/reducers/estadosolicitud.reducers';
+
+import { PersonasRolService } from './persona-roles/store/services/personas-rol.service';
+import { PersonaRolEffects } from './persona-roles/store/effects/personas-rol.effects';
+import  * as personasRolReducers from './persona-roles/store/reducers/personas-rol.reducers';
+
 
 export const reducers: ActionReducerMap<any> = {
   usuarios:auth.reducer,
@@ -85,6 +97,9 @@ export const reducers: ActionReducerMap<any> = {
   sectores:sectoresReducers.reducer,
   formaspagos:formaPagosReducers.reducer,
   ordenesservicios:ordenesServicioReducers.reducer,
+  tipossolicitud:tipossolicitudesReducers.reducer,
+  estadossolicitud:estadossolicitudesReducers.reducer,
+  personasrol:personasRolReducers.reducer
 }
 
 @NgModule({
@@ -116,7 +131,10 @@ export const reducers: ActionReducerMap<any> = {
       ZonaEffects,
       SectorEffects,
       FormaPagosEffects,
-      OrdenServicioEffects
+      OrdenServicioEffects,
+      TipoSolicitudEffects,
+      EstadoSolicitudEffects,
+      PersonaRolEffects
     ])
   ],
   providers: [
@@ -137,7 +155,10 @@ export const reducers: ActionReducerMap<any> = {
     ZonasService,
     SectoresService,
     FormaPagosService,
-    OrdenesServicioService
+    OrdenesServicioService,
+    TiposSolicitudService,
+    EstadosSolicitudService,
+    PersonasRolService
   ],
   exports:[],
   bootstrap: [AppComponent],

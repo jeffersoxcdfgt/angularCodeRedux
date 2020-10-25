@@ -12,8 +12,10 @@ import * as fromFacturas from './facturas/store/reducers/facturas.reducers';
 import * as fromOrdenesServicios from './orden-servicios/store/reducers/orden-servicios.reducers';
 import * as fromPersonasSolidarias from './persona-solidarias/store/reducers/personasSolidarias.reducers';
 import * as fromFormaPagos from './forma-pagos/store/reducers/formaPagos.reducers';
+import * as fromTiposSolicitud from './tipo-solicitudes/store/reducers/tipossolicitud.reducers';
+import * as fromEstadosSolicitud from './estado-solicitudes/store/reducers/estadosolicitud.reducers';
+import * as fromPersonasRol from './persona-roles/store/reducers/personas-rol.reducers';
 import * as auth from './usuarios/store/reducers/auth.reducers';
-
 
 export interface AppState {
   roles:fromRoles.State;
@@ -31,4 +33,7 @@ export interface AppState {
   personassolidarias:fromPersonasSolidarias.State;
   formaspagos:fromFormaPagos.State;
   auth: auth.State;
+  tipossolicitud:fromTiposSolicitud.State;
+  estadossolicitud:fromEstadosSolicitud.State;
+  personasrolget:fromPersonasRol.State;
 }

@@ -67,6 +67,18 @@ const routes:Routes = [
     path:'formaPagos',
     loadChildren: () => import('./forma-pagos/formaPagos.module').then(m => m.FormaPagosModule)
   },
+  {
+    path:'tipossolicitud',
+    loadChildren: () => import('./tipo-solicitudes/tipo-solicitudes.module').then(m => m.TiposSolicitudModule)
+  },
+  {
+    path:'estadossolicitud',
+    loadChildren: () => import('./estado-solicitudes/estadossolicitud.module').then(m => m.EstadosSolicitudModule)
+  },
+  {
+    path:'personasrol',
+    loadChildren: () => import('./persona-roles/personas-rol.module').then(m => m.PersonasRolModule)
+  },
   {path: '**', component: PageNotFoundComponent}
 ];
 

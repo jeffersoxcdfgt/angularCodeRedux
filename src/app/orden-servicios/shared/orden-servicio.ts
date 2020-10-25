@@ -82,3 +82,37 @@ export class OrderServicioAddResp {
     productosolicitud:any[];
     solicitudconservicio:any[];
 }
+
+
+export class OrdenServicioUpdate  {
+    soseId:number;
+    essoId:number;
+    soseDescripcion:string;
+    soseFechaEjecucion:string;
+    soseRegistradopor:string;
+    sosePrecio:number;
+    soseResponsable:string;
+    tisoId:number;
+ }
+
+ export class OrdenServicioUpdateResp {
+    soseId:number;
+    essoId:number;
+    factId:number;
+    soseEmpleado:number;
+    soseNumero:string;
+    soseDescripcion:string;
+    soseFechaEjecucion:string;
+    soseRegistradopor:string;
+    soseFechaCreacion:string;
+    soseActivo:boolean;
+    sosePrecio:number;
+    soseTipo:string;
+    soseResponsable:string;
+    tisoId:number;
+    esso:number;
+    tiso:number;
+    contrato:any[];
+    productosolicitud:any[];
+    solicitudconservicio:any[];
+}

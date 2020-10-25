@@ -18,5 +18,9 @@ export const environment = {
   urlFormasPagos:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/FormaPago",
   ulrOdenServicio:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/SolicitudServicioFiltros/null/null",
   urlOrdenServicioAdd:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/SolicitudServicios",
+  urlOrdenServicioUpdate:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/SolicitudServicios",
+  urlTipoServicio:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/TipoSolicitud",
+  urlEstadosSolicitud:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/EstadoSolicitud",
+  urlPersonRolGet:"https://bfy0w85d4k.execute-api.us-east-1.amazonaws.com/Dev/api/PersonasPorRol",
   urlLogin:"http://localhost:1337"
 };

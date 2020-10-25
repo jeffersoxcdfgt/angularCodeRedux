@@ -2,7 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient , HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap , catchError} from 'rxjs/operators';
-import { OrdenServicio , OrdenServicioAdd, OrderServicioAddResp} from '../../shared/orden-servicio';
+import {
+  OrdenServicio ,
+  OrdenServicioAdd,
+  OrderServicioAddResp,
+  OrdenServicioUpdate,
+  OrdenServicioUpdateResp
+} from '../../shared/orden-servicio';
 import { TraceService } from '../../../shared/utils/traceService';
 import { environment } from '../../../../environments/environment';
 
@@ -33,6 +39,20 @@ export class OrdenesServicioService {
      .pipe(
         tap((newGame:OrderServicioAddResp) => this.traceService.log(`added Orden Servicio`)),
         catchError(this.traceService.handleError<OrderServicioAddResp>('insert'))
+     )
+   }
+
+   /**
+    * Update specific object into DB
+    * @param game the object to be updated
+    * @returns gets the response
+    */
+   public update(ordenservicio: OrdenServicioUpdate): Observable<OrdenServicioUpdateResp> {
+     let headers = new HttpHeaders();
+     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+     return this.http.put<OrdenServicioUpdateResp>(environment.urlOrdenServicioUpdate + '/' + ordenservicio.soseId, ordenservicio, {headers: headers}).pipe(
+       tap(_ => this.traceService.log(`updated Orden de Servicio soseId=${ordenservicio.soseId}`)),
+      catchError(this.traceService.handleError<OrdenServicioUpdateResp>('update'))
      )
    }
 

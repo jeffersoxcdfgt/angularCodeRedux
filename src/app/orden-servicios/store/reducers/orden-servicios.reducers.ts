@@ -48,9 +48,7 @@ export function reducer (state = initialState , action :AppAction){
           error:action.payload
         }
       }
-
       case ordenServicioActions.CREATE_ORDEN_SERVICIO:{
-        debugger;
         return {
           ...state,
           selected: action.payload,
@@ -60,7 +58,6 @@ export function reducer (state = initialState , action :AppAction){
         }
       }
       case ordenServicioActions.CREATE_ORDEN_SERVICIO_SUCCESS:{
-        debugger;
         return {
             ...state,
             selected: action.payload,
@@ -69,6 +66,31 @@ export function reducer (state = initialState , action :AppAction){
         }
       }
       case ordenServicioActions.CREATE_ORDEN_SERVICIO_ERROR:{
+        return {
+          ...state,
+          selected: null,
+          done: true,
+          error:  action.payload
+        }
+      }
+      case ordenServicioActions.UPDATE_ORDEN_SERVICIO:{
+        return {
+          ...state,
+          selected: action.payload,
+          action: ordenServicioActions.UPDATE_ORDEN_SERVICIO,
+          done: false,
+          error:  null
+        }
+      }
+      case ordenServicioActions.UPDATE_ORDEN_SERVICIO_SUCCESS:{
+        return {
+            ...state,
+            selected: action.payload,
+            done: true,
+            error:  null
+        }
+      }
+      case ordenServicioActions.UPDATE_ORDEN_SERVICIO_ERROR:{
         return {
           ...state,
           selected: null,
@@ -93,7 +115,7 @@ export const getOrdenesServicioError = createSelector(getOrdenesServiciosState, 
 export const isCreated = createSelector( getOrdenesServiciosState , ( state : State ) => {
   if(state.action === ordenServicioActions.CREATE_ORDEN_SERVICIO && state.done && !state.error){
     return state.selected;
-  } else{
+  } else {
     return null;
   }
 });
@@ -101,6 +123,22 @@ export const isCreated = createSelector( getOrdenesServiciosState , ( state : St
 
 export const getCreateError = createSelector( getOrdenesServiciosState , (state: State) => {
         return state.action === ordenServicioActions.CREATE_ORDEN_SERVICIO
+         ? state.error
+         : null;
+});
+
+
+export const isUpdated = createSelector( getOrdenesServiciosState , ( state : State ) => {
+  if(state.action === ordenServicioActions.UPDATE_ORDEN_SERVICIO && state.done && !state.error){
+    return state.selected;
+  } else {
+    return null;
+  }
+});
+
+
+export const getUpdateError = createSelector( getOrdenesServiciosState , (state: State) => {
+        return state.action === ordenServicioActions.UPDATE_ORDEN_SERVICIO
          ? state.error
          : null;
 });

@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
 import { Router } from '@angular/router';
-import { OrdenRenderServicio } from '../shared/orden-servicio'
-import { getAllContratos } from '../../contratos/store/reducers/contratos.reducers';
+import { UpdateOrdenServicio } from '../store/actions/orden-servicios.actions';
+import { OrdenRenderServicio ,OrdenServicioUpdate , OrdenServicioUpdateResp } from  '../shared/orden-servicio';
+import { getAllContratos ,  isUpdated} from '../../contratos/store/reducers/contratos.reducers';
 
 @Component({
   selector: 'app-orden-servicio-delete',
@@ -50,6 +51,27 @@ export class OrdenServicioDeleteComponent implements OnInit {
  }
 
   ngOnInit(): void {
+  }
+
+  OnUpdateOrdenServicio() {
+    const payload:OrdenServicioUpdate =  {
+      soseId: 153,
+      essoId: 3,
+      soseDescripcion: "orden de instalacion",
+      soseFechaEjecucion: "2020-09-26",
+      soseRegistradopor: "cajero123",
+      sosePrecio: 0,
+      soseResponsable: "string",
+      tisoId: 17 //Suspensiond de la Orden
+    }
+    this.store.dispatch(new UpdateOrdenServicio(payload))
+    this.store.select(isUpdated).subscribe((data) => {
+      if(data!=null){
+        //console.log("Edit")
+        //console.log(data)
+        this.router.navigate(['/ordenesservicios/detail',this.numeroContrato]);
+      }
+    });
   }
 
 }

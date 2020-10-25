@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { OrdenRenderServicio } from '../shared/orden-servicio';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
 import { AddOrdenServicio } from '../store/actions/orden-servicios.actions';
-import { OrdenServicioAdd } from  '../shared/orden-servicio';
+import { OrdenServicioAdd , OrdenRenderServicio } from  '../shared/orden-servicio';
+import { isCreated } from '../store/reducers/orden-servicios.reducers';
 
 
 @Component({
@@ -49,11 +49,18 @@ export class OrdenServicioCreateComponent implements OnInit {
           SerId : 84,
           FactCodigoPago : null,
           FactConcepto : "pago de solicitud",
-          persId: "ddavila200",
+          persId: "asilva15085",
           MesId : 10
       }
     }
 
     this.store.dispatch(new AddOrdenServicio(payload))
+    this.store.select(isCreated).subscribe((data) => {
+        if(data!=null){
+          //console.log("Add")
+          //console.log(data)
+          this.router.navigate(['/ordenesservicios/detail',this.numeroContrato]);
+        }
+    });
   }
 }
