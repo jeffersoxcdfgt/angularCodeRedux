@@ -44,6 +44,8 @@ import { PersonaSolidariaEffects } from '../persona-solidarias/store/effects/per
 import  * as personasSolidariasReducers from '../persona-solidarias/store/reducers/personasSolidarias.reducers';
 import { PersonasSolidariasService } from '../persona-solidarias/store/services/personasSolidarias.service';
 
+import { MenusModule } from '../menus/menus.module';
+
 
 export const reducers: ActionReducerMap<any> = {
   contratos:contratosReducers.reducer,
@@ -65,6 +67,7 @@ export const reducers: ActionReducerMap<any> = {
     NgSelectModule,
     NgxPaginationModule,
     FormsModule,
+    MenusModule
 
   ],
   declarations:[

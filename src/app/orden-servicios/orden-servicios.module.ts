@@ -24,8 +24,9 @@ import { ContratosService } from '../contratos/store/services/contratos.service'
 import { PersonaEffects } from '../personas/store/effects/personas.effects';
 import  * as personasReducers from '../personas/store/reducers/personas.reducers';
 import { PersonasService } from '../personas/store/services/personas.service';
-
 import {NgxPaginationModule} from 'ngx-pagination';
+
+import { MenusModule } from '../menus/menus.module';
 
 export const reducers: ActionReducerMap<any> = {
   ordenesservicios:ordenesServicioReducers.reducer,
@@ -55,7 +56,8 @@ export const reducers: ActionReducerMap<any> = {
     OwlNativeDateTimeModule,
     NgSelectModule,
     FormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MenusModule
   ],
   declarations:[ordenesServiciosRoutedComponents],
   providers:[

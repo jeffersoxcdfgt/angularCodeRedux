@@ -30,6 +30,7 @@ import { DepartamentosService } from '../departamentos/store/services/departamen
 import { MunicipioEffects } from '../municipios/store/effects/municipios.effects';
 import  * as municipiosReducers from '../municipios/store/reducers/municipios.reducers';
 import { MunicipiosService } from '../municipios/store/services/municipios.service';
+import { MenusModule } from '../menus/menus.module';
 
 
 export const reducers: ActionReducerMap<any> = {
@@ -61,6 +62,7 @@ export const reducers: ActionReducerMap<any> = {
     NgSelectModule,
     NgxPaginationModule,
     FormsModule,
+    MenusModule
   ],
   declarations:[
     zonasRoutedComponents,

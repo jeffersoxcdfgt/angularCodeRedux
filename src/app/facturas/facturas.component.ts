@@ -15,6 +15,7 @@ import swal from 'sweetalert2';
 @Component({
   selector:'app-facturas',
   template:`
+  <app-menus></app-menus>
   <router-outlet></router-outlet>`,
   styleUrls:['./facturas.component.css']
 })

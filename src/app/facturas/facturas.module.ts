@@ -35,6 +35,8 @@ import { FormaPagosEffects } from '../forma-pagos/store/effects/formaPagos.effec
 import  * as formaPagosReducers from '../forma-pagos/store/reducers/formaPagos.reducers';
 import { FormaPagosService } from '../forma-pagos/store/services/formaPagos.service';
 
+import { MenusModule } from '../menus/menus.module';
+
 export const reducers: ActionReducerMap<any> = {
   facturas:facturasReducers.reducer,
   contratos:contratosReducers.reducer,
@@ -67,6 +69,7 @@ export const reducers: ActionReducerMap<any> = {
     NgSelectModule,
     FormsModule,
     NgxPaginationModule,
+    MenusModule
   ],
   declarations:[facturasRoutedComponents],
   providers:[

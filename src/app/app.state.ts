@@ -15,6 +15,7 @@ import * as fromFormaPagos from './forma-pagos/store/reducers/formaPagos.reducer
 import * as fromTiposSolicitud from './tipo-solicitudes/store/reducers/tipossolicitud.reducers';
 import * as fromEstadosSolicitud from './estado-solicitudes/store/reducers/estadosolicitud.reducers';
 import * as fromPersonasRol from './persona-roles/store/reducers/personas-rol.reducers';
+import * as fromMenus from './menus/store/reducers/menus.reducers';
 import * as auth from './usuarios/store/reducers/auth.reducers';
 
 export interface AppState {
@@ -36,4 +37,5 @@ export interface AppState {
   tipossolicitud:fromTiposSolicitud.State;
   estadossolicitud:fromEstadosSolicitud.State;
   personasrolget:fromPersonasRol.State;
+  menus:fromMenus.State;
 }

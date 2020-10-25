@@ -28,6 +28,8 @@ import { ZonaEffects } from '../zonas/store/effects/zonas.effects';
 import  * as zonasReducers from '../zonas/store/reducers/zonas.reducers';
 import { ZonasService } from '../zonas/store/services/zonas.service';
 
+import { MenusModule } from '../menus/menus.module';
+
 
 export const reducers: ActionReducerMap<any> = {
   sectores:sectoresReducers.reducer,
@@ -50,13 +52,14 @@ export const reducers: ActionReducerMap<any> = {
       ZonaEffects
     ]),*/
     StoreModule.forFeature('sectores', sectoresReducers.reducer),
-    EffectsModule.forFeature([SectorEffects]),    
+    EffectsModule.forFeature([SectorEffects]),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgSelectModule,
     NgxPaginationModule,
     //OrderModule,
     FormsModule,
+    MenusModule
     /*StoreRouterConnectingModule.forRoot({
       stateKey: 'router' // name of reducer key
     }),*/

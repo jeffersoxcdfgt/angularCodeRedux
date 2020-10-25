@@ -19,6 +19,7 @@ import  * as reducersPersonasRol from '../persona-roles/store/reducers/personas-
 @Component({
   selector:'app-ordenes-servicios',
   template:`
+  <app-menus></app-menus>
   <router-outlet></router-outlet>`,
   styleUrls:['./orden-servicios.component.css']
 })

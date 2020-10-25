@@ -15,7 +15,9 @@ import { getMunicipiosError  } from '../municipios/store/reducers/municipios.red
 
 @Component({
   selector: 'app-empresas',
-  template:`<router-outlet></router-outlet>`,
+  template:`
+  <app-menus></app-menus>
+  <router-outlet></router-outlet>`,
   styleUrls: ['./empresas.component.css']
 })
 export class EmpresasComponent implements OnInit {

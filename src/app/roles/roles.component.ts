@@ -9,7 +9,8 @@ import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-roles',
-  template:`<router-outlet></router-outlet>`,
+  template:`<app-menus></app-menus>
+  <router-outlet></router-outlet>`,
   styleUrls: ['./roles.component.css']
 })
 export class RolComponent implements OnInit {

@@ -21,7 +21,9 @@ import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-contratos',
-  template:`<router-outlet></router-outlet>`,
+  template:`
+  <app-menus></app-menus>
+  <router-outlet></router-outlet>`,
   styleUrls: ['./contratos.component.css']
 })
 export class ContratosComponent implements OnInit {

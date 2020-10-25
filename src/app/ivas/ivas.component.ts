@@ -9,7 +9,9 @@ import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ivas',
-  template:`<router-outlet></router-outlet>`,
+  template:`
+  <app-menus></app-menus>
+  <router-outlet></router-outlet>`,
   styleUrls: ['./ivas.component.css']
 })
 export class IvasComponent implements OnInit {

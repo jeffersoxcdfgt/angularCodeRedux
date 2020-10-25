@@ -31,6 +31,8 @@ import { EmpresaEffects } from '../empresas/store/effects/empresas.effects';
 import  * as empresasReducers from '../empresas/store/reducers/empresas.reducers';
 import { EmpresasService } from '../empresas/store/services/empresas.service';
 
+import { MenusModule } from '../menus/menus.module';
+
 
 export const reducers: ActionReducerMap<any> = {
   personas:personasReducers.reducer,
@@ -61,6 +63,7 @@ export const reducers: ActionReducerMap<any> = {
     NgSelectModule,
     NgxPaginationModule,
     FormsModule,
+    MenusModule
   ],
   declarations:[
     personasRoutedComponents,

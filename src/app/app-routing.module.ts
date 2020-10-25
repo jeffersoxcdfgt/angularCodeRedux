@@ -63,21 +63,25 @@ const routes:Routes = [
     path:'personassolidarias',
     loadChildren: () => import('./persona-solidarias/personasSolidarias.module').then(m => m.PersonasSolidariasModule)
   },*/
-  {
+  /*{
     path:'formaPagos',
     loadChildren: () => import('./forma-pagos/formaPagos.module').then(m => m.FormaPagosModule)
-  },
-  {
+  },*/
+  /*{
     path:'tipossolicitud',
     loadChildren: () => import('./tipo-solicitudes/tipo-solicitudes.module').then(m => m.TiposSolicitudModule)
-  },
-  {
+  },*/
+  /*{
     path:'estadossolicitud',
     loadChildren: () => import('./estado-solicitudes/estadossolicitud.module').then(m => m.EstadosSolicitudModule)
-  },
-  {
+  },*/
+  /*{
     path:'personasrol',
     loadChildren: () => import('./persona-roles/personas-rol.module').then(m => m.PersonasRolModule)
+  },*/
+  {
+    path:'menus',
+    loadChildren: () => import('./menus/menus.module').then(m => m.MenusModule)
   },
   {path: '**', component: PageNotFoundComponent}
 ];

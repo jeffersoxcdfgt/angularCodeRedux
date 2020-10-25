@@ -22,11 +22,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
 
 import { AppInMemoryApi } from '../app.in-memory.api';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { MenusModule } from '../menus/menus.module';
 
-
-export const reducers: ActionReducerMap<any> = {
-  roles:rolesReducers.reducer
-}
 
 @NgModule({
   imports:[
@@ -40,10 +37,12 @@ export const reducers: ActionReducerMap<any> = {
     NgSelectModule,
     NgxPaginationModule,
     FormsModule,
-
+    MenusModule,
   ],
   declarations:[
     rolesRoutedComponents,
+    //MenusComponent
+
     /*crossCountryValuePipe,
     crossCollegeValuePipe,
     crossPositionValuePipe,
@@ -52,7 +51,9 @@ export const reducers: ActionReducerMap<any> = {
   providers:[
     TraceService,
     RolesService
-  ]
+  ],
+  exports:[]
+
 })
 export class RolesModule {
 

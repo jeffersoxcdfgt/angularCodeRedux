@@ -81,6 +81,11 @@ import { PersonasRolService } from './persona-roles/store/services/personas-rol.
 import { PersonaRolEffects } from './persona-roles/store/effects/personas-rol.effects';
 import  * as personasRolReducers from './persona-roles/store/reducers/personas-rol.reducers';
 
+import { MenusService } from './menus/store/services/menus.service';
+import { MenuEffects } from './menus/store/effects/menus.effects';
+import  * as menusReducers from './menus/store/reducers/menus.reducers';
+
+
 
 export const reducers: ActionReducerMap<any> = {
   usuarios:auth.reducer,
@@ -99,7 +104,8 @@ export const reducers: ActionReducerMap<any> = {
   ordenesservicios:ordenesServicioReducers.reducer,
   tipossolicitud:tipossolicitudesReducers.reducer,
   estadossolicitud:estadossolicitudesReducers.reducer,
-  personasrolget:personasRolReducers.reducer
+  personasrolget:personasRolReducers.reducer,
+  menus:menusReducers.reducer
 }
 
 @NgModule({
@@ -134,8 +140,9 @@ export const reducers: ActionReducerMap<any> = {
       OrdenServicioEffects,
       TipoSolicitudEffects,
       EstadoSolicitudEffects,
-      PersonaRolEffects
-    ])
+      PersonaRolEffects,
+      MenuEffects
+    ]),
   ],
   providers: [
     RolesService,
@@ -158,7 +165,8 @@ export const reducers: ActionReducerMap<any> = {
     OrdenesServicioService,
     TiposSolicitudService,
     EstadosSolicitudService,
-    PersonasRolService
+    PersonasRolService,
+    MenusService
   ],
   exports:[],
   bootstrap: [AppComponent],

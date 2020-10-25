@@ -46,7 +46,7 @@ export class AuthEffects {
       map((action: LogInSuccess) => action.payload),
         tap((user) => {
           localStorage.setItem('token', user.token);
-          this.router.navigateByUrl('/roles');
+          this.router.navigateByUrl('/menus');
         })
   );
 

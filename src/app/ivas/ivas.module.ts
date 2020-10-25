@@ -23,6 +23,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { AppInMemoryApi } from '../app.in-memory.api';
 //import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
+import { MenusModule } from '../menus/menus.module';
+
 
 @NgModule({
   imports:[
@@ -47,6 +49,7 @@ import { AppInMemoryApi } from '../app.in-memory.api';
     NgxPaginationModule,
     //OrderModule,
     FormsModule,
+    MenusModule
     /*StoreRouterConnectingModule.forRoot({
       stateKey: 'router' // name of reducer key
     }),*/

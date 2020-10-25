@@ -14,7 +14,9 @@ import { getMunicipiosError  } from '../municipios/store/reducers/municipios.red
 
 @Component({
   selector: 'app-zonas',
-  template:`<router-outlet></router-outlet>`,
+  template:`
+  <app-menus></app-menus>
+  <router-outlet></router-outlet>`,
   styleUrls: ['./zonas.component.css']
 })
 export class ZonaComponent implements OnInit {

@@ -9,7 +9,9 @@ import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-servicios',
-  template:`<router-outlet></router-outlet>`,
+  template:`
+  <app-menus></app-menus>
+  <router-outlet></router-outlet>`,
   styleUrls: ['./servicios.component.css']
 })
 export class ServiciosComponent implements OnInit {

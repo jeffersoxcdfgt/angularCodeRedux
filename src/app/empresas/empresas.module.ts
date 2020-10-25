@@ -31,6 +31,8 @@ import { MunicipioEffects } from '../municipios/store/effects/municipios.effects
 import  * as municipiosReducers from '../municipios/store/reducers/municipios.reducers';
 import { MunicipiosService } from '../municipios/store/services/municipios.service';
 
+import { MenusModule } from '../menus/menus.module';
+
 export const reducers: ActionReducerMap<any> = {
   empresas:empresasReducers.reducer,
   departamentos:departamentosReducers.reducer,
@@ -61,6 +63,7 @@ export const reducers: ActionReducerMap<any> = {
     NgxPaginationModule,
     //OrderModule,
     FormsModule,
+    MenusModule
     /*StoreRouterConnectingModule.forRoot({
       stateKey: 'router' // name of reducer key
     }),*/

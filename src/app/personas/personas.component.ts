@@ -12,10 +12,11 @@ import { getAllEmpresasError } from '../empresas/store/reducers/empresas.reducer
 import swal from 'sweetalert2';
 
 
-
 @Component({
   selector: 'app-personas',
-  template:`<router-outlet></router-outlet>`,
+  template:`
+  <app-menus></app-menus>
+  <router-outlet></router-outlet>`,
   styleUrls: ['./personas.component.css']
 })
 export class PersonasComponent implements OnInit {
