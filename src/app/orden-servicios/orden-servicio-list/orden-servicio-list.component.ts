@@ -50,6 +50,7 @@ export class OrdenServicioListComponent implements OnInit {
           })
         }
     })
+
   }
 
   ngOnInit(): void {

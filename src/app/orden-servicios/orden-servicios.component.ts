@@ -2,10 +2,19 @@ import { Component , OnInit} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { AppState } from '../app.state';
+
 import { GetAllPersonas } from '../personas/store/actions/personas.actions';
 import  * as reducersPersonas from '../personas/store/reducers/personas.reducers';
 import { isUpdated , isCreated } from './store/reducers/orden-servicios.reducers';
 
+import { GetAllTiposSolicitud } from '../tipo-solicitudes/store/actions/tipossolicitud.actions';
+import  * as reducersTipoSolicitud from '../tipo-solicitudes/store/reducers/tipossolicitud.reducers';
+
+import { GetAllEstadosSolicitud } from '../estado-solicitudes/store/actions/estadosolicitud.actions';
+import  * as reducersEstadoSolicitud from '../estado-solicitudes/store/reducers/estadosolicitud.reducers';
+
+import { GetAllPersonasRol } from '../persona-roles/store/actions/personas-rol.actions';
+import  * as reducersPersonasRol from '../persona-roles/store/reducers/personas-rol.reducers';
 
 @Component({
   selector:'app-ordenes-servicios',
@@ -22,8 +31,23 @@ export class OrdenesServiciosComponent implements OnInit {
   ngOnInit(){
 
     //Personas
-    this.store.dispatch(new GetAllPersonas());
+    this.store.dispatch(new GetAllTiposSolicitud());
     this.store.select(reducersPersonas.getAllPersonasError).subscribe((error) => this.loadingError(error));
+
+
+    //TiposSolicitud
+    this.store.dispatch(new GetAllPersonas());
+    this.store.select(reducersTipoSolicitud.getTiposSolicitudError).subscribe((error) => this.loadingError(error));
+
+    //Estado Solicitud
+    this.store.dispatch(new GetAllEstadosSolicitud());
+    this.store.select(reducersEstadoSolicitud.getEstadosSolicitudError).subscribe((error) => this.loadingError(error));
+
+
+    //Personas Rol
+    this.store.dispatch(new GetAllPersonasRol(54));
+    this.store.select(reducersPersonasRol.getPersonasRolError).subscribe((error) => this.loadingError(error));
+
 
     /*this.store.select(isUpdated).subscribe((data) => {
         console.log("Update Orden Servicio")

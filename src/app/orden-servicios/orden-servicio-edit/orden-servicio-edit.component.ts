@@ -4,7 +4,17 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
 import { UpdateOrdenServicio } from '../store/actions/orden-servicios.actions';
 import { OrdenServicioUpdate , OrdenServicioUpdateResp } from  '../shared/orden-servicio';
+import {  DataList , DataListString } from  '../shared/list';
 import { isUpdated } from '../store/reducers/orden-servicios.reducers';
+
+import { getAllTiposSolicitud } from '../../tipo-solicitudes/store/reducers/tipossolicitud.reducers';
+import { TipoSolicitud } from '../../tipo-solicitudes/shared/TipoSolicitud';
+
+import { getAllEstadosSolicitud } from '../../estado-solicitudes/store/reducers/estadosolicitud.reducers';
+import { EstadoSolicitud } from '../../estado-solicitudes/shared/EstadoSolicitud';
+
+import { getAllPersonasRol } from '../../persona-roles/store/reducers/personas-rol.reducers';
+import { PersonaRol } from '../../persona-roles/shared/PersonaRol';
 
 @Component({
   selector: 'app-orden-servicio-edit',
@@ -13,6 +23,10 @@ import { isUpdated } from '../store/reducers/orden-servicios.reducers';
 })
 export class OrdenServicioEditComponent implements OnInit {
   numeroContrato:string;
+
+  listTipoSolicitud:DataList[];
+  listEstadoSolicitud:DataList[];
+  listPersonaRol:DataListString[];
 
   constructor(
     private router:Router,
@@ -25,6 +39,33 @@ export class OrdenServicioEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.store.select(getAllTiposSolicitud).subscribe((data)=>{
+        this.listTipoSolicitud = data.map((val:TipoSolicitud)=>{
+            return {
+             id:val.tisoId,
+             value: `${val.tisoNombre}`
+          }
+       })
+    })
+
+    this.store.select(getAllEstadosSolicitud).subscribe((data)=>{
+      this.listEstadoSolicitud = data.map((val:EstadoSolicitud)=>{
+          return {
+           id:val.essoId,
+           value: `${val.essoDescripcion}`
+        }
+     })
+    })
+
+    this.store.select(getAllPersonasRol).subscribe((data)=>{
+      this.listPersonaRol = data.map((val:PersonaRol)=>{
+          return {
+           id:val.persId,
+           value: `(${val.persNumDocumento}) ${val.persNombre} ${val.persApellido}`
+        }
+     })
+    })
   }
 
   OnUpdateOrdenServicio() {

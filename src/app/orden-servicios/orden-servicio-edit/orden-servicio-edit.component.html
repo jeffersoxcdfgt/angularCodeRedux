@@ -57,7 +57,14 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control" name="estado" type="text"  value="Pendiente">
+                            <!--<input class="form-control" name="estado" type="text"  value="Pendiente">-->
+                            <ng-select
+                              [items]="listEstadoSolicitud"
+                              [multiple]="false"
+                              [closeOnSelect]="true"
+                              bindLabel="value"
+                              placeholder="Estado de la orden">
+                            </ng-select>
                           </div>
                         </div>
                       </div>
@@ -67,7 +74,14 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control"  name="Tecnico" type="text"  value="Ronal Garzòn Perez">
+                            <!--<input class="form-control"  name="Tecnico" type="text"  value="Ronal Garzòn Perez">-->
+                            <ng-select
+                              [items]="listPersonaRol"
+                              [multiple]="false"
+                              [closeOnSelect]="true"
+                              bindLabel="value"
+                              placeholder="Seleccione un tecnico">
+                            </ng-select>
                           </div>
                         </div>
                       </div>
@@ -136,7 +150,14 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input"  style="width:100%;max-width:100%">
-                            <input class="form-control" name="tipo_orden" type="text" value="Orden de mantenimiento">
+                            <!--<input class="form-control" name="tipo_orden" type="text" value="Orden de mantenimiento">-->
+                            <ng-select
+                              [items]="listTipoSolicitud"
+                              [multiple]="false"
+                              [closeOnSelect]="true"
+                              bindLabel="value"
+                              placeholder="Seleccione Tipo Orden">
+                            </ng-select>
                           </div>
                         </div>
                       </div>

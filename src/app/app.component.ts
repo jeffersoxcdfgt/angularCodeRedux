@@ -33,7 +33,6 @@ import { Component  } from '@angular/core';
             <ul class="dropdown-menu">
               <li>
                 <a routerLink="/roles" title="Roles">Roles</a>
-                <a routerLink="/usuarios" title="Roles">Usuarios</a>
               </li>
             </ul>
           </li>

@@ -1,5 +1,5 @@
 export class TipoSolicitud {
-  tisoI:number;
+  tisoId:number;
   tisoNombre:string;
   tisoDescripcion:string;
 }

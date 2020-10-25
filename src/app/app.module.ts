@@ -99,7 +99,7 @@ export const reducers: ActionReducerMap<any> = {
   ordenesservicios:ordenesServicioReducers.reducer,
   tipossolicitud:tipossolicitudesReducers.reducer,
   estadossolicitud:estadossolicitudesReducers.reducer,
-  personasrol:personasRolReducers.reducer
+  personasrolget:personasRolReducers.reducer
 }
 
 @NgModule({
