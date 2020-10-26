@@ -12,6 +12,7 @@ GetAllMenusError ,
 from '../actions/menus.actions';
 import { MenusService } from '../services/menus.service';
 import { Menu } from '../../shared/menu';
+import { CreateTree } from '../../shared/map';
 
 @Injectable()
 export class MenuEffects {
@@ -22,7 +23,7 @@ export class MenuEffects {
       ofType<GetAllMenus>(menuActions.GET_MENUS),
         mergeMap((action:GetAllMenus) =>
           this.svc.findAll().pipe(
-            map((menus: Menu[]) => new GetAllMenusSuccess(menus)),
+            map((menus: Menu[]) => new GetAllMenusSuccess(CreateTree(menus))),
             catchError(err => of(new GetAllMenusError(err)))
           )
       )

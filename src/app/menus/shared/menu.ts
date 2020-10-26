@@ -1,4 +1,7 @@
 export class Menu {
-  id:number;
-  menuName:string;
+  id:string;
+  parentId:string;
+  text:string;
+  level:string;
+  children:[];  
 }

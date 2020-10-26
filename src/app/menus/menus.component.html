@@ -1,0 +1,114 @@
+<nav class="navbar navbar-default navbar-fixed-top" id="navbar">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand">
+        <strong class="hidden-xs hidden-sm">SAES</strong>
+      </a>
+    </div>
+    <div class="navbar-collapse collapse" id="navnav">
+      <ul class="nav navbar-nav navbar-right" id="nav-menu">
+        <li class="dropdown">
+          <a  class="dropdown-toggle" data-toggle="dropdown" role="button">
+            <i class="icon-user"></i> {{userString}}
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="divider" role="separator"></li>
+            <li>
+              <a id="self-change-password" title="Cambiar contraseña">Cambiar contraseña</a>
+            </li>
+            <li>
+              <a>Salir</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button">
+                Sistema <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a routerLink="/roles" title="Roles">Roles</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button">
+             Información Basica <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a routerLink="/personas" title="Personas">Personas</a>
+            </li>
+            <li>
+              <a routerLink="/zonas" title="Zonas">Zonas</a>
+            </li>
+            <li>
+              <a routerLink="/sectores" title="Sectores">Sectores</a>
+            </li>
+            <li>
+              <a routerLink="/ivas" title="Iva">Iva</a>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li>
+              <a routerLink="/empresas" title="Empresa">Empresa</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button">
+                Servicios <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a routerLink="/contratos"  title="Contratos">Contratos</a>
+            </li>
+            <li>
+              <a  routerLink="/servicios"  title="Servicios">Servicios</a>
+            </li>
+            <li>
+              <a  routerLink="/facturas"  title="Servicios">Factura Servicios</a>
+            </li>
+            <li>
+              <a  routerLink="/ordenesservicios"  title="Orden Servicios">Orden Servicios</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!--
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-green" style="border-radius: 0; margin-bottom: 0px;">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+    <ul class="nav navbar-nav mr-auto">
+      <ng-template #recursiveList let-list>
+        <li dropdown *ngFor="let item of list" class="{{item.class}}">
+         <a *ngIf="item.children.length == 0; else falsyTemplate" routerLink="{{item.url}}" routerLinkActive="active">{{item.title}}
+         </a>
+          <ng-template #falsyTemplate>
+            <a dropdownToggle class="dropdown-toggle" data-toggle="dropdown">{{item.title}}
+            </a>
+            <ul *dropdownMenu class="dropdown-menu">
+              <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
+            </ul>
+          </ng-template>
+        </li>
+      </ng-template>
+      <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: list }"></ng-container>
+    </ul>
+    </div>
+  </nav>
+-->
