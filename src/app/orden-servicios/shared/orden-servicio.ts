@@ -40,8 +40,7 @@ export class OrdenRenderServicio {
 }
 
 
-export class OrdenServicioAdd
-{
+export class OrdenServicioAdd{
    essoId:number;
    soseDescripcion:string;
    soseFechaEjecucion:string;
@@ -49,7 +48,8 @@ export class OrdenServicioAdd
    sosePrecio:number;
    soseResponsable:string;
    tisoId:number;
-   Factura: {
+   contNumero:string;
+   Factura : {
        FopaId:number;
        FactIva:number;
        FactBase:number;
