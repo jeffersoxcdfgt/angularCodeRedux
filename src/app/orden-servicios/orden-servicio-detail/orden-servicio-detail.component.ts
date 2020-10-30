@@ -29,16 +29,16 @@ export class OrdenServicioDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute ,
               private store: Store<AppState>){
+
+    this.route.params.subscribe( params => {
+        this.numeroContrato = params['id']
+        this.store.dispatch(new GetAllOrdenesServicios(params['id']))
+    });
   }
 
-
   ngOnInit() {
-      this.route.params.subscribe( params => {
-          this.numeroContrato = params['id']
-          this.store.dispatch(new GetAllOrdenesServicios(params['id']))
-      });
-
       this.store.select(getAllOrdenesServicios).subscribe((data)=>{
+        //console.log(data)
         this.ordenesServicios = data
       })
 

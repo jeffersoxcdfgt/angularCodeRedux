@@ -14,17 +14,20 @@ import { getAllContratos ,  isUpdated} from '../../contratos/store/reducers/cont
 export class OrdenServicioDeleteComponent implements OnInit {
   numeroContrato:string;
   ordenRenderServicio:OrdenRenderServicio;
-
   estado:string;
+  soseId:number;
+  essoId:number;
+  descripcion:string;
 
   constructor(private router:Router,
               private store: Store<AppState>)  {
 
     if(this.router.getCurrentNavigation().extras.state != undefined){
 
-        console.log(this.router.getCurrentNavigation().extras.state)
+        //console.log(this.router.getCurrentNavigation().extras.state)
 
         this.ordenRenderServicio = new OrdenRenderServicio;
+        this.soseId =  this.router.getCurrentNavigation().extras.state.soseId;
         this.numeroContrato = this.router.getCurrentNavigation().extras.state.contrato.contNumero;
         this.ordenRenderServicio.numeroContrato = this.numeroContrato
         this.store.select(getAllContratos).subscribe((data)=>{
@@ -38,11 +41,12 @@ export class OrdenServicioDeleteComponent implements OnInit {
               this.ordenRenderServicio.ZonaSector = res['ZonaSector']
 
               if(this.router.getCurrentNavigation() != null){
+                  this.essoId =  this.router.getCurrentNavigation().extras.state.esso.essoId
                   this.ordenRenderServicio.estado = this.router.getCurrentNavigation().extras.state.esso.essoDescripcion
                   this.ordenRenderServicio.tipoOrden = this.router.getCurrentNavigation().extras.state.tiso.tisoDescripcion
                   this.ordenRenderServicio.fechaAtencion = this.router.getCurrentNavigation().extras.state.soseFechaEjecucion
                   this.ordenRenderServicio.costo = this.router.getCurrentNavigation().extras.state.sosePrecio
-                  this.ordenRenderServicio.observaciones ='No viene observaciones'
+                  this.ordenRenderServicio.observaciones =this.router.getCurrentNavigation().extras.state.soseDescripcion
                   this.ordenRenderServicio.tecnico ='No viene tecnico'
               }
             }
@@ -54,24 +58,30 @@ export class OrdenServicioDeleteComponent implements OnInit {
   }
 
   OnUpdateOrdenServicio() {
+
+    let mydate = new Date().getFullYear() +
+    '-'+
+    ("00" + (new Date().getMonth() + 1)).slice(-2) +
+    '-' +
+    ("00"+new Date().getDate()).slice(-2)
+
     const payload:OrdenServicioUpdate =  {
-      soseId: 153,
-      essoId: 3,
-      soseDescripcion: "orden de instalacion",
-      soseFechaEjecucion: "2020-09-26",
-      soseRegistradopor: "cajero123",
-      sosePrecio: 0,
+      soseId: this.soseId,
+      essoId: 2,
+      soseDescripcion: 'Inactiva',
+      soseFechaEjecucion: `${mydate}`,
+      soseRegistradopor:"cajero123",
+      sosePrecio: +this.ordenRenderServicio.costo,
       soseResponsable: "string",
       tisoId: 17 //Suspensiond de la Orden
     }
     this.store.dispatch(new UpdateOrdenServicio(payload))
     this.store.select(isUpdated).subscribe((data) => {
       if(data!=null){
-        //console.log("Edit")
-        //console.log(data)
         this.router.navigate(['/ordenesservicios/detail',this.numeroContrato]);
       }
     });
+
   }
 
 }

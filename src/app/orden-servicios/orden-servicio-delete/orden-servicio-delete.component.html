@@ -1,4 +1,4 @@
-<form #frmOrdenServicio="ngForm" id="frmGame"  class="form-horizontal" novalidate (ngSubmit)="OnUpdateOrdenServicio()" >
+<form #frmOrdenServicio="ngForm" id="frmOrdenServicio" novalidate  class="form-horizontal" novalidate (ngSubmit)="OnUpdateOrdenServicio()" >
 <div class="container-fluid">
   <div class="row sidebar-owner">
     <div class="sidebar-backdrop"></div>
@@ -27,7 +27,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control"  name="numero_contrato" type="text" readonly  value="numeroContrato">
+                            <input class="form-control"  name="numero_contrato" type="text" readonly  value="{{numeroContrato}}">
                           </div>
                         </div>
                       </div>
@@ -156,7 +156,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control"  name="observaciones" type="text" readonly type="text" value="">
+                            <input class="form-control"  name="observaciones" type="text" readonly type="text" value="{{ordenRenderServicio.observaciones}}">
                           </div>
                         </div>
                       </div>

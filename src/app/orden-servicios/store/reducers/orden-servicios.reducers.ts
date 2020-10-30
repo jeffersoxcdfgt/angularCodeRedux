@@ -83,12 +83,53 @@ export function reducer (state = initialState , action :AppAction){
         }
       }
       case ordenServicioActions.UPDATE_ORDEN_SERVICIO_SUCCESS:{
-        return {
+        const index = state
+        .data
+        .findIndex(h => h.soseId === action.payload.soseId);
+        if (index >= 0) {
+          const data = [
+            ...state.data.slice(0, index),
+            {
+              soseId:action.payload.soseId,
+              soseNumero:action.payload.soseNumero,
+              soseDescripcion:action.payload.soseDescripcion,
+              sosePrecio:action.payload.sosePrecio,
+              soseFechaEjecucion:action.payload.soseFechaEjecucion,
+              soseFechaCreacion:action.payload.soseFechaCreacion,
+                tiso: {
+                  tisoId:17,
+                  tisoNombre:'',
+                  tisoDescripcion:'Orden de Suspención'
+                },
+                esso: {
+                  essoId:2,
+                  essoNombre:'',
+                  essoDescripcion:'Inactivo'
+                },
+                contrato: {
+                  contId:null,
+                  contNumero:''
+                },
+              persId:'',
+              ultimoNumeroSolicitudBD:''
+            },
+            ...state.data.slice(index + 1)
+          ];
+          return {
+            ...state,
+            data,
+            done: true,
+            selected: null,
+            error: null
+          };
+        }
+
+        /*return {
             ...state,
             selected: action.payload,
             done: true,
             error:  null
-        }
+        }*/
       }
       case ordenServicioActions.UPDATE_ORDEN_SERVICIO_ERROR:{
         return {
@@ -135,6 +176,9 @@ export const isUpdated = createSelector( getOrdenesServiciosState , ( state : St
     return null;
   }
 });
+
+/*export const isUpdated = createSelector(getOrdenesServiciosState , (state : State ) =>
+  state.action === ordenServicioActions.UPDATE_ORDEN_SERVICIO && state.done && !state.error);*/
 
 
 export const getUpdateError = createSelector( getOrdenesServiciosState , (state: State) => {
