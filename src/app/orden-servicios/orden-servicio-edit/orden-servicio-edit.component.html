@@ -1,4 +1,4 @@
-<form #frmOrdenServicio="ngForm" id="frmGame"  class="form-horizontal" novalidate (ngSubmit)="OnUpdateOrdenServicio()" >
+<form #frmOrdenServicio="ngForm" id="frmOrdenServicio" [formGroup]="form"  class="form-horizontal" novalidate (ngSubmit)="OnUpdateOrdenServicio()" >
 <div class="container-fluid">
   <div class="row sidebar-owner">
     <div class="sidebar-backdrop"></div>
@@ -27,7 +27,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control"  name="numero_contrato" type="text" readonly  value="M1000315">
+                            <input class="form-control"  name="numero_contrato" type="text" readonly  value="{{ordenRenderServicio.numeroContrato}}">
                           </div>
                         </div>
                       </div>
@@ -37,7 +37,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control" name="numero_documento" type="text" readonly  value="2928272625">
+                            <input class="form-control" name="numero_documento" type="text" readonly  value={{ordenRenderServicio.numeroDocumento}}>
                           </div>
                         </div>
                       </div>
@@ -47,7 +47,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control" name="direccion" type="text" readonly  value="Cra 83c # 17-31">
+                            <input class="form-control" name="direccion" type="text" readonly  value="{{ordenRenderServicio.direccion}}">
                           </div>
                         </div>
                       </div>
@@ -63,6 +63,7 @@
                               [multiple]="false"
                               [closeOnSelect]="true"
                               bindLabel="value"
+                              formControlName ="estadosolicitud"
                               placeholder="Estado de la orden">
                             </ng-select>
                           </div>
@@ -80,6 +81,7 @@
                               [multiple]="false"
                               [closeOnSelect]="true"
                               bindLabel="value"
+                              formControlName ="tecnico"
                               placeholder="Seleccione un tecnico">
                             </ng-select>
                           </div>
@@ -91,7 +93,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control"  name="Tecnico" type="text"   value="$ 30.000">
+                            <input class="form-control"  name="Tecnico" type="text" formControlName ="costo" value="{{ordenRenderServicio.costo}}">
                           </div>
                         </div>
                       </div>
@@ -120,7 +122,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control" name="nombre_cliente" type="text" readonly value="Roberto Carlos Martinez">
+                            <input class="form-control" name="nombre_cliente" type="text" readonly value="{{ordenRenderServicio.nombreCliente}}">
                           </div>
                         </div>
                       </div>
@@ -130,7 +132,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control" name="telefono" type="text" readonly value="3320808-33267763">
+                            <input class="form-control" name="telefono" type="text" readonly value="{{ordenRenderServicio.telefono}}">
                           </div>
                         </div>
                       </div>
@@ -140,7 +142,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control"  name="zona_sector" type="text" readonly value="Gaitan">
+                            <input class="form-control"  name="zona_sector" type="text" readonly value="{{ordenRenderServicio.ZonaSector}}">
                           </div>
                         </div>
                       </div>
@@ -156,6 +158,7 @@
                               [multiple]="false"
                               [closeOnSelect]="true"
                               bindLabel="value"
+                              formControlName ="tipoOrden"
                               placeholder="Seleccione Tipo Orden">
                             </ng-select>
                           </div>
@@ -167,7 +170,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input"  style="width:100%;max-width:100%">
-                            <input class="form-control"  name="fecha_atencion" type="text" value="2020-05-16">
+                            <input class="form-control" formControlName ="fechaAtencion"  name="fecha_atencion" type="text" value="{{ordenRenderServicio.fechaAtencion |  date:'dd/MM/yyyy' }}">
                           </div>
                         </div>
                       </div>
@@ -177,7 +180,7 @@
                         </div>
                         <div class="form-group col-sm-9">
                           <div class="col-input" style="width:100%;max-width:100%">
-                            <input class="form-control"  name="observaciones" type="text"  type="text" value="Se rompio el cable y se cambio, se gastaron 12m y dos conectores">
+                            <input class="form-control" formControlName ="observaciones"  name="observaciones" type="text"  type="text" value="{{ordenRenderServicio.observaciones}}">
                           </div>
                         </div>
                       </div>

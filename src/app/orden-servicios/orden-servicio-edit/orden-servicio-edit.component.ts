@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators ,FormControl ,FormArray , AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.state';
@@ -15,6 +16,9 @@ import { EstadoSolicitud } from '../../estado-solicitudes/shared/EstadoSolicitud
 
 import { getAllPersonasRol } from '../../persona-roles/store/reducers/personas-rol.reducers';
 import { PersonaRol } from '../../persona-roles/shared/PersonaRol';
+import { OrdenRenderServicio } from '../shared/orden-servicio';
+import { getAllContratos } from '../../contratos/store/reducers/contratos.reducers'
+
 
 @Component({
   selector: 'app-orden-servicio-edit',
@@ -23,18 +27,59 @@ import { PersonaRol } from '../../persona-roles/shared/PersonaRol';
 })
 export class OrdenServicioEditComponent implements OnInit {
   numeroContrato:string;
-
   listTipoSolicitud:DataList[];
   listEstadoSolicitud:DataList[];
   listPersonaRol:DataListString[];
+  ordenRenderServicio:OrdenRenderServicio;
+  form: FormGroup;
 
   constructor(
     private router:Router,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private formBuilder: FormBuilder
   ) {
 
+
     if(this.router.getCurrentNavigation().extras.state != undefined){
-      this.numeroContrato = this.router.getCurrentNavigation().extras.state.contrato.contNumero
+      console.log(this.router.getCurrentNavigation().extras.state)
+      this.ordenRenderServicio = new OrdenRenderServicio;
+      this.numeroContrato = this.router.getCurrentNavigation().extras.state.contrato.contNumero;
+      this.ordenRenderServicio.numeroContrato = this.numeroContrato
+      this.store.select(getAllContratos).subscribe((data)=>{
+          if(data != null){
+            let datare = Object.keys(data).map((k) => data[k])
+            let res = datare.find((val) => val.numeroContrato == this.numeroContrato)
+            this.ordenRenderServicio.nombreCliente = res['NombreCliente']
+            this.ordenRenderServicio.numeroDocumento = res['NumeroDocumento']
+            this.ordenRenderServicio.telefono = res['Telefono']
+            this.ordenRenderServicio.direccion = res['Direccion']
+            this.ordenRenderServicio.ZonaSector = res['ZonaSector']
+
+            if(this.router.getCurrentNavigation() != null){
+              this.form = this.formBuilder.group({
+                  estadosolicitud:[{
+                    id:+this.router.getCurrentNavigation().extras.state.esso.essoId ,
+                    value:`${this.router.getCurrentNavigation().extras.state.esso.essoDescripcion}`
+                  }],
+                  tecnico:[],
+                  costo:[+this.router.getCurrentNavigation().extras.state.sosePrecio],
+                  tipoOrden:[{
+                    id:+this.router.getCurrentNavigation().extras.state.tiso.tisoId ,
+                    value:`${this.router.getCurrentNavigation().extras.state.tiso.tisoDescripcion}`
+                  }],
+                  fechaAtencion:[this.router.getCurrentNavigation().extras.state.soseFechaEjecucion],
+                  observaciones:[]
+              })
+
+              this.ordenRenderServicio.estado = this.router.getCurrentNavigation().extras.state.esso.essoDescripcion
+              this.ordenRenderServicio.tipoOrden = this.router.getCurrentNavigation().extras.state.tiso.tisoDescripcion
+              this.ordenRenderServicio.fechaAtencion = this.router.getCurrentNavigation().extras.state.soseFechaEjecucion
+              this.ordenRenderServicio.costo = this.router.getCurrentNavigation().extras.state.sosePrecio
+              this.ordenRenderServicio.observaciones ='No viene observaciones'
+              this.ordenRenderServicio.tecnico ='No viene tecnico'
+            }
+          }
+      })
     }
   }
 
