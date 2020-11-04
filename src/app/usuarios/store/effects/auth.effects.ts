@@ -3,8 +3,9 @@ import { Action } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable , of  } from 'rxjs';
-import { catchError, map, mergeMap , switchMap , tap  } from 'rxjs/operators';
+import { catchError, map, mergeMap , switchMap , tap , exhaustMap  } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
+import { User  } from '../../shared/user';
 import {
   AuthActionTypes,
   LogIn,
@@ -24,7 +25,7 @@ export class AuthEffects {
   ) {}
 
  @Effect()
- LogIn: Observable<Action> = this.actions.pipe(
+ /*LogIn: Observable<Action> = this.actions.pipe(
    ofType<LogIn>(AuthActionTypes.LOGIN),
       map((action: LogIn) => action.payload),
         switchMap(payload => {
@@ -37,7 +38,19 @@ export class AuthEffects {
           })
         )
       })
+  );*/
+
+  @Effect()
+  public LogIn : Observable<Action> = this.actions.pipe(
+      ofType<LogIn>(AuthActionTypes.LOGIN),
+        exhaustMap((action:LogIn) =>
+          this.authService.logIn(action.payload.email, action.payload.password).pipe(
+            map((user: User) => new LogInSuccess({token: user.token, email: action.payload.email})),
+              catchError(err => of(new LogInFailure({ error: err })))
+          )
+      )
   );
+
 
 
   @Effect({ dispatch: false })

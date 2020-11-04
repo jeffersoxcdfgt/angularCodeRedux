@@ -20,11 +20,12 @@ export class MenusComponent implements OnInit {
             private store :Store<AppState>){ }
   ngOnInit(){
 
-    /*this.store.select(selectAuthState).subscribe((data)=>{
+    this.store.select(selectAuthState).subscribe((data)=>{
         if(data!=null && data.isAuthenticated==true){
+          console.log(data)
           this.userString =data.user.email
         }
-    })*/
+    })
 
     // subscriptions when success or error action
     this.store.select(getMenusError).subscribe((error) => this.loadingError(error));
