@@ -14,7 +14,7 @@ import { tap , map , toArray} from 'rxjs/operators';
   styleUrls:['./menus.component.css']
 })
 export class MenusComponent implements OnInit {
-  userString:string = 'jeffersonmedina88@hotmail.com'
+  userString:string = 'no esta loggueado'
 
   constructor(private router: Router ,
             private store :Store<AppState>){ }

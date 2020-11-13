@@ -1,20 +1,21 @@
 import { User } from '../../shared/user';
 import { AuthActionTypes, All } from '../actions/auth.actions';
 import { createFeatureSelector  } from '@ngrx/store';
-
+import * as storage from '../../../shared/storage';
 
 export interface State {
   // is a user authenticated?
   isAuthenticated: boolean;
   // if authenticated, there should be a user object
   user: User | null;
-  // error message
+  // error messag
   errorMessage: string | null;
 }
 
+
 export const initialState: State = {
-  isAuthenticated: false,
-  user: null,
+  isAuthenticated:storage.getItem('auth').isAuthenticated,
+  user:storage.getItem('auth').user,
   errorMessage: null
 };
 
@@ -40,8 +41,8 @@ export function reducer(state = initialState, action: All): State {
     case AuthActionTypes.LOGOUT: {
       return initialState;
     }
-    default: {
-      return state;
+    default: {   
+      return state; 
     }
   }
 }

@@ -9,7 +9,7 @@ import {  DataList , DataListString } from  '../shared/list';
 import { isUpdated } from '../store/reducers/orden-servicios.reducers';
 
 import { getAllTiposSolicitud } from '../../tipo-solicitudes/store/reducers/tipossolicitud.reducers';
-import { TipoSolicitud } from '../../tipo-solicitudes/shared/TipoSolicitud';
+import { TipoSolicitud } from '../../tipo-solicitudes/shared/Tiposolicitud';
 
 import { getAllEstadosSolicitud } from '../../estado-solicitudes/store/reducers/estadosolicitud.reducers';
 import { EstadoSolicitud } from '../../estado-solicitudes/shared/EstadoSolicitud';

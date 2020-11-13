@@ -4,7 +4,8 @@ import {CUSTOM_ELEMENTS_SCHEMA , NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule }   from './shared/shared.module';
-import { StoreModule , ActionReducerMap } from '@ngrx/store';
+import { StoreModule , ActionReducer , ActionReducerMap , MetaReducer } from '@ngrx/store';
+
 import { EffectsModule } from '@ngrx/effects';
 import { TraceService } from './shared/utils/traceService';
 
@@ -84,11 +85,11 @@ import  * as personasRolReducers from './persona-roles/store/reducers/personas-r
 import { MenusService } from './menus/store/services/menus.service';
 import { MenuEffects } from './menus/store/effects/menus.effects';
 import  * as menusReducers from './menus/store/reducers/menus.reducers';
-
+import { localStorageSync } from 'ngrx-store-localstorage';
 
 
 export const reducers: ActionReducerMap<any> = {
-  usuarios:auth.reducer,
+  auth:auth.reducer,
   roles:rolesReducers.reducer,
   ivas:ivasReducers.reducer,
   departamentos:departamentosReducers.reducer,
@@ -108,6 +109,14 @@ export const reducers: ActionReducerMap<any> = {
   menus:menusReducers.reducer
 }
 
+const reducerKeys = ['auth'];
+export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
+  return localStorageSync({keys: reducerKeys})(reducer);
+}
+
+
+export const metaReducers: MetaReducer<any>[] = [localStorageSyncReducer];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -117,7 +126,8 @@ export const reducers: ActionReducerMap<any> = {
     BrowserAnimationsModule,
     SharedModule,
     AppRoutingModule,
-    StoreModule.forRoot(reducers,{
+    StoreModule.forRoot(reducers,{ 
+      metaReducers,
       runtimeChecks: {
        strictStateImmutability: true,
        strictActionImmutability: true

@@ -9,7 +9,7 @@ import { isCreated } from '../store/reducers/orden-servicios.reducers';
 
 import {  DataList , DataListString } from  '../shared/list';
 import { getAllTiposSolicitud } from '../../tipo-solicitudes/store/reducers/tipossolicitud.reducers';
-import { TipoSolicitud } from '../../tipo-solicitudes/shared/TipoSolicitud';
+import { TipoSolicitud } from '../../tipo-solicitudes/shared/Tiposolicitud';
 
 import { Observable , of , from  } from 'rxjs';
 import { first } from 'rxjs/operators';
