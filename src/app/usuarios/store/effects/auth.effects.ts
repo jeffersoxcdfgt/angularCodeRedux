@@ -76,6 +76,7 @@ export class AuthEffects {
     ofType<LogOut>(AuthActionTypes.LOGOUT),
     tap((user) => {
       localStorage.removeItem('token');
+      localStorage.removeItem('auth');
     })
   );
 

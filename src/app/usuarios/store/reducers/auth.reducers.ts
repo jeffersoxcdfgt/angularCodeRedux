@@ -1,6 +1,6 @@
 import { User } from '../../shared/user';
 import { AuthActionTypes, All } from '../actions/auth.actions';
-import { createFeatureSelector  } from '@ngrx/store';
+import { createFeatureSelector ,createSelector } from '@ngrx/store';
 import * as storage from '../../../shared/storage';
 
 export interface State {
@@ -38,8 +38,12 @@ export function reducer(state = initialState, action: All): State {
         errorMessage: 'Incorrect email and/or password.'
       };
     }
-    case AuthActionTypes.LOGOUT: {
-      return initialState;
+    case AuthActionTypes.LOGOUT: {     
+      return {
+        ...state,
+        isAuthenticated: false,
+        user:null
+      }
     }
     default: {   
       return state; 
@@ -48,3 +52,4 @@ export function reducer(state = initialState, action: All): State {
 }
 
 export const selectAuthState = createFeatureSelector<State>('auth');
+export const logOutUser = createSelector( selectAuthState , (state: State) => state);

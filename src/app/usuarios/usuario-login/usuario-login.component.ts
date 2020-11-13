@@ -31,6 +31,7 @@ export class UsuarioLoginComponent implements OnInit {
         password:['']
    });
 
+
     this.getState.subscribe((state) => {
       this.errorMessage = state.errorMessage;
       if(this.errorMessage!=null){

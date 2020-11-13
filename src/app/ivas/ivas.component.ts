@@ -6,7 +6,6 @@ import { GetAllIvas } from './store/actions/ivas.actions';
 import { getAllIvasError , isCreated , getCreateError , isUpdated , getUpdateError , getDeleteError} from './store/reducers/ivas.reducers';
 import swal from 'sweetalert2';
 
-
 @Component({
   selector: 'app-ivas',
   template:`
@@ -44,7 +43,6 @@ export class IvasComponent implements OnInit {
     this.store.select(getDeleteError).subscribe((error) => {
       this.actionError(error, 'Error while deleting the iva');
     });
-
   }
 
   /**

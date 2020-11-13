@@ -4,9 +4,8 @@ import { Router } from '@angular/router';
 import { AppState } from '../app.state';
 import { GetAllMenus } from './store/actions/menus.actions';
 import { getMenusError , getAllMenus } from './store/reducers/menus.reducers';
-import { selectAuthState } from '../usuarios/store/reducers/auth.reducers';
-import { Menu } from './shared/menu';
-import { tap , map , toArray} from 'rxjs/operators';
+import { selectAuthState , logOutUser } from '../usuarios/store/reducers/auth.reducers';
+import { LogOut } from '../usuarios/store/actions/auth.actions';
 
 @Component({
   selector:'app-menus',
@@ -22,7 +21,7 @@ export class MenusComponent implements OnInit {
 
     this.store.select(selectAuthState).subscribe((data)=>{
         if(data!=null && data.isAuthenticated==true){
-          console.log(data)
+          //console.log(data)
           this.userString =data.user.email
         }
     })
@@ -33,6 +32,17 @@ export class MenusComponent implements OnInit {
     this.store.select(getAllMenus).subscribe((data) =>{
         //console.log(data)
     })
+
+    this.store.select(logOutUser).subscribe((data) =>{
+      if(data!=null && data.isAuthenticated===false){   
+        this.router.navigate(['/usuarios']);
+      }
+    })
+  }
+
+
+  logOut() {
+    this.store.dispatch(new LogOut());
   }
 
   /**
